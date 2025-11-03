@@ -7,7 +7,7 @@ and acoustic propagation patterns.
 
 import numpy as np
 import matplotlib.pyplot as plt
-from typing import Dict, List, Optional, Tuple
+from typing import Optional
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 from io import BytesIO
 
@@ -74,7 +74,7 @@ def visualize_network(network, save_path: Optional[str] = None) -> Optional[Byte
     # Get acoustic parameter ranges for normalization
     delays = [params.delay_time for params in network.acoustic_params.values()]
     feedbacks = [params.feedback for params in network.acoustic_params.values()]
-    decays = [params.decay for params in network.acoustic_params.values()]
+    # decays = [params.decay for params in network.acoustic_params.values()]  # Not used
     densities = [params.reverb_density for params in network.acoustic_params.values()]
 
     delay_min, delay_max = min(delays), max(delays) if delays else (0, 1)

@@ -7,7 +7,7 @@ acoustic propagation through network topologies.
 
 import numpy as np
 import networkx as nx
-from typing import Dict, List, Tuple, Optional, Any
+from typing import Dict, List, Tuple
 from dataclasses import dataclass
 
 @dataclass
@@ -18,6 +18,7 @@ class AcousticParameters:
     decay: float       # Traffic dissipation/energy loss (0-1)
     reverb_density: float  # Local interconnectivity (0-1)
 
+
 @dataclass
 class Pulse:
     """Represents a propagating signal through the network"""
@@ -25,6 +26,7 @@ class Pulse:
     current_position: str
     amplitude: float
     path_history: List[str]
+
 
 class AcousticRoutingNetwork:
     """Main class for acoustic routing system.
@@ -43,10 +45,15 @@ class AcousticRoutingNetwork:
     # ... (to be implemented)
     
     # Example method - implement all methods from the original file
-    def add_highway_segment(self, start: str, end: str, distance_miles: float,
-                           speed_limit_mph: float = 65,
-                           interconnectivity: float = 0.3,
-                           feedback_loops: float = 0.2) -> None:
+    def add_highway_segment(
+        self,
+        start: str,
+        end: str,
+        distance_miles: float,
+        speed_limit_mph: float = 65,
+        interconnectivity: float = 0.3,
+        feedback_loops: float = 0.2
+    ) -> None:
         """
         Add a highway segment with acoustic properties.
         
