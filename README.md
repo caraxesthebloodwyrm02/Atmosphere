@@ -1,4 +1,4 @@
-# Dimension & Resonance
+# Atmosphere
 
 A comprehensive audio processing and routing system for creating immersive audio experiences through advanced signal processing, spatial audio, and network routing.
 
