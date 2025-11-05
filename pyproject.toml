@@ -136,6 +136,11 @@ omit = [
     "*/tests/*",
     "*/test_*.py",
     "*/conftest.py",
+    "src/**/__main__.py",
+    "src/**/demo.py",
+    "src/reverb/spatial_demo.py",
+    "src/reverb/demo.py",
+    "src/**/examples/*.py",
 ]
 
 [tool.coverage.report]

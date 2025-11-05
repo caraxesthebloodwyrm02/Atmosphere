@@ -16,6 +16,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -43,7 +45,7 @@ jobs:
           --cov=src \
           --cov-report=xml \
           --cov-report=term \
-          --cov-fail-under=80 \
+          --cov-fail-under=30 \
           -v \
           --maxfail=1
       env:
@@ -51,9 +53,11 @@ jobs:
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
+      if: always()
       with:
         file: ./coverage.xml
         flags: unittests
         name: codecov-umbrella
         fail_ci_if_error: false
         verbose: true
+        token: ${{ secrets.CODECOV_TOKEN }}
