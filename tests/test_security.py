@@ -23,9 +23,13 @@ def test_user_management():
     """Test user creation and authentication"""
     # Test user creation
     from src.security import User
+    import time
+
+    # Use unique username with timestamp
+    unique_username = f"testuser_{int(time.time())}"
 
     test_user = User(
-        username="testuser",
+        username=unique_username,
         email="test@example.com",
         full_name="Test User",
         role="analyst",
@@ -35,9 +39,9 @@ def test_user_management():
     assert success, "User creation should succeed"
 
     # Test authentication
-    user = user_manager.authenticate_user("testuser", "TestPass123!")
+    user = user_manager.authenticate_user(unique_username, "TestPass123!")
     assert user is not None, "Authentication should succeed"
-    assert user.username == "testuser", "Authenticated user should have correct username"
+    assert user.username == unique_username, "Authenticated user should have correct username"
 
 
 def test_jwt_tokens():
