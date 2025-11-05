@@ -3,11 +3,52 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "atmosphere"
+name = "atmosphere-audio"
 version = "0.1.0"
-description = "Your project description"
+description = "Comprehensive audio processing and routing system for immersive experiences"
 readme = "README.md"
+license = {text = "MIT"}
 requires-python = ">=3.8"
+authors = [
+    {name = "Atmosphere Team", email = "atmosphere@example.com"},
+]
+maintainers = [
+    {name = "Atmosphere Team", email = "atmosphere@example.com"},
+]
+keywords = [
+    "audio",
+    "processing",
+    "spatial",
+    "effects",
+    "reverb",
+    "delay",
+    "routing",
+    "network",
+    "acoustic",
+    "dsp",
+    "music",
+    "sound",
+    "3d-audio",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Multimedia :: Sound/Audio :: Analysis",
+    "Topic :: Multimedia :: Sound/Audio :: Mixers",
+    "Topic :: Multimedia :: Sound/Audio :: Players",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
 dependencies = [
     "numpy>=1.21.0",
     "matplotlib>=3.4.0",
@@ -20,6 +61,12 @@ dependencies = [
     "requests>=2.28.0",
     "scipy>=1.7.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/caraxesthebloodwyrm02/Atmosphere"
+Repository = "https://github.com/caraxesthebloodwyrm02/Atmosphere"
+Issues = "https://github.com/caraxesthebloodwyrm02/Atmosphere/issues"
+Documentation = "https://github.com/caraxesthebloodwyrm02/Atmosphere#readme"
 
 [project.optional-dependencies]
 dev = [
@@ -155,3 +202,10 @@ exclude_lines = [
     "if __name__ == .__main__.:",
     "class .*\\bProtocol\\):",
 ]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["*"]

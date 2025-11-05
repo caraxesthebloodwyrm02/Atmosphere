@@ -1,0 +1,9 @@
+# Reverb Module Dependencies
+# Spatial audio processing and effects
+
+numpy>=1.21.0
+matplotlib>=3.4.0
+
+# Optional: Audio processing (uncomment if needed)
+# scipy>=1.7.0
+# librosa>=0.9.0

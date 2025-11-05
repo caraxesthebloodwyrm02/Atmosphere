@@ -7,13 +7,8 @@ Implements the effects chain: Input -> Delay -> Echo -> Reverb -> Output
 
 from typing import Optional, Tuple
 
-from ..models.signal import (
-    AudioSignal,
-    DelayParameters,
-    EchoParameters,
-    ReverbParameters,
-    SpatialParameters,
-)
+from ..models.signal import (AudioSignal, DelayParameters, EchoParameters,
+                             ReverbParameters, SpatialParameters)
 from ..services.delay_service import DelayService
 from ..services.echo_service import EchoService
 from ..services.reverb_service import ReverbService
@@ -44,12 +39,12 @@ class ReverbPlatform:
         return {
             "platform": "reverb",
             "status": "active",
-            "services": {
-                "delay": self.delay_service.get_status(),
-                "echo": self.echo_service.get_status(),
-                "reverb": self.reverb_service.get_status(),
-                "spatial": self.spatial_service.get_status(),
-            },
+            "services": [
+                {"name": "delay", "status": self.delay_service.get_status()},
+                {"name": "echo", "status": self.echo_service.get_status()},
+                {"name": "reverb", "status": self.reverb_service.get_status()},
+                {"name": "spatial", "status": self.spatial_service.get_status()},
+            ],
             "effects_chain": "Input -> Delay -> Echo -> Reverb -> Spatial -> Output",
             "presets": self.get_available_presets(),
         }
@@ -91,12 +86,10 @@ class ReverbPlatform:
         signal: AudioSignal,
         source_pos: Tuple[float, float, float] = (1, 0, 0),
         listener_pos: Tuple[float, float, float] = (0, 0, 0),
-        velocity: Tuple[float, float, float] = (0, 0, 0)
+        velocity: Tuple[float, float, float] = (0, 0, 0),
     ) -> AudioSignal:
         """Apply spatial audio processing with specific source parameters."""
-        return self.spatial_service.process(
-            signal, source_pos, listener_pos, velocity
-        )
+        return self.spatial_service.process(signal, source_pos, listener_pos, velocity)
 
     def apply_reverb_preset(self, preset_name: str):
         """Apply a reverb preset to the platform."""
@@ -112,6 +105,4 @@ class ReverbPlatform:
     def process_with_preset(self, signal: AudioSignal, preset_name: str) -> AudioSignal:
         """Process signal using a specific reverb preset."""
         preset_params = self.reverb_service.apply_preset(preset_name)
-        return self.process_with_custom_params(
-            signal, reverb_params=preset_params
-        )
+        return self.process_with_custom_params(signal, reverb_params=preset_params)

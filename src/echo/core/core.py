@@ -341,9 +341,9 @@ class EchoesAssistantV2:
                     tools=tool_schemas if self.enable_tools else None,
                     tool_choice="auto" if tool_schemas else None,
                     temperature=self.temperature,
-                    max_completion_tokens=self.max_tokens
-                    if "o3" in self.model
-                    else None,
+                    max_completion_tokens=(
+                        self.max_tokens if "o3" in self.model else None
+                    ),
                     max_tokens=self.max_tokens if "o3" not in self.model else None,
                     stream=False,
                 )
@@ -529,9 +529,9 @@ class EchoesAssistantV2:
         #   2️⃣  Iterate over chunks – collect text and possible tool calls
         # ------------------------------------------------------------------
         assistant_text = ""
-        tool_calls: list[
-            Any
-        ] = []  # will hold objects that look like the Chat API tool calls
+        tool_calls: list[Any] = (
+            []
+        )  # will hold objects that look like the Chat API tool calls
 
         for chunk in response:
             # ``chunk`` can be any of the many Responses‑API types, so we guard heavily.

@@ -1,0 +1,8 @@
+# Arcade Module Dependencies
+# Terminal and interface components
+
+# Core dependencies (none required, uses standard library)
+
+# Optional: Enhanced terminal features (uncomment if needed)
+# rich>=10.0.0
+# click>=8.0.0

@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI(
     title="Acoustic Routing API",
     description="API for acoustic routing and network analysis",
-    version="0.1.0"
+    version="0.1.0",
 )
 
 # Enable CORS

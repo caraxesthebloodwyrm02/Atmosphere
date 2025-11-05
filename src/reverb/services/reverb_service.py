@@ -8,6 +8,8 @@ Implements Schroeder reverb with comb filters and all-pass filters for realistic
 import math
 from typing import List
 
+import numpy as np
+
 from ..models.signal import AudioSignal, ReverbParameters
 
 
@@ -54,10 +56,16 @@ class AllPassFilter:
         delayed_sample = self.delay_line[read_pos]
 
         # All-pass filter formula
-        output = -self.feedback_gain * input_sample + delayed_sample + self.feedback_gain * delayed_sample
+        output = (
+            -self.feedback_gain * input_sample
+            + delayed_sample
+            + self.feedback_gain * delayed_sample
+        )
 
         # Write to delay line
-        self.delay_line[self.write_pos] = input_sample + delayed_sample * self.feedback_gain
+        self.delay_line[self.write_pos] = (
+            input_sample + delayed_sample * self.feedback_gain
+        )
         self.write_pos = (self.write_pos + 1) % self.delay_samples
 
         return output
@@ -70,7 +78,16 @@ class ReverbService:
         self.default_params = default_params or ReverbParameters()
 
         # Schroeder reverb parameters (based on typical values)
-        self.comb_delays = [1557, 1617, 1491, 1422, 1277, 1356, 1188, 1116]  # samples at 29.7kHz
+        self.comb_delays = [
+            1557,
+            1617,
+            1491,
+            1422,
+            1277,
+            1356,
+            1188,
+            1116,
+        ]  # samples at 29.7kHz
         self.allpass_delays = [225, 556, 441, 341]  # samples
 
         self._initialize_filters()
@@ -83,7 +100,7 @@ class ReverbService:
         # Create comb filters (parallel)
         for delay in self.comb_delays:
             feedback = 0.84  # Typical comb filter feedback
-            damping = 0.2    # Initial damping
+            damping = 0.2  # Initial damping
             self.comb_filters.append(CombFilter(delay, feedback, damping))
 
         # Create all-pass filters (series)
@@ -91,7 +108,9 @@ class ReverbService:
             feedback = 0.5  # Typical all-pass feedback
             self.allpass_filters.append(AllPassFilter(delay, feedback))
 
-    def process(self, signal: AudioSignal, params: ReverbParameters = None) -> AudioSignal:
+    def process(
+        self, signal: AudioSignal, params: ReverbParameters = None
+    ) -> AudioSignal:
         """Apply algorithmic reverb effect to signal."""
         params = params or self.default_params
 
@@ -101,17 +120,25 @@ class ReverbService:
         # Process each channel separately
         processed_channels = []
         for channel_data in signal.data:
-            processed_channel = self._process_channel(channel_data, params, signal.sample_rate)
+            processed_channel = self._process_channel(
+                channel_data, params, signal.sample_rate
+            )
             processed_channels.append(processed_channel)
 
         return AudioSignal(
             data=processed_channels,
             sample_rate=signal.sample_rate,
-            channels=signal.channels
+            channels=signal.channels,
         )
 
-    def _process_channel(self, channel_data: List[float], params: ReverbParameters, sample_rate: int) -> List[float]:
+    def _process_channel(
+        self, channel_data: List[float], params: ReverbParameters, sample_rate: int
+    ) -> List[float]:
         """Process a single channel with reverb effect."""
+        # Convert to list if numpy array
+        if hasattr(channel_data, 'tolist'):
+            channel_data = channel_data.tolist()
+        
         # Adjust sample rate scaling (our delays are for ~30kHz, scale to actual rate)
         rate_scale = sample_rate / 29761.0
 
@@ -207,7 +234,57 @@ class ReverbService:
         if preset_name in presets:
             return presets[preset_name]()
         else:
-            raise ValueError(f"Unknown preset: {preset_name}. Available: {list(presets.keys())}")
+            raise ValueError(
+                f"Unknown preset: {preset_name}. Available: {list(presets.keys())}"
+            )
+
+    @classmethod
+    def create_params(
+        cls,
+        rt60: float = 1.0,
+        damping: float = 0.5,
+        wet_dry_mix: float = 0.5,
+        pre_delay: float = 0.05,
+        enabled: bool = True,
+        # Legacy parameter names for backward compatibility
+        room_size: float = None,
+        wet_level: float = None,
+    ) -> ReverbParameters:
+        """Create ReverbParameters with flexible parameter mapping."""
+        # Handle legacy parameter names
+        if room_size is not None:
+            # Map room_size (0-1) to rt60 (seconds)
+            # Small room_size -> short rt60, large room_size -> long rt60
+            rt60 = 0.3 + room_size * 2.0  # 0.3s to 2.3s
+
+        if wet_level is not None:
+            wet_dry_mix = wet_level
+
+        return ReverbParameters(
+            rt60=rt60,
+            damping=damping,
+            wet_dry_mix=wet_dry_mix,
+            pre_delay=pre_delay,
+            enabled=enabled,
+        )
+
+    def _generate_impulse_response(self, room_size: float, damping: float) -> np.ndarray:
+        """Generate impulse response for convolution reverb."""
+        # Simplified impulse response generation
+        # In practice, this would use more sophisticated algorithms
+        length = int(44100 * 2.0)  # 2 seconds at 44.1kHz
+        ir = np.zeros(length)
+
+        # Simple exponential decay
+        decay_factor = math.exp(-1.0 / (room_size * 44100))
+        for i in range(length):
+            ir[i] = math.exp(-i * decay_factor) * (1.0 - damping + damping * np.random.random())
+
+        return ir
+
+    def _convolve_signal(self, signal: np.ndarray, impulse_response: np.ndarray) -> np.ndarray:
+        """Convolve signal with impulse response."""
+        return np.convolve(signal, impulse_response, mode='full')
 
     def get_status(self) -> dict:
         """Get service status."""

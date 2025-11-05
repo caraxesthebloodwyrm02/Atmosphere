@@ -1,0 +1,4 @@
+# file: E:\Projects\Atmosphere\src\reverb\services\spatial_service.py
+# hypothesis_version: 6.146.0
+
+[-1.0, 0.0005, 0.001, 0.7, 1.0, 1.5, 100, 128, 360, 1000, 44100, 'active', 'constant', 'distance_attenuation', 'doppler', 'features', 'hrtf', 'left', 'reflectivity', 'reverb_integration', 'reverb_space', 'right', 'rt60', 'same', 'service', 'size', 'spatial_audio', 'status']

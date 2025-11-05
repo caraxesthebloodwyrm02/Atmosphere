@@ -40,6 +40,7 @@ class EchoesPlatform:
     def _apply_master_controls(self, signal):
         return f"Controlled: {signal}"
 
+
 if __name__ == "__main__":
     platform = EchoesPlatform()
     result = platform.process_input("User query")

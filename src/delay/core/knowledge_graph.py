@@ -4,6 +4,7 @@ Knowledge Graph Module
 Implements RDF-based semantic storage for infinite reverb tails.
 """
 
+
 class KnowledgeGraph:
     """
     Convolution engine for knowledge graphs.
@@ -32,9 +33,11 @@ class KnowledgeGraph:
         """
         results = []
         for s, p, o in self.triples:
-            if (subject is None or s == subject) and \
-               (predicate is None or p == predicate) and \
-               (object_ is None or o == object_):
+            if (
+                (subject is None or s == subject)
+                and (predicate is None or p == predicate)
+                and (object_ is None or o == object_)
+            ):
                 results.append((s, p, o))
         return results
 

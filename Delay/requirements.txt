@@ -1,0 +1,7 @@
+# Delay Module Dependencies
+# Time-based audio effects
+
+# Core dependencies (none required, uses standard library)
+
+# Optional: Audio processing (uncomment if needed)
+# numpy>=1.21.0

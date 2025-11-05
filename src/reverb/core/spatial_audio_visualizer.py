@@ -8,13 +8,17 @@ Demonstrates spatial audio processing concepts including:
 - Frequency domain analysis
 """
 
-import numpy as np
 import matplotlib
-matplotlib.use('Agg')  # Use non-GUI backend
+import numpy as np
+
+matplotlib.use("Agg")  # Use non-GUI backend
+import warnings
+
 import matplotlib.pyplot as plt
 from scipy import signal
-import warnings
-warnings.filterwarnings('ignore')
+
+warnings.filterwarnings("ignore")
+
 
 class SpatialAudioVisualizer:
     def __init__(self):
@@ -42,7 +46,7 @@ class SpatialAudioVisualizer:
         """Apply inverse square law attenuation"""
         if distance <= 0:
             return signal
-        attenuation_factor = 1.0 / (distance ** 2)
+        attenuation_factor = 1.0 / (distance**2)
         return signal * attenuation_factor
 
     def apply_hrtf(self, signal, azimuth_deg):
@@ -78,60 +82,90 @@ class SpatialAudioVisualizer:
 
         # Create figure with subplots
         fig, axes = plt.subplots(2, 3, figsize=(16, 10))
-        fig.suptitle('Spatial Audio Processing Pipeline', fontsize=16, fontweight='bold')
+        fig.suptitle(
+            "Spatial Audio Processing Pipeline", fontsize=16, fontweight="bold"
+        )
 
         # Generate base signal
         audio_signal, t = self.generate_signal(frequency=440, duration=0.5)
 
         # 1. Original signal
-        axes[0, 0].plot(t, audio_signal, 'b-', linewidth=2)
-        axes[0, 0].set_title('1. Original Mono Signal\n440 Hz Sine Wave', fontweight='bold')
-        axes[0, 0].set_xlabel('Time (s)')
-        axes[0, 0].set_ylabel('Amplitude')
+        axes[0, 0].plot(t, audio_signal, "b-", linewidth=2)
+        axes[0, 0].set_title(
+            "1. Original Mono Signal\n440 Hz Sine Wave", fontweight="bold"
+        )
+        axes[0, 0].set_xlabel("Time (s)")
+        axes[0, 0].set_ylabel("Amplitude")
         axes[0, 0].grid(True, alpha=0.3)
 
         # 2. Doppler effect
-        doppler_signal, doppler_factor = self.apply_doppler(audio_signal, velocity=20, t=t)
-        axes[0, 1].plot(t, audio_signal, 'b--', alpha=0.7, label='Original')
-        axes[0, 1].plot(t, doppler_signal, 'r-', linewidth=2, label='Doppler shifted')
-        axes[0, 1].set_title(f'2. Doppler Effect\nVelocity: 20 m/s, Factor: {doppler_factor:.3f}', fontweight='bold')
-        axes[0, 1].set_xlabel('Time (s)')
-        axes[0, 1].set_ylabel('Amplitude')
+        doppler_signal, doppler_factor = self.apply_doppler(
+            audio_signal, velocity=20, t=t
+        )
+        axes[0, 1].plot(t, audio_signal, "b--", alpha=0.7, label="Original")
+        axes[0, 1].plot(t, doppler_signal, "r-", linewidth=2, label="Doppler shifted")
+        axes[0, 1].set_title(
+            f"2. Doppler Effect\nVelocity: 20 m/s, Factor: {doppler_factor:.3f}",
+            fontweight="bold",
+        )
+        axes[0, 1].set_xlabel("Time (s)")
+        axes[0, 1].set_ylabel("Amplitude")
         axes[0, 1].legend()
         axes[0, 1].grid(True, alpha=0.3)
 
         # 3. Distance attenuation
         distances = [1, 2, 5, 10]
-        colors = ['blue', 'green', 'orange', 'red']
+        colors = ["blue", "green", "orange", "red"]
         for dist, color in zip(distances, colors):
             attenuated = self.apply_distance_attenuation(audio_signal, dist)
-            axes[0, 2].plot(t, attenuated, color=color, linewidth=2,
-                          label=f'{dist}m ({-20*np.log10(dist):.1f}dB)')
+            axes[0, 2].plot(
+                t,
+                attenuated,
+                color=color,
+                linewidth=2,
+                label=f"{dist}m ({-20*np.log10(dist):.1f}dB)",
+            )
 
-        axes[0, 2].set_title('3. Distance Attenuation\nInverse Square Law', fontweight='bold')
-        axes[0, 2].set_xlabel('Time (s)')
-        axes[0, 2].set_ylabel('Amplitude')
+        axes[0, 2].set_title(
+            "3. Distance Attenuation\nInverse Square Law", fontweight="bold"
+        )
+        axes[0, 2].set_xlabel("Time (s)")
+        axes[0, 2].set_ylabel("Amplitude")
         axes[0, 2].legend()
         axes[0, 2].grid(True, alpha=0.3)
 
         # 4. HRTF binaural processing
         azimuths = [0, 45, 90]
-        colors = ['red', 'orange', 'purple']
+        colors = ["red", "orange", "purple"]
 
         for azimuth, color in zip(azimuths, colors):
             left_ear, right_ear = self.apply_hrtf(audio_signal, azimuth)
 
             # Plot left ear (solid)
-            axes[1, 0].plot(t, left_ear, color=color, linewidth=2, linestyle='-',
-                          label=f'{azimuth}° Left')
+            axes[1, 0].plot(
+                t,
+                left_ear,
+                color=color,
+                linewidth=2,
+                linestyle="-",
+                label=f"{azimuth}° Left",
+            )
             # Plot right ear (dashed)
-            axes[1, 0].plot(t, right_ear, color=color, linewidth=2, linestyle='--',
-                          label=f'{azimuth}° Right')
+            axes[1, 0].plot(
+                t,
+                right_ear,
+                color=color,
+                linewidth=2,
+                linestyle="--",
+                label=f"{azimuth}° Right",
+            )
 
-        axes[1, 0].set_title('4. HRTF Binaural Output\nLeft/Right Ear Signals', fontweight='bold')
-        axes[1, 0].set_xlabel('Time (s)')
-        axes[1, 0].set_ylabel('Amplitude')
-        axes[1, 0].legend(bbox_to_anchor=(1.05, 1), loc='upper left')
+        axes[1, 0].set_title(
+            "4. HRTF Binaural Output\nLeft/Right Ear Signals", fontweight="bold"
+        )
+        axes[1, 0].set_xlabel("Time (s)")
+        axes[1, 0].set_ylabel("Amplitude")
+        axes[1, 0].legend(bbox_to_anchor=(1.05, 1), loc="upper left")
         axes[1, 0].grid(True, alpha=0.3)
 
         # 5. Frequency domain analysis
@@ -140,36 +174,61 @@ class SpatialAudioVisualizer:
 
         # Focus on relevant frequency range
         mask = (freqs >= 200) & (freqs <= 800)
-        axes[1, 1].plot(freqs[mask], 10 * np.log10(psd_original[mask]), 'b-', linewidth=2, label='Original')
-        axes[1, 1].plot(freqs[mask], 10 * np.log10(psd_doppler[mask]), 'r-', linewidth=2, label='Doppler')
-        axes[1, 1].axvline(x=440, color='blue', linestyle='--', alpha=0.7)
-        axes[1, 1].axvline(x=440 * doppler_factor, color='red', linestyle='--', alpha=0.7)
-        axes[1, 1].set_title('5. Frequency Domain\nDoppler Frequency Shift', fontweight='bold')
-        axes[1, 1].set_xlabel('Frequency (Hz)')
-        axes[1, 1].set_ylabel('Power (dB)')
+        axes[1, 1].plot(
+            freqs[mask],
+            10 * np.log10(psd_original[mask]),
+            "b-",
+            linewidth=2,
+            label="Original",
+        )
+        axes[1, 1].plot(
+            freqs[mask],
+            10 * np.log10(psd_doppler[mask]),
+            "r-",
+            linewidth=2,
+            label="Doppler",
+        )
+        axes[1, 1].axvline(x=440, color="blue", linestyle="--", alpha=0.7)
+        axes[1, 1].axvline(
+            x=440 * doppler_factor, color="red", linestyle="--", alpha=0.7
+        )
+        axes[1, 1].set_title(
+            "5. Frequency Domain\nDoppler Frequency Shift", fontweight="bold"
+        )
+        axes[1, 1].set_xlabel("Frequency (Hz)")
+        axes[1, 1].set_ylabel("Power (dB)")
         axes[1, 1].legend()
         axes[1, 1].grid(True, alpha=0.3)
 
         # 6. Spatial characteristics
         azimuth_range = np.linspace(-90, 90, 100)
-        itd_curve = (0.0875 / self.sound_speed) * np.sin(np.radians(azimuth_range)) * 1000  # ms
+        itd_curve = (
+            (0.0875 / self.sound_speed) * np.sin(np.radians(azimuth_range)) * 1000
+        )  # ms
         ild_curve = 3 * np.sin(np.radians(azimuth_range))  # dB
 
-        axes[1, 2].plot(azimuth_range, itd_curve, 'purple', linewidth=2, label='ITD (ms)')
-        axes[1, 2].set_xlabel('Azimuth Angle (degrees)')
-        axes[1, 2].set_ylabel('ITD (ms)', color='purple')
-        axes[1, 2].tick_params(axis='y', labelcolor='purple')
+        axes[1, 2].plot(
+            azimuth_range, itd_curve, "purple", linewidth=2, label="ITD (ms)"
+        )
+        axes[1, 2].set_xlabel("Azimuth Angle (degrees)")
+        axes[1, 2].set_ylabel("ITD (ms)", color="purple")
+        axes[1, 2].tick_params(axis="y", labelcolor="purple")
         axes[1, 2].grid(True, alpha=0.3)
 
         ax2 = axes[1, 2].twinx()
-        ax2.plot(azimuth_range, ild_curve, 'orange', linewidth=2, label='ILD (dB)')
-        ax2.set_ylabel('ILD (dB)', color='orange')
-        ax2.tick_params(axis='y', labelcolor='orange')
+        ax2.plot(azimuth_range, ild_curve, "orange", linewidth=2, label="ILD (dB)")
+        ax2.set_ylabel("ILD (dB)", color="orange")
+        ax2.tick_params(axis="y", labelcolor="orange")
 
-        axes[1, 2].set_title('6. Spatial Cues\nITD & ILD vs Azimuth', fontweight='bold')
+        axes[1, 2].set_title("6. Spatial Cues\nITD & ILD vs Azimuth", fontweight="bold")
 
         # Add physics summary
-        physics_summary = ".1f"".1f"".1f"".1f"f"""
+        physics_summary = (
+            ".1f"
+            ".1f"
+            ".1f"
+            ".1f"
+            f"""
         Spatial Audio Physics Summary:
         • Doppler Shift: {doppler_factor:.3f}x ({((doppler_factor-1)*100):+.1f}%)
         • Max ITD: ±{max(abs(itd_curve)):.2f} ms
@@ -177,12 +236,19 @@ class SpatialAudioVisualizer:
         • Sound Speed: {self.sound_speed} m/s
         • Head Radius: 8.75 cm
         """
+        )
 
-        plt.figtext(0.02, 0.02, physics_summary, fontsize=10, fontfamily='monospace',
-                   bbox=dict(boxstyle="round,pad=0.5", facecolor="lightblue", alpha=0.8))
+        plt.figtext(
+            0.02,
+            0.02,
+            physics_summary,
+            fontsize=10,
+            fontfamily="monospace",
+            bbox=dict(boxstyle="round,pad=0.5", facecolor="lightblue", alpha=0.8),
+        )
 
         plt.tight_layout()
-        plt.savefig('spatial_audio_visualization.png', dpi=300, bbox_inches='tight')
+        plt.savefig("spatial_audio_visualization.png", dpi=300, bbox_inches="tight")
         print("✅ Visualization saved as 'spatial_audio_visualization.png'")
         plt.close()
 
@@ -206,7 +272,9 @@ class SpatialAudioVisualizer:
         print("-" * 55)
 
         for velocity in velocities:
-            doppler_signal, factor = self.apply_doppler(signal, velocity, np.linspace(0, 0.1, len(signal)))
+            doppler_signal, factor = self.apply_doppler(
+                signal, velocity, np.linspace(0, 0.1, len(signal))
+            )
             freq_shift_percent = (factor - 1) * 100
             print("8.1f")
 
@@ -255,6 +323,7 @@ class SpatialAudioVisualizer:
 
             print("8.1f")
 
+
 def main():
     """Main function"""
     print("🎯 Spatial Audio Visualizer")
@@ -273,13 +342,16 @@ def main():
         visualizer.demonstrate_hrtf()
 
         print("\n🎉 All spatial audio demonstrations completed!")
-        print("Check 'spatial_audio_visualization.png' for the comprehensive visualization.")
+        print(
+            "Check 'spatial_audio_visualization.png' for the comprehensive visualization."
+        )
 
     except ImportError as e:
         print(f"❌ Missing required packages: {e}")
         print("Install with: pip install numpy matplotlib scipy")
     except Exception as e:
         print(f"❌ Error running visualizer: {e}")
+
 
 if __name__ == "__main__":
     main()

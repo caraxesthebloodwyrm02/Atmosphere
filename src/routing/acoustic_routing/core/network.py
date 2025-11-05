@@ -5,23 +5,27 @@ This module contains the AcousticRoutingNetwork class for modeling
 acoustic propagation through network topologies.
 """
 
-import numpy as np
-import networkx as nx
-from typing import Dict, List, Tuple
 from dataclasses import dataclass
+from typing import Dict, List, Tuple
+
+import networkx as nx
+import numpy as np
+
 
 @dataclass
 class AcousticParameters:
     """Acoustic properties for routing edges"""
+
     delay_time: float  # Travel time or physical distance (ms)
-    feedback: float    # Number of alternate routes/detours (0-1)
-    decay: float       # Traffic dissipation/energy loss (0-1)
+    feedback: float  # Number of alternate routes/detours (0-1)
+    decay: float  # Traffic dissipation/energy loss (0-1)
     reverb_density: float  # Local interconnectivity (0-1)
 
 
 @dataclass
 class Pulse:
     """Represents a propagating signal through the network"""
+
     origin: str
     current_position: str
     amplitude: float
@@ -30,20 +34,41 @@ class Pulse:
 
 class AcousticRoutingNetwork:
     """Main class for acoustic routing system.
-    
+
     Models a network as an acoustic topology with nodes and edges
     that affect signal propagation.
     """
-    
+
     def __init__(self):
         """Initialize a new acoustic routing network."""
         self.graph = nx.DiGraph()  # Directed graph for routing segments
         self.acoustic_params: Dict[Tuple[str, str], AcousticParameters] = {}
         self.node_positions: Dict[str, Tuple[float, float]] = {}  # For visualization
 
-    # Add methods from the original acoustic_routing.py here
-    # ... (to be implemented)
-    
+    def add_node(self, node_id: str, x: float, y: float) -> None:
+        """Add a node to the network with position."""
+        self.graph.add_node(node_id)
+        self.node_positions[node_id] = (x, y)
+
+    def add_connection(self, node1: str, node2: str) -> None:
+        """Add a connection between nodes."""
+        self.graph.add_edge(node1, node2)
+        # Add default acoustic parameters
+        if (node1, node2) not in self.acoustic_params:
+            self.acoustic_params[(node1, node2)] = AcousticParameters(
+                delay_time=10.0,  # 10ms default
+                feedback=0.1,
+                decay=0.9,
+                reverb_density=0.5,
+            )
+
+    def find_path(self, start: str, end: str) -> List[str]:
+        """Find shortest path between nodes."""
+        try:
+            return nx.shortest_path(self.graph, start, end)
+        except nx.NetworkXNoPath:
+            return []
+
     # Example method - implement all methods from the original file
     def add_highway_segment(
         self,
@@ -52,11 +77,11 @@ class AcousticRoutingNetwork:
         distance_miles: float,
         speed_limit_mph: float = 65,
         interconnectivity: float = 0.3,
-        feedback_loops: float = 0.2
+        feedback_loops: float = 0.2,
     ) -> None:
         """
         Add a highway segment with acoustic properties.
-        
+
         Args:
             start: Starting city/node
             end: Ending city/node
@@ -80,7 +105,7 @@ class AcousticRoutingNetwork:
             delay_time=delay_ms,
             feedback=feedback,
             decay=decay,
-            reverb_density=interconnectivity
+            reverb_density=interconnectivity,
         )
 
         # Add to graph

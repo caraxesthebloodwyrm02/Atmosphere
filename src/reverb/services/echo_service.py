@@ -15,7 +15,9 @@ class EchoService:
     def __init__(self, default_params: EchoParameters = None):
         self.default_params = default_params or EchoParameters()
 
-    def process(self, signal: AudioSignal, params: EchoParameters = None) -> AudioSignal:
+    def process(
+        self, signal: AudioSignal, params: EchoParameters = None
+    ) -> AudioSignal:
         """Apply echo effect to signal."""
         params = params or self.default_params
 
@@ -25,17 +27,25 @@ class EchoService:
         # Process each channel separately
         processed_channels = []
         for channel_data in signal.data:
-            processed_channel = self._process_channel(channel_data, params, signal.sample_rate)
+            processed_channel = self._process_channel(
+                channel_data, params, signal.sample_rate
+            )
             processed_channels.append(processed_channel)
 
         return AudioSignal(
             data=processed_channels,
             sample_rate=signal.sample_rate,
-            channels=signal.channels
+            channels=signal.channels,
         )
 
-    def _process_channel(self, channel_data: List[float], params: EchoParameters, sample_rate: int) -> List[float]:
+    def _process_channel(
+        self, channel_data: List[float], params: EchoParameters, sample_rate: int
+    ) -> List[float]:
         """Process a single channel with echo effect."""
+        # Convert to list if numpy array
+        if hasattr(channel_data, 'tolist'):
+            channel_data = channel_data.tolist()
+        
         # Simplified echo implementation (multiple delays)
         echo_samples = int((params.time_ms / 1000) * sample_rate)
 
@@ -44,7 +54,7 @@ class EchoService:
         current_level = params.level
         for i in range(5):  # 5 echoes
             delay = echo_samples * (i + 1)
-            level = current_level * (params.decay ** i)
+            level = current_level * (params.decay**i)
             echoes.append((delay, level))
             current_level *= params.feedback
 

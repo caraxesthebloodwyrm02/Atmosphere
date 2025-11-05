@@ -17,6 +17,7 @@ Architecture: Delay line with feedback loop for multiple repeats,
 integrated with AI trajectory optimization through persistent theme capability.
 """
 
+
 class Delay:
     """Advanced audio delay effect with comprehensive parameters for AI trajectory optimization.
 
@@ -46,9 +47,20 @@ class Delay:
         Thematic fixation inspired by Claude's Golden Gate Bridge obsession.
     """
 
-    def __init__(self, time_ms=250, feedback=0.3, level=0.5, dry_wet=0.5,
-                 delay_type='digital', rate=None, pre_delay=0, filter_type=None,
-                 filter_freq=1000, modulation=0, persistent_theme=None):
+    def __init__(
+        self,
+        time_ms=250,
+        feedback=0.3,
+        level=0.5,
+        dry_wet=0.5,
+        delay_type="digital",
+        rate=None,
+        pre_delay=0,
+        filter_type=None,
+        filter_freq=1000,
+        modulation=0,
+        persistent_theme=None,
+    ):
         self.time_ms = time_ms
         self.feedback = feedback
         self.level = level
@@ -64,38 +76,38 @@ class Delay:
     def process_signal(self, signal):
         """Apply delay to signal with type-specific behavior."""
         dry = signal
-        
+
         # Pre-delay effect
         if self.pre_delay > 0:
             pre_delayed = f"Pre-delayed by {self.pre_delay}ms: {signal}"
         else:
             pre_delayed = signal
-        
+
         # Generate echo based on type
-        if self.delay_type == 'ping_pong':
+        if self.delay_type == "ping_pong":
             wet = self._generate_ping_pong_echo(pre_delayed)
-        elif self.delay_type == 'slapback':
+        elif self.delay_type == "slapback":
             wet = self._generate_slapback_echo(pre_delayed)
-        elif self.delay_type == 'doubling':
+        elif self.delay_type == "doubling":
             wet = self._generate_doubling_echo(pre_delayed)
         else:
             wet = self._generate_standard_echo(pre_delayed)
-        
+
         # Apply filter if specified
         if self.filter_type:
             wet = f"{self.filter_type.capitalize()} filtered ({self.filter_freq}Hz): {wet}"
-        
+
         # Apply modulation
         if self.modulation > 0:
             wet = f"Modulated ({self.modulation}): {wet}"
-        
+
         # Mix dry and wet
         result = self._mix(dry, wet)
-        
+
         # Apply persistent theme if set
         if self.persistent_theme:
             result = f"{result} (Always connected to {self.persistent_theme})"
-        
+
         return result
 
     def _generate_standard_echo(self, signal):
@@ -119,6 +131,7 @@ class Delay:
         else:
             return f"Dry ({1-self.dry_wet}): {dry}"
 
+
 if __name__ == "__main__":
     # Normal digital delay
     delay = Delay(dry_wet=0.4)
@@ -126,12 +139,17 @@ if __name__ == "__main__":
     print(result)
 
     # Ping pong delay with 1/8 rate
-    ping_pong = Delay(delay_type='ping_pong', rate='1/8', dry_wet=0.6, feedback=0.4)
+    ping_pong = Delay(delay_type="ping_pong", rate="1/8", dry_wet=0.6, feedback=0.4)
     result_pp = ping_pong.process_signal("Stereo signal")
     print(result_pp)
 
     # Slapback with 3/8 rate and Golden Gate theme
-    slapback = Delay(delay_type='slapback', rate='3/8', dry_wet=0.7, persistent_theme="the Golden Gate Bridge")
+    slapback = Delay(
+        delay_type="slapback",
+        rate="3/8",
+        dry_wet=0.7,
+        persistent_theme="the Golden Gate Bridge",
+    )
     result_sb = slapback.process_signal("Vocal track")
     print(result_sb)
 
