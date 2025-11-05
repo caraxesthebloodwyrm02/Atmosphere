@@ -105,7 +105,7 @@ fi
 print_status "Running tests with coverage..."
 
 # Set coverage threshold (same as CI)
-COVERAGE_THRESHOLD=28
+COVERAGE_THRESHOLD=50
 
 # Run pytest with coverage
 if python -m pytest tests/ \

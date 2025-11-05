@@ -87,7 +87,7 @@ REM Run tests with coverage
 echo [INFO] Running tests with coverage...
 
 REM Set coverage threshold (same as CI)
-set COVERAGE_THRESHOLD=28
+set COVERAGE_THRESHOLD=50
 
 REM Run pytest with coverage
 python -m pytest tests/ --cov=src --cov-report=term --cov-report=html:htmlcov --cov-report=xml --cov-fail-under=%COVERAGE_THRESHOLD% -v --maxfail=1
