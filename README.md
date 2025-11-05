@@ -1,5 +1,8 @@
 # Atmosphere
 
+[![CI](https://github.com/caraxesthebloodwyrm02/Atmosphere/actions/workflows/ci.yml/badge.svg)](https://github.com/caraxesthebloodwyrm02/Atmosphere/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/caraxesthebloodwyrm02/Atmosphere/branch/main/graph/badge.svg)](https://codecov.io/gh/caraxesthebloodwyrm02/Atmosphere)
+
 A comprehensive audio processing and routing system for creating immersive audio experiences through advanced signal processing, spatial audio, and network routing.
 
 ## 🎵 Features
@@ -17,8 +20,8 @@ A comprehensive audio processing and routing system for creating immersive audio
 
 ### Install from source
 ```bash
-git clone https://github.com/yourusername/dimension-resonance.git
-cd dimension-resonance
+git clone https://github.com/yourusername/atmosphere.git
+cd atmosphere
 pip install -e .
 ```
 
@@ -146,11 +149,19 @@ Run the test suite:
 pytest
 ```
 
-Run with coverage:
+Run with coverage (requires 80% minimum coverage):
 
 ```bash
-pytest --cov=src --cov-report=html
+pytest --cov=src --cov-report=html --cov-fail-under=80
 ```
+
+View coverage report in `htmlcov/index.html`.
+
+### Coverage Requirements
+- **Overall Target**: 80% minimum code coverage
+- **Source Files**: Only `src/` directory tracked
+- **Exclusions**: Test files, generated code, and boilerplate
+- **CI Enforcement**: Builds fail if coverage drops below 80%
 
 ## 📚 API Documentation
 
