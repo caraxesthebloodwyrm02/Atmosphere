@@ -1,7 +1,7 @@
 # Atmosphere
 
 [![CI](https://github.com/caraxesthebloodwyrm02/Atmosphere/actions/workflows/ci.yml/badge.svg)](https://github.com/caraxesthebloodwyrm02/Atmosphere/actions/workflows/ci.yml)
-[![codecov](https://codecov.io/gh/caraxesthebloodwyrm02/Atmosphere/branch/main/graph/badge.svg)](https://codecov.io/gh/caraxesthebloodwyrm02/Atmosphere)
+[![codecov](https://codecov.io/gh/caraxesthebloodwyrm02/Atmosphere/branch/main/graph/badge.svg?token=edb3e568-c331-4bf2-aca4-13b658d855b5)](https://codecov.io/gh/caraxesthebloodwyrm02/Atmosphere)
 
 A comprehensive audio processing and routing system for creating immersive audio experiences through advanced signal processing, spatial audio, and network routing.
 
