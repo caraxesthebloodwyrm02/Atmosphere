@@ -10,39 +10,9 @@ from pathlib import Path
 from typing import Dict, Any, Optional
 import sys
 
-# Try to import orchestral channel
-try:
-    # Try absolute import first
-    from Arcade.orchestral_channel import (
-        OrchestralChannel,
-        get_arcade_platform_status,
-        receive_orchestral_data
-    )
-    ORCHESTRAL_AVAILABLE = True
-except ImportError:
-    try:
-        # Fallback: add project root to path and try absolute import
-        project_root = Path(__file__).parent.parent.parent
-        if str(project_root) not in sys.path:
-            sys.path.insert(0, str(project_root))
-        from Arcade.orchestral_channel import (
-            OrchestralChannel,
-            get_arcade_platform_status,
-            receive_orchestral_data
-        )
-        ORCHESTRAL_AVAILABLE = True
-    except ImportError:
-        try:
-            # Final fallback to relative import
-            from ..orchestral_channel import (
-                OrchestralChannel,
-                get_arcade_platform_status,
-                receive_orchestral_data
-            )
-            ORCHESTRAL_AVAILABLE = True
-        except ImportError:
-            ORCHESTRAL_AVAILABLE = False
-            logging.warning("Orchestral channel not available")
+# DEPRECATED: Orchestral integration is no longer required
+# The Arcade system now operates independently with mock emotion routing
+ORCHESTRAL_AVAILABLE = False  # Always use standalone mode
 
 logger = logging.getLogger(__name__)
 
@@ -51,22 +21,12 @@ class RoutingIntegration:
     """Integration with Routing system for city communication"""
     
     def __init__(self):
-        self.connected = False
-        self.orchestral_channel = None
-        self.emotion_routing = None  # Initialize emotion routing
-        self.city_status = {
-            'Echoes': {'status': 'unknown', 'data': {}},
-            'Reverb': {'status': 'unknown', 'data': {}},
-            'Delay': {'status': 'unknown', 'data': {}}
-        }
+        self.connected = True  # Always connected in standalone mode
+        self.orchestral_channel = None  # Deprecated
+        self.emotion_routing = None
         
-        if ORCHESTRAL_AVAILABLE:
-            try:
-                self.orchestral_channel = OrchestralChannel()
-                # Try to initialize emotion routing from Atmosphere Routing system
-                self._init_emotion_routing()
-            except Exception as e:
-                logger.error(f"Failed to initialize orchestral channel: {e}")
+        # Always initialize mock emotion routing for standalone operation
+        self._create_mock_emotion_routing()
     
     def _init_emotion_routing(self):
         """Initialize emotion-enhanced routing from Atmosphere Routing system."""
@@ -172,23 +132,15 @@ class RoutingIntegration:
         print("✅ Mock emotion routing created successfully")
     
     async def initialize(self) -> bool:
-        """Initialize routing connection"""
-        if not ORCHESTRAL_AVAILABLE:
-            logger.warning("Orchestral channel not available, using standalone mode")
-            return False
+        """Initialize routing connection (now always standalone mode)"""
+        logger.info("Initializing Arcade routing system in standalone mode")
         
-        try:
-            result = await self.orchestral_channel.initialize_arcade_platform()
-            if result.get('status') == 'success':
-                self.connected = True
-                logger.info("Connected to routing system")
-                return True
-            else:
-                logger.warning(f"Failed to connect to routing: {result.get('error')}")
-                return False
-        except Exception as e:
-            logger.error(f"Error initializing routing: {e}")
-            return False
+        # Always use mock emotion routing - no orchestral dependency needed
+        self._create_mock_emotion_routing()
+        self.connected = True
+        
+        logger.info("Arcade routing system initialized successfully (standalone mode)")
+        return True
     
     async def get_city_status(self, city_name: str) -> Dict[str, Any]:
         """Get status of a specific city"""
@@ -256,25 +208,14 @@ class RoutingIntegration:
             }
     
     def get_routing_status(self) -> Dict[str, Any]:
-        """Get overall routing system status"""
-        if not ORCHESTRAL_AVAILABLE:
-            return {
-                'connected': False,
-                'message': 'Orchestral channel not available'
-            }
-        
-        try:
-            status = get_arcade_platform_status()
-            return {
-                'connected': self.connected,
-                'platform_status': status
-            }
-        except Exception as e:
-            logger.error(f"Error getting routing status: {e}")
-            return {
-                'connected': False,
-                'error': str(e)
-            }
+        """Get overall routing system status (standalone mode)"""
+        return {
+            'connected': True,
+            'mode': 'standalone',
+            'message': 'Arcade routing system operating independently',
+            'emotion_routing': 'mock_active',
+            'orchestral_integration': 'deprecated'
+        }
     
     def list_cities(self) -> list[str]:
         """List available cities"""

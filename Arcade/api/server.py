@@ -55,19 +55,20 @@ async def lifespan(app: FastAPI):
     """Handle application startup and shutdown events."""
     # Startup
     logger.info("Starting Arcade Terminal server...")
+    logger.info("🎮 Arcade System: Operating in standalone mode (orchestral integration deprecated)")
 
-    # Initialize routing integration
+    # Initialize routing integration (always standalone now)
     try:
         await routing_integration.initialize()
-        logger.info("Routing integration initialized")
+        logger.info("✅ Routing integration initialized (standalone mode)")
     except Exception as e:
-        logger.warning(f"Routing integration not available: {e}")
+        logger.warning(f"Routing integration failed: {e}")
 
     # Create sandbox directories
     sandbox_root = Path(__file__).parent.parent / "sandbox" / "virtual_fs"
     sandbox_root.mkdir(parents=True, exist_ok=True)
 
-    logger.info("Arcade Terminal server started")
+    logger.info("🎯 Arcade Terminal server started successfully")
     yield
     # Shutdown
     logger.info("Shutting down Arcade Terminal server...")

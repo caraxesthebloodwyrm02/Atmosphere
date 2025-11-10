@@ -1,75 +1,23 @@
 [MASTER]
 # Python path configuration
-python-path = src,atmosphere
-init-hook = 'import sys; sys.path.append(".")'
+python-path = src
 
 [FORMAT]
-# Code style - match black/isort settings
+# Code style
 max-line-length = 88
 indent-string = "    "
-good-names = i,j,k,ex,Run,_,db,logger
 
 [MESSAGES CONTROL]
-# Disable overly strict or noisy warnings that interfere with modern Python
+# Disable noisy warnings
 disable = too-few-public-methods,
          too-many-arguments,
          too-many-instance-attributes,
          too-many-locals,
          too-many-branches,
          too-many-statements,
-         too-many-lines,
-         line-too-long,  # handled by black
-         import-outside-toplevel,
-         fixme,
-         missing-module-docstring,
-         missing-class-docstring,
-         missing-function-docstring,  # too strict for rapid development
-         invalid-name,  # conflicts with modern naming conventions
-         too-many-return-statements,
-         too-many-nested-blocks,
-         wrong-import-position,  # handled by isort
-         ungrouped-imports,  # handled by isort
-         wrong-import-order,  # handled by isort
-         unnecessary-pass,
-         broad-except,
-         eval-used,
-         exec-used,
-         global-statement
+         C0114,C0115,C0116
 
 [REPORTS]
 # Report settings
 output-format = colorized
 include-ids = yes
-evaluation = 10.0 - ((float(5 * error + warning + refactor + convention) / statement) * 10)
-msg-template = '{path}:{line}:{column}: [{msg_id}({symbol}), {obj}] {msg}'
-
-[BASIC]
-# Basic settings
-good-names = i,j,k,ex,Run,_,db,logger,api,app,ctx
-bad-names = foo,bar,baz,toto,tutu,tata
-
-[SIMILARITIES]
-# Similarity checking
-min-similarity-lines = 6
-ignore-comments = yes
-ignore-docstrings = yes
-ignore-imports = yes
-
-[DESIGN]
-# Design checks - relaxed for modern development
-max-args = 8
-max-locals = 20
-max-returns = 8
-max-branches = 15
-max-statements = 60
-max-parents = 8
-max-attributes = 12
-
-[IMPORTS]
-# Import settings
-allow-wildcard-with-all = no
-allow-any-import-level = ["src", "atmosphere", "tests"]
-
-[EXCEPTIONS]
-# Exception handling
-overgeneral-exceptions = ["Exception", "BaseException"]

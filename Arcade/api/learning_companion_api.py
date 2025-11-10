@@ -58,30 +58,29 @@ class ProcessInteractionRequest(BaseModel):
     interaction_type: str
     interaction_data: InteractionData
 
-@router.post("/session/start")
-async def start_learning_session(
-    learner_id: str,
-    topic: str = "python_functions",
+class StartSessionRequest(BaseModel):
+    learner_id: str
+    topic: str = "python_functions"
     initial_assessment: Optional[LearnerAssessment] = None
-):
+
+@router.post("/session/start")
+async def start_learning_session(request: StartSessionRequest):
     """
     Start a new emotionally-adaptive learning session.
 
     Args:
-        learner_id: Unique identifier for the learner
-        topic: Learning topic (default: python_functions)
-        initial_assessment: Optional initial learner assessment data
+        request: Session start request data
 
     Returns:
         Session initialization data
     """
     try:
         # Convert Pydantic model to dict
-        assessment_data = initial_assessment.dict() if initial_assessment else None
+        assessment_data = request.initial_assessment.dict() if request.initial_assessment else None
 
         result = await learning_companion.start_learning_session(
-            learner_id=learner_id,
-            topic=topic,
+            learner_id=request.learner_id,
+            topic=request.topic,
             initial_assessment=assessment_data
         )
 

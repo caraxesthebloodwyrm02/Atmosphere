@@ -40,7 +40,7 @@ async def test_learning_api():
             # Test session creation
             resp = await client.post(
                 'http://localhost:7681/learning/session/start',
-                params={'learner_id': 'api_test_user', 'topic': 'python_functions'}
+                json={'learner_id': 'api_test_user', 'topic': 'python_functions'}
             )
 
             if resp.status_code == 200:
