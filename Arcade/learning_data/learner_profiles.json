@@ -1,0 +1,192 @@
+{
+  "demo_exploratory_student": {
+    "learner_id": "demo_exploratory_student",
+    "created_at": 1762803555.5899422,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.0011470317840576172,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.0
+    }
+  },
+  "demo_frustrated_student": {
+    "learner_id": "demo_frustrated_student",
+    "created_at": 1762803555.6008694,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.0007104873657226562,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.0
+    }
+  },
+  "demo_emotional_shift_student": {
+    "learner_id": "demo_emotional_shift_student",
+    "created_at": 1762803555.6082308,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.0009949207305908203,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.0
+    }
+  },
+  "api_test_lifecycle": {
+    "learner_id": "api_test_lifecycle",
+    "created_at": 1762803815.6535168,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.0030760765075683594,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.0
+    }
+  },
+  "api_test_emotion": {
+    "learner_id": "api_test_emotion",
+    "created_at": 1762803816.1553082,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.0026128292083740234,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.0
+    }
+  },
+  "api_test_intervention": {
+    "learner_id": "api_test_intervention",
+    "created_at": 1762803816.651668,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.0034618377685546875,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.0
+    }
+  },
+  "demo_exploratory": {
+    "learner_id": "demo_exploratory",
+    "created_at": 1762803818.1568162,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.00024890899658203125,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.5
+    }
+  },
+  "demo_frustrated": {
+    "learner_id": "demo_frustrated",
+    "created_at": 1762803818.1803312,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.00023984909057617188,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.0
+    }
+  },
+  "demo_shift": {
+    "learner_id": "demo_shift",
+    "created_at": 1762803818.1911714,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.00036597251892089844,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.0
+    }
+  },
+  "api_test_user": {
+    "learner_id": "api_test_user",
+    "created_at": 1762803870.2696197,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.0023450851440429688,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.0
+    }
+  }
+}

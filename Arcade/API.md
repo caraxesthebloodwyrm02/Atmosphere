@@ -477,3 +477,440 @@ All operations are logged:
 
 Check server logs for detailed information.
 
+---
+
+# Learning Companion API
+
+## Overview
+
+The Emotionally-Adaptive Learning Companion provides REST API endpoints for AI-powered personalized learning experiences that adapt content based on learner emotional states and behavioral patterns.
+
+## Base URL
+
+```python
+http://localhost:7681/learning
+```
+
+## Authentication
+
+Currently no authentication required. For production use, implement API key authentication.
+
+## Endpoints
+
+### GET /learning/status
+
+Get system status and capabilities.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "system_status": "operational",
+    "available_topics": ["python_functions"],
+    "emotional_states_supported": [
+      "exploratory", "creative", "analytical", "urgent", "calm",
+      "frustrated", "confused", "engaged"
+    ],
+    "content_types": [
+      "interactive_exercise", "concept_explanation",
+      "visual_demonstration", "practical_project",
+      "quiz_assessment", "story_based_learning"
+    ],
+    "intervention_types": [
+      "stress_relief", "engagement_boost",
+      "confusion_support", "frustration_relief"
+    ],
+    "capabilities": [
+      "real_time_emotional_detection",
+      "adaptive_content_routing",
+      "intervention_triggers",
+      "progress_tracking",
+      "behavioral_analytics"
+    ]
+  }
+}
+```
+
+### GET /learning/topics
+
+Get list of available learning topics.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "topics": ["python_functions"],
+    "count": 1
+  }
+}
+```
+
+### POST /learning/session/start
+
+Create a new learning session.
+
+**Query Parameters:**
+- `learner_id` (string, required): Unique identifier for the learner
+- `topic` (string, optional): Learning topic (default: "python_functions")
+
+**Request Body (optional):**
+```json
+{
+  "response_times": [1.5, 2.0, 1.8],
+  "error_count": 0,
+  "total_attempts": 3,
+  "help_requests": 0,
+  "session_duration": 300,
+  "interaction_frequency": 1.5,
+  "content_difficulty": 0.6,
+  "progress_rate": 0.8,
+  "time_since_last_interaction": 0
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "session_id": "user_topic_1234567890",
+    "status": "active",
+    "welcome_message": "🌟 Welcome to your emotionally-adaptive learning session...",
+    "initial_content": {
+      "module_id": "func_intro_exploratory",
+      "title": "Function Discovery Lab",
+      "content_type": "interactive_exercise",
+      "difficulty": "beginner",
+      "estimated_duration": 15,
+      "content_data": {...},
+      "learning_objectives": [...]
+    },
+    "progress_checkpoint": {
+      "checkpoint_id": "cp_1",
+      "estimated_time": 15,
+      "success_criteria": {...}
+    },
+    "estimated_completion": 45
+  }
+}
+```
+
+### POST /learning/session/interact
+
+Process a learning interaction and adapt content accordingly.
+
+**Request Body:**
+```json
+{
+  "session_id": "user_topic_1234567890",
+  "interaction_type": "correct_answer",
+  "interaction_data": {
+    "response_time": 1.5,
+    "confidence": 0.9,
+    "exploration_depth": "high"
+  }
+}
+```
+
+**Response (Normal):**
+```json
+{
+  "success": true,
+  "data": {
+    "response_type": "positive_feedback",
+    "message": "Excellent! That's correct. 🎉",
+    "next_action": "continue_module"
+  }
+}
+```
+
+**Response (Emotional Shift):**
+```json
+{
+  "success": true,
+  "data": {
+    "adaptation_type": "emotional_shift",
+    "new_emotional_state": {
+      "primary": "frustrated",
+      "confidence": 0.85,
+      "engagement": 0.4
+    },
+    "adapted_content": {...},
+    "adaptation_reason": "Detected shift from analytical to frustrated emotional state..."
+  }
+}
+```
+
+**Response (Intervention):**
+```json
+{
+  "success": true,
+  "data": {
+    "intervention_type": "stress_relief",
+    "message": "I notice you might be feeling stressed. Would you like to take a short break?",
+    "suggestion": "Try the breathing exercise: Inhale for 4 counts, hold for 4, exhale for 4."
+  }
+}
+```
+
+### POST /learning/session/end/{session_id}
+
+End a learning session and get comprehensive feedback.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "session_id": "user_topic_1234567890",
+    "status": "completed",
+    "completion_summary": {
+      "session_topic": "python_functions",
+      "duration_minutes": 42.5,
+      "completion_rate": 1.0,
+      "emotional_journey": "balanced",
+      "learning_effectiveness": 1.8,
+      "key_achievements": [
+        "Completed all planned modules",
+        "Maintained positive learning experience"
+      ],
+      "personal_growth": "You showed strong comprehension and steady progress..."
+    },
+    "progress_report": {
+      "performance_metrics": {
+        "learning_efficiency": 1.8,
+        "emotional_stability": 0.9
+      },
+      "insights": [
+        "Strong engagement with interactive content",
+        "Effective emotional state management"
+      ],
+      "recommendations": [
+        "Continue with advanced function concepts",
+        "Try more creative coding challenges"
+      ]
+    },
+    "behavioral_insights": {
+      "insights": [
+        "Most productive learning time: 14:00",
+        "Consistent daily learning pattern"
+      ],
+      "patterns": {...},
+      "recommendations": [...]
+    },
+    "next_session_recommendations": {
+      "suggested_duration_minutes": 45,
+      "recommended_difficulty": "intermediate",
+      "focus_areas": ["practice", "review"],
+      "emotional_preparation": "Start with engaging examples"
+    }
+  }
+}
+```
+
+### GET /learning/session/status/{session_id}
+
+Get current status of a learning session.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "session_id": "user_topic_1234567890",
+    "learner_id": "test_user",
+    "topic": "python_functions",
+    "duration": 1850.5,
+    "current_emotion": "engaged",
+    "content_progress": 2,
+    "active_interventions": 0
+  }
+}
+```
+
+### GET /learning/progress/{learner_id}
+
+Get comprehensive learning progress for a learner.
+
+**Query Parameters:**
+- `topic` (string, optional): Filter by specific topic
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "learner_id": "test_user",
+    "topic": "python_functions",
+    "overall_mastery": 0.73,
+    "skill_breakdown": {
+      "problem_solving": 0.8,
+      "concept_understanding": 0.7,
+      "code_writing": 0.75,
+      "debugging": 0.65
+    },
+    "learning_velocity": 1.2,
+    "recommended_difficulty": "intermediate",
+    "next_focus_areas": [
+      "strengthen_debugging",
+      "advance_concept_understanding"
+    ]
+  }
+}
+```
+
+### GET /learning/insights/{learner_id}
+
+Get behavioral insights and learning patterns.
+
+**Query Parameters:**
+- `time_window_days` (integer, optional): Analysis window (default: 30)
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "insights": [
+      "Most productive learning time: 14:00",
+      "Consistent daily learning pattern - excellent momentum!",
+      "Most common learning emotion: engaged"
+    ],
+    "patterns": {
+      "avg_session_duration": 2700.5,
+      "preferred_learning_times": [14],
+      "topic_sequence": ["python_functions"],
+      "success_patterns": {...}
+    },
+    "recommendations": [
+      "Maintain current learning schedule - it's working well!",
+      "Try more frequent, shorter learning sessions"
+    ]
+  }
+}
+```
+
+### POST /learning/demo/run
+
+Run demonstration scenarios for the learning companion.
+
+**Response:**
+```json
+{
+  "success": true,
+  "data": {
+    "scenarios_run": 3,
+    "sessions_completed": 3,
+    "interventions_triggered": true,
+    "adaptations_performed": true,
+    "overall_success": true,
+    "scenario_results": [
+      {
+        "scenario": "exploratory_learner",
+        "success": true,
+        "emotional_journey": "highly_engaged"
+      },
+      {
+        "scenario": "frustrated_learner",
+        "success": true,
+        "interventions_triggered": true,
+        "emotional_journey": "challenging"
+      },
+      {
+        "scenario": "emotional_shift",
+        "success": true,
+        "adaptations_performed": true,
+        "emotional_journey": "variable"
+      }
+    ]
+  }
+}
+```
+
+## Error Responses
+
+All endpoints return errors in this format:
+
+```json
+{
+  "success": false,
+  "error": "Description of the error"
+}
+```
+
+Common HTTP status codes:
+- `400` - Bad Request (invalid parameters)
+- `404` - Not Found (session/topic doesn't exist)
+- `500` - Internal Server Error (server-side issues)
+
+## Rate Limiting
+
+Currently no rate limiting implemented. For production:
+- Per-user rate limiting
+- API key validation
+- Request throttling
+
+## Data Privacy
+
+- Emotional data processed locally
+- No external data transmission
+- Configurable data retention
+- Research-grade privacy controls
+
+## Integration Examples
+
+### JavaScript Client
+```javascript
+// Start learning session
+const response = await fetch('/learning/session/start?learner_id=user123&topic=python_functions');
+const session = await response.json();
+
+// Process interaction
+const interaction = await fetch('/learning/session/interact', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({
+    session_id: session.data.session_id,
+    interaction_type: 'correct_answer',
+    interaction_data: {response_time: 1.2, confidence: 0.95}
+  })
+});
+```
+
+### Python Client
+```python
+import httpx
+
+async def learning_session():
+    async with httpx.AsyncClient(base_url='http://localhost:7681') as client:
+        # Start session
+        response = await client.post('/learning/session/start', 
+                                   params={'learner_id': 'user123', 'topic': 'python_functions'})
+        session = response.json()
+        
+        # Interact
+        await client.post('/learning/session/interact', json={
+            'session_id': session['data']['session_id'],
+            'interaction_type': 'correct_answer',
+            'interaction_data': {'response_time': 1.2, 'confidence': 0.95}
+        })
+```
+
+## Performance Characteristics
+
+- **Response Time**: <100ms for most endpoints
+- **Concurrent Sessions**: Supports multiple simultaneous learners
+- **Emotional Processing**: Real-time multi-signal analysis
+- **Content Adaptation**: Instantaneous routing decisions
+- **Data Persistence**: Efficient session storage and retrieval
+
+## Monitoring & Analytics
+
+The API provides built-in monitoring:
+- Session analytics and completion tracking
+- Emotional state distribution analysis
+- Intervention effectiveness metrics
+- Learning progress velocity tracking
+- Behavioral pattern recognition

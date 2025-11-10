@@ -6,10 +6,6 @@ A web-accessible terminal-based entertainment arena with retro arcade styling. N
 
 - 🎮 **Web-based Terminal**: Access PowerShell terminal through your browser
 - 🚗 **Bumper Car Game**: Navigate using `cd` commands with time travel mechanics
-- 🏙️ **City Navigation**: Travel between Echoes, Reverb, and Delay cities
-- ⏱️ **Time Travel**: Use `cd ..` and `cd ...` to go back in time/location history
-- 🔒 **Secure Sandbox**: Isolated environment with command whitelisting
-- 🎨 **Retro Arcade Theme**: Classic terminal styling with neon colors
 
 ## Quick Start
 
@@ -40,6 +36,88 @@ uvicorn Arcade.api.server:app --host 0.0.0.0 --port 7681 --reload
 ```
 http://localhost:7681
 ```
+
+## Emotionally-Adaptive Learning Companion
+
+The Arcade now includes an innovative AI-powered learning system that adapts educational content based on learner emotional states and behavioral patterns.
+
+### Features
+
+- 🧠 **Emotional Intelligence**: Detects 8 emotional states (exploratory, creative, analytical, urgent, calm, frustrated, confused, engaged)
+- 📚 **Adaptive Content**: 5 content types with emotion-based routing (interactive exercises, concept explanations, practical projects, assessments, mindfulness)
+- 🚨 **Intervention System**: 4 automated support mechanisms (stress relief, engagement boost, confusion support, frustration relief)
+- 📊 **Progress Analytics**: Real-time skill mastery tracking and behavioral insights
+- 🔄 **Real-Time Adaptation**: Instantaneous content switching during learning sessions
+
+### API Endpoints
+
+The learning companion provides a complete REST API:
+
+```
+GET  /learning/status          # System status and capabilities
+GET  /learning/topics          # Available learning topics
+POST /learning/session/start   # Create new learning session
+POST /learning/session/interact # Process learning interactions
+POST /learning/session/end/{id} # Complete learning session
+GET  /learning/session/status/{id} # Session status monitoring
+GET  /learning/progress/{id}   # Learning progress analytics
+GET  /learning/insights/{id}   # Behavioral insights and recommendations
+POST /learning/demo/run        # Run demonstration scenarios
+```
+
+### Quick Start
+
+1. **Start the server**:
+```bash
+python api/server.py
+```
+
+2. **Check system status**:
+```bash
+curl http://localhost:7681/learning/status
+```
+
+3. **Start a learning session**:
+```bash
+curl -X POST "http://localhost:7681/learning/session/start?learner_id=test_user&topic=python_functions"
+```
+
+4. **Run API tests**:
+```bash
+python api_test_quick.py
+```
+
+### Learning Topics
+
+Currently available learning topics:
+- **Python Functions**: Complete function mastery with emotional adaptation
+
+### Emotional States Detected
+
+The system analyzes multiple signals to detect:
+- **Exploratory**: High engagement, independent discovery
+- **Creative**: Experimental learning, moderate errors
+- **Analytical**: Methodical, structured approach
+- **Urgent**: Fast-paced, time-pressured learning
+- **Calm**: Steady, focused progression
+- **Frustrated**: High errors, slow responses, help dependency
+- **Confused**: Inconsistent responses, moderate errors
+- **Engaged**: High interaction frequency, good progress
+
+### Intervention Types
+
+Automatic interventions for learning challenges:
+- **Stress Relief**: Breathing exercises and break suggestions
+- **Engagement Boost**: Interactive content switching
+- **Confusion Support**: Alternative explanations and visual aids
+- **Frustration Relief**: Difficulty adjustment and encouragement
+
+### Real-World Applications
+
+- **Corporate Training**: Emotionally-aware professional development
+- **K-12 STEM Education**: Stress-reducing adaptive learning
+- **Higher Education**: Personalized academic support
+- **Specialized Learning**: Adaptive content for diverse needs
 
 ## Architecture
 

@@ -1,0 +1,30 @@
+{
+  "session_id": "api_test_user_python_functions_1762805147",
+  "learner_id": "api_test_user",
+  "topic": "python_functions",
+  "start_time": 1762805147.8725433,
+  "end_time": 1762805147.8749547,
+  "emotional_states": [],
+  "interactions": [
+    {
+      "timestamp": 1762805147.8740408,
+      "type": "correct_answer",
+      "data": {
+        "response_time": 1.5,
+        "confidence": 0.9,
+        "exploration_depth": null,
+        "frustration_level": null,
+        "topic": null,
+        "urgent": null,
+        "stuck_completely": null,
+        "module_index": null,
+        "success_rate": null,
+        "comprehension_level": null
+      },
+      "session_time": 0.0014977455139160156
+    }
+  ],
+  "content_modules": [],
+  "progress_metrics": {},
+  "behavioral_insights": {}
+}

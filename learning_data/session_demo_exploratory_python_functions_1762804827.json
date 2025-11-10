@@ -1,0 +1,74 @@
+{
+  "session_id": "demo_exploratory_python_functions_1762804827",
+  "learner_id": "demo_exploratory",
+  "topic": "python_functions",
+  "start_time": 1762804827.6849873,
+  "end_time": 1762804827.685222,
+  "emotional_states": [
+    {
+      "timestamp": 1762804827.6852083,
+      "state": {
+        "primary_emotion": "Emotion.ENGAGED",
+        "confidence": 0.95,
+        "secondary_emotions": [
+          [
+            "Emotion.ANALYTICAL",
+            0.9
+          ],
+          [
+            "Emotion.EXPLORATORY",
+            0.85
+          ]
+        ],
+        "engagement_level": 0.825,
+        "stress_indicators": 0.0,
+        "timestamp": 1762804827.6851318
+      },
+      "session_time": 0.00022101402282714844
+    },
+    {
+      "timestamp": 1762804827.6852164,
+      "state": {
+        "primary_emotion": "Emotion.ENGAGED",
+        "confidence": 0.95,
+        "secondary_emotions": [
+          [
+            "Emotion.ANALYTICAL",
+            0.9
+          ],
+          [
+            "Emotion.EXPLORATORY",
+            0.85
+          ]
+        ],
+        "engagement_level": 0.825,
+        "stress_indicators": 0.0,
+        "timestamp": 1762804827.6851318
+      },
+      "session_time": 0.00022912025451660156
+    }
+  ],
+  "interactions": [
+    {
+      "timestamp": 1762804827.6852005,
+      "type": "correct_answer",
+      "data": {
+        "response_time": 0.7,
+        "confidence": 0.9
+      },
+      "session_time": 0.00021314620971679688
+    },
+    {
+      "timestamp": 1762804827.685211,
+      "type": "module_completed",
+      "data": {
+        "module_index": 0,
+        "success_rate": 0.9
+      },
+      "session_time": 0.0002238750457763672
+    }
+  ],
+  "content_modules": [],
+  "progress_metrics": {},
+  "behavioral_insights": {}
+}

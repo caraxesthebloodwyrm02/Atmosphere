@@ -1,0 +1,85 @@
+{
+  "session_id": "demo_exploratory_student_python_functions_1762803555",
+  "learner_id": "demo_exploratory_student",
+  "topic": "python_functions",
+  "start_time": 1762803555.5899365,
+  "end_time": 1762803555.5910835,
+  "emotional_states": [
+    {
+      "timestamp": 1762803555.5906336,
+      "state": {
+        "primary_emotion": "Emotion.ENGAGED",
+        "confidence": 0.95,
+        "secondary_emotions": [
+          [
+            "Emotion.ANALYTICAL",
+            0.9
+          ],
+          [
+            "Emotion.EXPLORATORY",
+            0.85
+          ]
+        ],
+        "engagement_level": 0.825,
+        "stress_indicators": 0.0,
+        "timestamp": 1762803555.59013
+      },
+      "session_time": 0.0006973743438720703
+    },
+    {
+      "timestamp": 1762803555.590856,
+      "state": {
+        "primary_emotion": "Emotion.URGENT",
+        "confidence": 0.8,
+        "secondary_emotions": [
+          [
+            "Emotion.CREATIVE",
+            0.75
+          ],
+          [
+            "Emotion.EXPLORATORY",
+            0.0
+          ]
+        ],
+        "engagement_level": 0.25,
+        "stress_indicators": 0.0,
+        "timestamp": 1762803555.590799
+      },
+      "session_time": 0.0009195804595947266
+    }
+  ],
+  "interactions": [
+    {
+      "timestamp": 1762803555.5906231,
+      "type": "correct_answer",
+      "data": {
+        "response_time": 0.7,
+        "confidence": 0.9,
+        "exploration_depth": "high"
+      },
+      "session_time": 0.0006868839263916016
+    },
+    {
+      "timestamp": 1762803555.5907216,
+      "type": "help_request",
+      "data": {
+        "topic": "function_parameters",
+        "curiosity_driven": true
+      },
+      "session_time": 0.0007853507995605469
+    },
+    {
+      "timestamp": 1762803555.590971,
+      "type": "module_completed",
+      "data": {
+        "module_index": 0,
+        "success_rate": 0.9,
+        "exploration_satisfaction": "high"
+      },
+      "session_time": 0.0010344982147216797
+    }
+  ],
+  "content_modules": [],
+  "progress_metrics": {},
+  "behavioral_insights": {}
+}

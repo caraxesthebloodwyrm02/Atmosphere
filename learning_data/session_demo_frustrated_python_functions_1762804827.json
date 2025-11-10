@@ -1,0 +1,40 @@
+{
+  "session_id": "demo_frustrated_python_functions_1762804827",
+  "learner_id": "demo_frustrated",
+  "topic": "python_functions",
+  "start_time": 1762804827.6961322,
+  "end_time": 1762804827.6963193,
+  "emotional_states": [],
+  "interactions": [
+    {
+      "timestamp": 1762804827.6963043,
+      "type": "incorrect_answer",
+      "data": {
+        "response_time": 5.0,
+        "frustration_level": 0.8
+      },
+      "session_time": 0.0001723766326904297
+    },
+    {
+      "timestamp": 1762804827.696313,
+      "type": "incorrect_answer",
+      "data": {
+        "response_time": 6.0,
+        "error_streak": 2
+      },
+      "session_time": 0.00018072128295898438
+    },
+    {
+      "timestamp": 1762804827.6963162,
+      "type": "help_request",
+      "data": {
+        "urgent": true,
+        "stuck_completely": true
+      },
+      "session_time": 0.00018405914306640625
+    }
+  ],
+  "content_modules": [],
+  "progress_metrics": {},
+  "behavioral_insights": {}
+}

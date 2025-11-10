@@ -422,6 +422,222 @@ class AcousticRoutingNetwork:
 
         plt.show()
 
+    def calculate_route_metrics(self, route: List[str]) -> Dict[str, float]:
+        """
+        Calculate comprehensive metrics for a route including enhanced optimization criteria.
+        """
+        if len(route) < 2:
+            return {
+                'total_distance': 0,
+                'total_delay': 0,
+                'avg_reverb_density': 0,
+                'path_efficiency': 0,
+                'connectivity_score': 0,
+                'navigation_smoothness': 0,
+                'route_reliability': 0
+            }
+
+        total_distance = 0
+        total_delay = 0
+        total_reverb = 0
+        feedback_sum = 0
+        decay_sum = 0
+        edge_count = 0
+
+        for i in range(len(route) - 1):
+            edge = (route[i], route[i + 1])
+            if edge in self.acoustic_params:
+                params = self.acoustic_params[edge]
+                total_distance += self.graph[edge[0]][edge[1]]['weight']
+                total_delay += params.delay_time
+                total_reverb += params.reverb_density
+                feedback_sum += params.feedback
+                decay_sum += params.decay
+                edge_count += 1
+
+        if edge_count == 0:
+            return self.calculate_route_metrics([])
+
+        avg_reverb_density = total_reverb / edge_count
+        avg_feedback = feedback_sum / edge_count
+        avg_decay = decay_sum / edge_count
+
+        # Enhanced metrics for seamless navigation
+        path_efficiency = 1.0 / (1.0 + total_delay / 1000.0)  # Normalize delay impact
+        connectivity_score = avg_feedback * avg_reverb_density  # Combined connectivity
+        navigation_smoothness = self.calculate_navigation_smoothness(route)
+        route_reliability = avg_decay * (1.0 - avg_feedback * 0.1)  # Reliability considering detours
+
+        return {
+            'total_distance': total_distance,
+            'total_delay': total_delay,
+            'avg_reverb_density': avg_reverb_density,
+            'path_efficiency': path_efficiency,
+            'connectivity_score': connectivity_score,
+            'navigation_smoothness': navigation_smoothness,
+            'route_reliability': route_reliability,
+            'avg_feedback_factor': avg_feedback,
+            'avg_decay_factor': avg_decay
+        }
+
+    def calculate_navigation_smoothness(self, route: List[str]) -> float:
+        """
+        Calculate navigation smoothness based on route continuity and flow.
+        Returns value between 0 (very rough) and 1 (very smooth).
+        """
+        if len(route) < 3:
+            return 1.0  # Short routes are inherently smooth
+
+        smoothness_score = 0
+        valid_segments = 0
+
+        for i in range(len(route) - 2):
+            segment_a = (route[i], route[i + 1])
+            segment_b = (route[i + 1], route[i + 2])
+
+            # Check if both segments exist
+            if segment_a in self.acoustic_params and segment_b in self.acoustic_params:
+                params_a = self.acoustic_params[segment_a]
+                params_b = self.acoustic_params[segment_b]
+
+                # Calculate transition smoothness based on acoustic continuity
+                delay_continuity = 1.0 - abs(params_a.delay_time - params_b.delay_time) / max(params_a.delay_time, params_b.delay_time, 1)
+                reverb_continuity = 1.0 - abs(params_a.reverb_density - params_b.reverb_density)
+
+                segment_smoothness = (delay_continuity + reverb_continuity) / 2.0
+                smoothness_score += segment_smoothness
+                valid_segments += 1
+
+        return smoothness_score / valid_segments if valid_segments > 0 else 0.5
+
+    def find_multi_criteria_route(self, start: str, end: str,
+                                criteria_weights: Dict[str, float] = None) -> List[str]:
+        """
+        Find optimal route considering multiple criteria simultaneously.
+
+        Args:
+            criteria_weights: Dict with keys 'distance', 'delay', 'reverb', 'smoothness'
+                            Values should sum to 1.0
+        """
+        if criteria_weights is None:
+            criteria_weights = {'distance': 0.4, 'delay': 0.3, 'reverb': 0.2, 'smoothness': 0.1}
+
+        # Normalize weights
+        total_weight = sum(criteria_weights.values())
+        normalized_weights = {k: v / total_weight for k, v in criteria_weights.items()}
+
+        # Find candidate routes using different optimization criteria
+        candidate_routes = []
+        criteria = ['distance', 'delay', 'reverb']
+
+        for criterion in criteria:
+            route = self.find_optimal_route(start, end, criterion)
+            if route:
+                metrics = self.calculate_route_metrics(route)
+                candidate_routes.append((route, metrics))
+
+        if not candidate_routes:
+            return []
+
+        # Score each route based on weighted criteria
+        best_route = None
+        best_score = -float('inf')
+
+        for route, metrics in candidate_routes:
+            score = 0
+
+            # Distance score (lower is better, so invert)
+            if metrics['total_distance'] > 0:
+                distance_score = 1.0 / metrics['total_distance']
+            else:
+                distance_score = 1.0
+            score += normalized_weights.get('distance', 0) * distance_score
+
+            # Delay score (lower is better)
+            if metrics['total_delay'] > 0:
+                delay_score = 1.0 / metrics['total_delay']
+            else:
+                delay_score = 1.0
+            score += normalized_weights.get('delay', 0) * delay_score
+
+            # Reverb score (higher density is better)
+            reverb_score = metrics['avg_reverb_density']
+            score += normalized_weights.get('reverb', 0) * reverb_score
+
+            # Smoothness score
+            smoothness_score = metrics['navigation_smoothness']
+            score += normalized_weights.get('smoothness', 0) * smoothness_score
+
+            if score > best_score:
+                best_score = score
+                best_route = route
+
+        return best_route if best_route else []
+
+    def optimize_route_for_navigation(self, start: str, end: str,
+                                    preferences: Dict[str, str] = None) -> Tuple[List[str], Dict]:
+        """
+        Find route optimized for seamless navigation with user preferences.
+
+        Args:
+            preferences: Dict with navigation preferences like:
+                       'speed_priority': 'fastest'/'balanced'/'scenic'
+                       'traffic_avoidance': 'high'/'medium'/'low'
+                       'route_type': 'direct'/'scenic'/'efficient'
+
+        Returns:
+            Tuple of (optimal_route, detailed_metrics)
+        """
+        if preferences is None:
+            preferences = {}
+
+        # Set default criteria weights based on preferences
+        speed_priority = preferences.get('speed_priority', 'balanced')
+        traffic_avoidance = preferences.get('traffic_avoidance', 'medium')
+        route_type = preferences.get('route_type', 'efficient')
+
+        # Define criteria weights based on preferences
+        if speed_priority == 'fastest':
+            criteria_weights = {'distance': 0.1, 'delay': 0.7, 'reverb': 0.1, 'smoothness': 0.1}
+        elif speed_priority == 'scenic':
+            criteria_weights = {'distance': 0.2, 'delay': 0.2, 'reverb': 0.5, 'smoothness': 0.1}
+        else:  # balanced
+            criteria_weights = {'distance': 0.3, 'delay': 0.3, 'reverb': 0.2, 'smoothness': 0.2}
+
+        # Adjust for traffic avoidance
+        if traffic_avoidance == 'high':
+            criteria_weights['reverb'] *= 0.5  # Avoid dense areas
+            criteria_weights['distance'] *= 1.2  # Prefer longer but less congested routes
+        elif traffic_avoidance == 'low':
+            criteria_weights['reverb'] *= 1.5  # Okay with denser routes
+
+        # Adjust for route type
+        if route_type == 'direct':
+            criteria_weights['distance'] *= 1.5
+            criteria_weights['delay'] *= 1.2
+        elif route_type == 'scenic':
+            criteria_weights['reverb'] *= 1.5
+            criteria_weights['smoothness'] *= 1.3
+
+        # Find optimal route
+        optimal_route = self.find_multi_criteria_route(start, end, criteria_weights)
+
+        if optimal_route:
+            detailed_metrics = self.calculate_route_metrics(optimal_route)
+            detailed_metrics.update({
+                'preferences_applied': preferences,
+                'criteria_weights_used': criteria_weights,
+                'optimization_score': sum(
+                    criteria_weights[k] * detailed_metrics.get(k, 0)
+                    for k in ['distance', 'delay', 'reverb', 'smoothness']
+                    if k in criteria_weights
+                )
+            })
+        else:
+            detailed_metrics = {}
+
+        return optimal_route, detailed_metrics
+
     def find_optimal_route(self, start: str, end: str,
                           criteria: str = 'distance') -> List[str]:
         """

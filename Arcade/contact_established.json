@@ -1,0 +1,8 @@
+{
+  "session_id": "arcade_first_contact_001",
+  "reception_status": "successful",
+  "data_size_received": 5469,
+  "processing_status": "queued",
+  "message": "Arcade analysis data received and queued for processing",
+  "server_timestamp": "2025-11-10T14:26:23.100429"
+}

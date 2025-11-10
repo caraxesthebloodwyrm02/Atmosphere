@@ -9,6 +9,7 @@ import logging
 import uuid
 from pathlib import Path
 from typing import Dict, Any, Optional
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse, FileResponse
@@ -20,6 +21,7 @@ try:
     from .game_engine import GameEngine
     from .routing_integration import RoutingIntegration
     from .tool_integration import ToolIntegration
+    from .learning_companion_api import router as learning_router
 except ImportError:
     # For direct execution
     import sys
@@ -30,6 +32,7 @@ except ImportError:
     from game_engine import GameEngine
     from routing_integration import RoutingIntegration
     from tool_integration import ToolIntegration
+    from learning_companion_api import router as learning_router
 
 logger = logging.getLogger(__name__)
 
@@ -46,12 +49,51 @@ tool_integration = ToolIntegration()
 # Active WebSocket connections
 active_connections: Dict[str, WebSocket] = {}
 
-# Create FastAPI app
+# Create FastAPI app with lifespan
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Handle application startup and shutdown events."""
+    # Startup
+    logger.info("Starting Arcade Terminal server...")
+
+    # Initialize routing integration
+    try:
+        await routing_integration.initialize()
+        logger.info("Routing integration initialized")
+    except Exception as e:
+        logger.warning(f"Routing integration not available: {e}")
+
+    # Create sandbox directories
+    sandbox_root = Path(__file__).parent.parent / "sandbox" / "virtual_fs"
+    sandbox_root.mkdir(parents=True, exist_ok=True)
+
+    logger.info("Arcade Terminal server started")
+    yield
+    # Shutdown
+    logger.info("Shutting down Arcade Terminal server...")
+
+    # Terminate all active sessions
+    for session_id in list(terminal_handler.sessions.keys()):
+        terminal_handler.terminate_session(session_id)
+
+    # Close all WebSocket connections
+    for connection in active_connections.values():
+        try:
+            await connection.close()
+        except Exception:
+            pass
+
+    logger.info("Arcade Terminal server shutdown complete")
+
 app = FastAPI(
     title="Arcade Terminal",
-    description="Retro-style terminal entertainment space",
-    version="1.0.0"
+    description="Retro-style terminal entertainment space with emotionally-adaptive learning",
+    version="1.0.0",
+    lifespan=lifespan
 )
+
+# Include learning companion API
+app.include_router(learning_router)
 
 # Mount static files
 web_dir = Path(__file__).parent.parent / "web"
@@ -62,44 +104,6 @@ if web_dir.exists():
 def create_app() -> FastAPI:
     """Create and configure the FastAPI application"""
     return app
-
-
-@app.on_event("startup")
-async def startup_event():
-    """Initialize on startup"""
-    logger.info("Starting Arcade Terminal server...")
-    
-    # Initialize routing integration
-    try:
-        await routing_integration.initialize()
-        logger.info("Routing integration initialized")
-    except Exception as e:
-        logger.warning(f"Routing integration not available: {e}")
-    
-    # Create sandbox directories
-    sandbox_root = Path(__file__).parent.parent / "sandbox" / "virtual_fs"
-    sandbox_root.mkdir(parents=True, exist_ok=True)
-    
-    logger.info("Arcade Terminal server started")
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    """Cleanup on shutdown"""
-    logger.info("Shutting down Arcade Terminal server...")
-    
-    # Terminate all active sessions
-    for session_id in list(terminal_handler.sessions.keys()):
-        terminal_handler.terminate_session(session_id)
-    
-    # Close all WebSocket connections
-    for connection in active_connections.values():
-        try:
-            await connection.close()
-        except Exception:
-            pass
-    
-    logger.info("Arcade Terminal server shutdown complete")
 
 
 @app.get("/")

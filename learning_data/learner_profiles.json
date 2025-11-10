@@ -1,0 +1,87 @@
+{
+  "validation_test": {
+    "learner_id": "validation_test",
+    "created_at": 1762804827.6835842,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {},
+    "learning_preferences": {},
+    "emotional_patterns": {}
+  },
+  "demo_exploratory": {
+    "learner_id": "demo_exploratory",
+    "created_at": 1762804827.684991,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.0002346038818359375,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.5
+    }
+  },
+  "demo_frustrated": {
+    "learner_id": "demo_frustrated",
+    "created_at": 1762804827.696134,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.00018715858459472656,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.0
+    }
+  },
+  "demo_shift": {
+    "learner_id": "demo_shift",
+    "created_at": 1762804827.7031717,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.00027871131896972656,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.0
+    }
+  },
+  "api_test_user": {
+    "learner_id": "api_test_user",
+    "created_at": 1762805147.8725479,
+    "total_sessions": 1,
+    "topics_attempted": "{'python_functions'}",
+    "skill_mastery": {
+      "problem_solving": 0.35,
+      "concept_understanding": 0.35,
+      "code_writing": 0.35,
+      "debugging": 0.35
+    },
+    "learning_preferences": {
+      "preferred_session_duration": 0.002411365509033203,
+      "optimal_efficiency": 0.0
+    },
+    "emotional_patterns": {
+      "avg_stability": 0.0
+    }
+  }
+}

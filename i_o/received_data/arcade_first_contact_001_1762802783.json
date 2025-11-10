@@ -1,0 +1,335 @@
+{
+  "session_id": "arcade_first_contact_001",
+  "transmission_type": "full_runtime_analysis",
+  "data": {
+    "contact_establishment": "ACTIVE",
+    "system_analysis": {
+      "system_info": {
+        "analysis_start": "2025-11-10T14:23:10.600605",
+        "platform": "win32",
+        "python_version": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+        "analysis_duration": 0.43650102615356445,
+        "analysis_complete": "2025-11-10T14:23:11.037108"
+      },
+      "performance_metrics": {
+        "sessions_created": 5,
+        "navigation_commands_executed": 25,
+        "session_creation_success_rate": 1.0,
+        "navigation_success_rate": 1.0,
+        "avg_response_time": 0.005223014137961648,
+        "min_response_time": 1.1920928955078125e-06,
+        "max_response_time": 0.015479564666748047,
+        "response_time_stddev": 0.006141710313075706,
+        "total_operations_tested": 11
+      },
+      "behavioral_patterns": {
+        "navigation_sequences": [
+          {
+            "sequence": [
+              "cd Echoes",
+              "pwd",
+              "cd Reverb",
+              "cd ..",
+              "cd Delay"
+            ],
+            "locations_visited": [
+              "Echoes",
+              "Reverb",
+              "Delay"
+            ],
+            "duration": 0.0008745193481445312,
+            "unique_locations": 3
+          },
+          {
+            "sequence": [
+              "cd Delay",
+              "cd ..",
+              "cd Reverb",
+              "pwd",
+              "cd Echoes"
+            ],
+            "locations_visited": [
+              "Delay",
+              "Reverb",
+              "Echoes"
+            ],
+            "duration": 0.0006475448608398438,
+            "unique_locations": 3
+          },
+          {
+            "sequence": [
+              "cd Echoes",
+              "cd Delay",
+              "cd ..",
+              "cd Reverb",
+              "pwd"
+            ],
+            "locations_visited": [
+              "Echoes",
+              "Delay",
+              "Reverb"
+            ],
+            "duration": 0.0007295608520507812,
+            "unique_locations": 3
+          }
+        ],
+        "emotional_routing_usage": [
+          {
+            "emotion": "exploratory",
+            "success": true,
+            "stability_score": 0.85,
+            "path_length": 2
+          },
+          {
+            "emotion": "creative",
+            "success": true,
+            "stability_score": 0.78,
+            "path_length": 2
+          },
+          {
+            "emotion": "analytical",
+            "success": true,
+            "stability_score": 0.92,
+            "path_length": 2
+          },
+          {
+            "emotion": "urgent",
+            "success": true,
+            "stability_score": 0.65,
+            "path_length": 2
+          }
+        ],
+        "command_patterns": [],
+        "session_durations": []
+      },
+      "emotional_routing_insights": {
+        "emotion_success_rates": {
+          "exploratory": 0.6666666666666666,
+          "creative": 0.6666666666666666,
+          "analytical": 1.0,
+          "urgent": 0.6666666666666666,
+          "calm": 1.0
+        },
+        "stability_distributions": {
+          "exploratory": {
+            "mean": 0.85,
+            "stddev": 0.0,
+            "min": 0.85,
+            "max": 0.85
+          },
+          "creative": {
+            "mean": 0.78,
+            "stddev": 0.0,
+            "min": 0.78,
+            "max": 0.78
+          },
+          "analytical": {
+            "mean": 0.92,
+            "stddev": 0.0,
+            "min": 0.92,
+            "max": 0.92
+          },
+          "urgent": {
+            "mean": 0.65,
+            "stddev": 0.0,
+            "min": 0.65,
+            "max": 0.65
+          },
+          "calm": {
+            "mean": 0.88,
+            "stddev": 0.0,
+            "min": 0.88,
+            "max": 0.88
+          }
+        },
+        "path_length_analysis": {
+          "exploratory": {
+            "mean": 2,
+            "min": 2,
+            "max": 2
+          },
+          "creative": {
+            "mean": 2,
+            "min": 2,
+            "max": 2
+          },
+          "analytical": {
+            "mean": 2,
+            "min": 2,
+            "max": 2
+          },
+          "urgent": {
+            "mean": 2,
+            "min": 2,
+            "max": 2
+          },
+          "calm": {
+            "mean": 2,
+            "min": 2,
+            "max": 2
+          }
+        },
+        "emotional_patterns": [
+          "Most successful emotion: analytical (100.0% success rate)",
+          "Least successful emotion: exploratory (66.7% success rate)",
+          "Emotional routing provides 5/5 emotions with >50% success rate"
+        ]
+      },
+      "tool_execution_patterns": {
+        "tool_execution_times": {
+          "interactive_playground_menu": {
+            "mean": 0.000865936279296875,
+            "min": 5.7220458984375e-06,
+            "max": 0.002579927444458008
+          },
+          "game_collection_games": {
+            "mean": 6.516774495442708e-06,
+            "min": 4.291534423828125e-06,
+            "max": 9.775161743164062e-06
+          },
+          "interactive_playground_demo": {
+            "mean": 7.152557373046875e-06,
+            "min": 4.76837158203125e-06,
+            "max": 1.0728836059570312e-05
+          }
+        },
+        "tool_success_rates": {
+          "interactive_playground_menu": 1.0,
+          "game_collection_games": 1.0,
+          "interactive_playground_demo": 1.0
+        },
+        "output_patterns": {},
+        "performance_characteristics": [
+          "Average tool execution time: 0.000s",
+          "Tool execution time range: 0.000s - 0.001s",
+          "Overall tool success rate: 100.0%"
+        ]
+      },
+      "navigation_efficiency": {
+        "command_efficiency": {
+          "direct": {
+            "commands": 3,
+            "unique_locations": 3,
+            "efficiency_ratio": 1.0,
+            "duration": 0.0008566379547119141,
+            "locations_sequence": [
+              "Echoes",
+              "Reverb",
+              "Delay"
+            ]
+          },
+          "with_backtracking": {
+            "commands": 5,
+            "unique_locations": 3,
+            "efficiency_ratio": 0.6,
+            "duration": 0.0005233287811279297,
+            "locations_sequence": [
+              "Echoes",
+              "Delay",
+              "Reverb",
+              "Delay",
+              "Delay"
+            ]
+          },
+          "time_travel": {
+            "commands": 4,
+            "unique_locations": 3,
+            "efficiency_ratio": 0.75,
+            "duration": 0.0003476142883300781,
+            "locations_sequence": [
+              "Echoes",
+              "Delay",
+              "Reverb",
+              "Reverb"
+            ]
+          },
+          "circular": {
+            "commands": 4,
+            "unique_locations": 4,
+            "efficiency_ratio": 1.0,
+            "duration": 0.0006749629974365234,
+            "locations_sequence": [
+              "Echoes",
+              "Reverb",
+              "Delay",
+              "Arcade"
+            ]
+          }
+        },
+        "path_optimization": {},
+        "time_travel_patterns": {
+          "commands": [
+            "cd Echoes",
+            "cd Reverb",
+            "cd ..",
+            "cd ...",
+            "pwd"
+          ],
+          "location_sequence": [
+            "Echoes",
+            "Reverb",
+            "Echoes",
+            "Echoes",
+            "Echoes"
+          ],
+          "unique_locations": 2,
+          "back_navigation_used": 2
+        },
+        "location_transition_analysis": []
+      },
+      "stability_analysis": {
+        "routing_stability": {
+          "tests_run": 10,
+          "successes": 10,
+          "success_rate": 1.0,
+          "failures": 0
+        },
+        "emotional_routing_stability": {
+          "tests_run": 10,
+          "successes": 9,
+          "success_rate": 0.9,
+          "failures": 1
+        },
+        "session_persistence": {
+          "session_retrieved": true,
+          "location_consistency": true,
+          "data_integrity": true
+        },
+        "error_recovery": []
+      },
+      "findings": [
+        "High-performance system with sub-100ms response times",
+        "Most reliable emotion for routing: analytical (100.0% success rate)",
+        "Exceptionally stable routing system (>90% success rate)"
+      ],
+      "recommendations": []
+    },
+    "contact_protocol": {
+      "primary_objective": "Establish !contact between Arcade and i_o systems",
+      "communication_channels": [
+        "emotional_routing",
+        "behavioral_patterns",
+        "performance_metrics",
+        "stability_analysis"
+      ],
+      "data_exchange_format": "structured_json",
+      "compatibility_level": "high"
+    },
+    "arcade_system_status": {
+      "operational": true,
+      "emotion_capable": true,
+      "routing_stable": true,
+      "contact_ready": true
+    }
+  },
+  "metadata": {
+    "source_system": "Arcade",
+    "destination_system": "i_o",
+    "data_format": "structured_json",
+    "transmission_timestamp": "2025-11-10T14:23:11.037108",
+    "data_integrity": "verified"
+  },
+  "received_at": "2025-11-10T14:26:23.099102",
+  "data_size_bytes": 5469,
+  "processing_status": "received"
+}

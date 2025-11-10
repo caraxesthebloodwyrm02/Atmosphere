@@ -2,7 +2,7 @@
 Spatial Audio Service
 
 Provides 3D spatial audio processing including HRTF, Doppler effect, distance attenuation, and reverb integration.
-Implements binaural rendering for immersive audio experiences.
+Implements binaural rendering for immersive audio experiences with emotion-based spatial positioning.
 """
 
 import math
@@ -38,6 +38,92 @@ class ReverbSpace:
         return reverb_left, reverb_right
 
 
+class EmotionSpatializer:
+    """Emotion-based spatial positioning for immersive audio experiences."""
+    
+    def __init__(self):
+        # Emotion-to-spatial mapping based on psychological audio research
+        self.emotion_positions = {
+            'joyful': {
+                'position': (0, 2, 1),      # Elevated, front-center
+                'spread': 1.2,              # Wide stereo field
+                'height': 0.8,              # Elevated positioning
+                'description': 'uplifting, expansive presence'
+            },
+            'calm': {
+                'position': (0, 0, -0.5),   # Behind listener, centered
+                'spread': 0.8,              # Narrow, focused field
+                'height': 0.2,              # Grounded positioning
+                'description': 'centered, enveloping warmth'
+            },
+            'tense': {
+                'position': (1.5, 0, 0),    # Extreme left, eye level
+                'spread': 0.6,              # Tight, directional field
+                'height': 0.0,              # Direct positioning
+                'description': 'sharp, directional intensity'
+            },
+            'melancholic': {
+                'position': (-1, -1, -0.8), # Left-rear, low position
+                'spread': 1.0,              # Moderate spread
+                'height': -0.3,             # Below ear level
+                'description': 'distant, introspective depth'
+            },
+            'aggressive': {
+                'position': (2, 0.5, 0.5),  # Extreme right, slightly elevated
+                'spread': 0.4,              # Very tight field
+                'height': 0.5,              # Above ear level
+                'description': 'powerful, commanding presence'
+            },
+            'intimate': {
+                'position': (0.3, 0, 0),    # Close front-center
+                'spread': 0.9,              # Moderate stereo field
+                'height': 0.1,              # Near ear level
+                'description': 'close, personal connection'
+            },
+            'epic': {
+                'position': (0, 3, 2),      # Far above, center
+                'spread': 2.0,              # Ultra-wide field
+                'height': 1.5,              # High above
+                'description': 'grand, cinematic scale'
+            }
+        }
+        
+        # Environmental depth presets
+        self.environments = {
+            'small_room': {'size': 25, 'reflectivity': 0.6, 'rt60': 0.8},
+            'large_hall': {'size': 500, 'reflectivity': 0.8, 'rt60': 2.5},
+            'cathedral': {'size': 2000, 'reflectivity': 0.9, 'rt60': 4.0},
+            'outdoor': {'size': 10000, 'reflectivity': 0.1, 'rt60': 0.5},
+            'alley': {'size': 50, 'reflectivity': 0.4, 'rt60': 1.2},
+            'forest': {'size': 1000, 'reflectivity': 0.3, 'rt60': 1.8}
+        }
+    
+    def get_emotion_position(self, emotion: str) -> Dict:
+        """Get spatial parameters for a given emotion."""
+        return self.emotion_positions.get(emotion, self.emotion_positions['calm'])
+    
+    def get_environment_params(self, environment: str) -> Dict:
+        """Get acoustic parameters for a given environment."""
+        return self.environments.get(environment, self.environments['small_room'])
+    
+    def calculate_immersive_position(self, emotion: str, environment: str = 'small_room') -> Dict:
+        """Calculate comprehensive spatial positioning with environmental context."""
+        emotion_data = self.get_emotion_position(emotion)
+        env_data = self.get_environment_params(environment)
+        
+        # Adjust position based on environment size
+        scale_factor = math.sqrt(env_data['size']) / 10  # Normalize around 10m
+        adjusted_position = tuple(coord * scale_factor for coord in emotion_data['position'])
+        
+        return {
+            'position': adjusted_position,
+            'spread': emotion_data['spread'],
+            'height': emotion_data['height'],
+            'environment': env_data,
+            'description': f"{emotion_data['description']} in {environment.replace('_', ' ')}"
+        }
+
+
 class SpatialAudioService:
     """Service for 3D spatial audio processing with binaural rendering."""
     
@@ -49,6 +135,9 @@ class SpatialAudioService:
         
         # Initialize reverb space
         self.reverb_space = ReverbSpace(size=100, reflectivity=0.7, rt60=1.5)
+        
+        # Initialize emotion spatializer for immersive positioning
+        self.emotion_spatializer = EmotionSpatializer()
         
     def _generate_simple_hrtf(self) -> Dict[str, Dict[str, np.ndarray]]:
         """Generate simplified HRTF data for different directions."""
@@ -244,6 +333,89 @@ class SpatialAudioService:
         
         return stereo_signal
     
+    def process_emotion_spatial(self, signal: AudioSignal, emotion: str, 
+                              environment: str = 'small_room') -> AudioSignal:
+        """Process audio with emotion-based spatial positioning."""
+        # Get immersive spatial parameters
+        spatial_config = self.emotion_spatializer.calculate_immersive_position(emotion, environment)
+        
+        # Extract position and adjust for listener
+        source_pos = spatial_config['position']
+        listener_pos = (0, 0, 0)  # Listener at origin
+        
+        # Calculate direction from listener to source
+        direction = tuple(s - l for s, l in zip(source_pos, listener_pos))
+        
+        # Process with emotion-informed spatialization
+        spatialized = self.process(signal, source_pos=source_pos, listener_pos=listener_pos)
+        
+        # Add emotion metadata to the signal
+        spatialized.metadata = {
+            'emotion': emotion,
+            'environment': environment,
+            'spatial_description': spatial_config['description'],
+            'position': source_pos,
+            'spread': spatial_config['spread'],
+            'height': spatial_config['height']
+        }
+        
+        return spatialized
+    
+    def create_immersive_scene(self, audio_elements: Dict[str, AudioSignal]) -> AudioSignal:
+        """Create an immersive 3D audio scene from multiple emotional audio elements."""
+        if not audio_elements:
+            return AudioSignal.create_stereo(left_data=[], right_data=[], sample_rate=44100)
+        
+        # Initialize with silence
+        max_length = max(len(signal.data[0]) for signal in audio_elements.values())
+        master_left = np.zeros(max_length)
+        master_right = np.zeros(max_length)
+        sample_rate = list(audio_elements.values())[0].sample_rate
+        
+        # Mix each element with its emotion-based positioning
+        for element_name, signal in audio_elements.items():
+            # Extract emotion from element name (assuming format: "emotion_description")
+            emotion = element_name.split('_')[0] if '_' in element_name else 'calm'
+            
+            # Process with emotion spatialization
+            spatialized = self.process_emotion_spatial(signal, emotion)
+            
+            # Mix into master stereo
+            left_data = np.array(spatialized.data[0])
+            right_data = np.array(spatialized.data[1])
+            
+            # Pad or truncate to match master length
+            if len(left_data) < max_length:
+                left_data = np.pad(left_data, (0, max_length - len(left_data)))
+                right_data = np.pad(right_data, (0, max_length - len(right_data)))
+            else:
+                left_data = left_data[:max_length]
+                right_data = right_data[:max_length]
+            
+            # Add to master mix
+            master_left += left_data
+            master_right += right_data
+        
+        # Normalize to prevent clipping
+        max_amplitude = max(np.max(np.abs(master_left)), np.max(np.abs(master_right)))
+        if max_amplitude > 1.0:
+            master_left /= max_amplitude
+            master_right /= max_amplitude
+        
+        return AudioSignal.create_stereo(
+            left_data=master_left.tolist(),
+            right_data=master_right.tolist(),
+            sample_rate=sample_rate
+        )
+    
+    def get_emotion_positions(self) -> Dict[str, Dict]:
+        """Get available emotion-based spatial positions."""
+        return self.emotion_spatializer.emotion_positions
+    
+    def get_environments(self) -> Dict[str, Dict]:
+        """Get available environmental presets."""
+        return self.emotion_spatializer.environments
+    
     def get_status(self) -> dict:
         """Get service status."""
         return {
@@ -253,11 +425,15 @@ class SpatialAudioService:
                 "hrtf": self.default_params.hrtf_enabled,
                 "doppler": self.default_params.doppler_enabled,
                 "distance_attenuation": self.default_params.distance_attenuation_enabled,
-                "reverb_integration": self.default_params.reverb_enabled
+                "reverb_integration": self.default_params.reverb_enabled,
+                "emotion_spatialization": True,
+                "immersive_scenes": True
             },
             "reverb_space": {
                 "size": self.reverb_space.size,
                 "reflectivity": self.reverb_space.reflectivity,
                 "rt60": self.reverb_space.rt60
-            }
+            },
+            "emotion_positions": len(self.emotion_spatializer.emotion_positions),
+            "environments": len(self.emotion_spatializer.environments)
         }

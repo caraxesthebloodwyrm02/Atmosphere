@@ -1,0 +1,47 @@
+{
+  "session_id": "api_test_intervention_python_functions_1762803816",
+  "learner_id": "api_test_intervention",
+  "topic": "python_functions",
+  "start_time": 1762803816.6516647,
+  "end_time": 1762803816.6551266,
+  "emotional_states": [],
+  "interactions": [
+    {
+      "timestamp": 1762803816.6532018,
+      "type": "help_request",
+      "data": {
+        "response_time": 8.0,
+        "confidence": null,
+        "exploration_depth": null,
+        "frustration_level": 0.9,
+        "topic": null,
+        "urgent": null,
+        "stuck_completely": null,
+        "module_index": null,
+        "success_rate": null,
+        "comprehension_level": null
+      },
+      "session_time": 0.0015370845794677734
+    },
+    {
+      "timestamp": 1762803816.6542563,
+      "type": "help_request",
+      "data": {
+        "response_time": null,
+        "confidence": null,
+        "exploration_depth": null,
+        "frustration_level": null,
+        "topic": null,
+        "urgent": true,
+        "stuck_completely": true,
+        "module_index": null,
+        "success_rate": null,
+        "comprehension_level": null
+      },
+      "session_time": 0.0025916099548339844
+    }
+  ],
+  "content_modules": [],
+  "progress_metrics": {},
+  "behavioral_insights": {}
+}

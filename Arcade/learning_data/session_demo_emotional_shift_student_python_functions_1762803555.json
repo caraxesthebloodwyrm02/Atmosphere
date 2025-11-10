@@ -1,0 +1,92 @@
+{
+  "session_id": "demo_emotional_shift_student_python_functions_1762803555",
+  "learner_id": "demo_emotional_shift_student",
+  "topic": "python_functions",
+  "start_time": 1762803555.6082275,
+  "end_time": 1762803555.6092224,
+  "emotional_states": [
+    {
+      "timestamp": 1762803555.608599,
+      "state": {
+        "primary_emotion": "Emotion.ANALYTICAL",
+        "confidence": 0.9,
+        "secondary_emotions": [
+          [
+            "Emotion.URGENT",
+            0.8
+          ],
+          [
+            "Emotion.CALM",
+            0.7
+          ]
+        ],
+        "engagement_level": 0.55,
+        "stress_indicators": 0.0,
+        "timestamp": 1762803555.6083708
+      },
+      "session_time": 0.0003714561462402344
+    },
+    {
+      "timestamp": 1762803555.6088085,
+      "state": {
+        "primary_emotion": "Emotion.URGENT",
+        "confidence": 0.8,
+        "secondary_emotions": [
+          [
+            "Emotion.EXPLORATORY",
+            0.0
+          ],
+          [
+            "Emotion.CREATIVE",
+            0.0
+          ]
+        ],
+        "engagement_level": 0.25,
+        "stress_indicators": 0.4,
+        "timestamp": 1762803555.6087646
+      },
+      "session_time": 0.0005810260772705078
+    }
+  ],
+  "interactions": [
+    {
+      "timestamp": 1762803555.6085901,
+      "type": "correct_answer",
+      "data": {
+        "response_time": 2.0,
+        "methodical_approach": true
+      },
+      "session_time": 0.00036263465881347656
+    },
+    {
+      "timestamp": 1762803555.6086895,
+      "type": "incorrect_answer",
+      "data": {
+        "response_time": 4.0,
+        "frustration_building": true
+      },
+      "session_time": 0.00046253204345703125
+    },
+    {
+      "timestamp": 1762803555.609033,
+      "type": "incorrect_answer",
+      "data": {
+        "response_time": 5.0,
+        "error_streak": 2
+      },
+      "session_time": 0.0008060932159423828
+    },
+    {
+      "timestamp": 1762803555.60912,
+      "type": "incorrect_answer",
+      "data": {
+        "response_time": 6.0,
+        "losing_confidence": true
+      },
+      "session_time": 0.0008924007415771484
+    }
+  ],
+  "content_modules": [],
+  "progress_metrics": {},
+  "behavioral_insights": {}
+}

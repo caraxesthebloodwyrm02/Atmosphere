@@ -244,8 +244,12 @@ class GameEngine:
         routing_result = None
         if self.routing:
             try:
+                # Create a task for the async routing call since we're in a sync method
                 import asyncio
-                routing_result = asyncio.run(self.routing.navigate_to_city(target_normalized))
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                routing_result = loop.run_until_complete(self.routing.navigate_to_city(target_normalized))
+                loop.close()
             except Exception as e:
                 logger.debug(f"Routing integration error: {e}")
         

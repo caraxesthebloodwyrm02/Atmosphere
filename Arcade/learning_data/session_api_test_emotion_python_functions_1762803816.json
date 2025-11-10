@@ -1,0 +1,52 @@
+{
+  "session_id": "api_test_emotion_python_functions_1762803816",
+  "learner_id": "api_test_emotion",
+  "topic": "python_functions",
+  "start_time": 1762803816.155303,
+  "end_time": 1762803816.1579158,
+  "emotional_states": [
+    {
+      "timestamp": 1762803816.1570704,
+      "state": {
+        "primary_emotion": "Emotion.URGENT",
+        "confidence": 0.8,
+        "secondary_emotions": [
+          [
+            "Emotion.EXPLORATORY",
+            0.0
+          ],
+          [
+            "Emotion.CREATIVE",
+            0.0
+          ]
+        ],
+        "engagement_level": 0.25,
+        "stress_indicators": 0.35,
+        "timestamp": 1762803816.1570115
+      },
+      "session_time": 0.0017676353454589844
+    }
+  ],
+  "interactions": [
+    {
+      "timestamp": 1762803816.156924,
+      "type": "incorrect_answer",
+      "data": {
+        "response_time": 4.0,
+        "confidence": null,
+        "exploration_depth": null,
+        "frustration_level": 0.8,
+        "topic": null,
+        "urgent": null,
+        "stuck_completely": null,
+        "module_index": null,
+        "success_rate": null,
+        "comprehension_level": null
+      },
+      "session_time": 0.001621246337890625
+    }
+  ],
+  "content_modules": [],
+  "progress_metrics": {},
+  "behavioral_insights": {}
+}

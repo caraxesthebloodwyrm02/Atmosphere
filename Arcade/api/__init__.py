@@ -11,6 +11,7 @@ from .terminal_handler import TerminalHandler
 from .security import SecurityManager, CommandValidator
 from .game_engine import GameEngine
 from .routing_integration import RoutingIntegration
+from .learning_companion_api import router as learning_router
 
 __all__ = [
     "app",
@@ -20,5 +21,6 @@ __all__ = [
     "CommandValidator",
     "GameEngine",
     "RoutingIntegration",
+    "learning_router",
 ]
 

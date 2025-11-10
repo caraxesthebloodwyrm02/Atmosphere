@@ -1,0 +1,30 @@
+{
+  "session_id": "api_test_lifecycle_python_functions_1762803815",
+  "learner_id": "api_test_lifecycle",
+  "topic": "python_functions",
+  "start_time": 1762803815.6535106,
+  "end_time": 1762803815.6565866,
+  "emotional_states": [],
+  "interactions": [
+    {
+      "timestamp": 1762803815.6559079,
+      "type": "correct_answer",
+      "data": {
+        "response_time": 1.5,
+        "confidence": 0.8,
+        "exploration_depth": null,
+        "frustration_level": null,
+        "topic": null,
+        "urgent": null,
+        "stuck_completely": null,
+        "module_index": null,
+        "success_rate": null,
+        "comprehension_level": null
+      },
+      "session_time": 0.002397298812866211
+    }
+  ],
+  "content_modules": [],
+  "progress_metrics": {},
+  "behavioral_insights": {}
+}

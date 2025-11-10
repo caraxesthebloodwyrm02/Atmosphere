@@ -40,6 +40,33 @@ The spatial audio stage adds:
 - **Interactive Demonstrations**: Doppler, attenuation, and HRTF analysis
 - **Physics Validation**: Visual confirmation of acoustic principles
 
+## 🧠 Emotion-Based Spatial Positioning
+
+**Grounding audio in emotional depth and environmental space**
+
+### Immersive Emotional Audio
+Reverb now includes **emotion-based spatial positioning** that creates psychologically immersive audio experiences:
+
+- **Joyful**: Elevated, expansive presence with wide stereo field
+- **Calm**: Centered, enveloping warmth from behind the listener  
+- **Tense**: Sharp, directional intensity from extreme left
+- **Melancholic**: Distant, introspective depth from left-rear, low position
+- **Aggressive**: Powerful, commanding presence from extreme right
+- **Intimate**: Close, personal connection near the listener
+- **Epic**: Grand, cinematic scale far above and center
+
+### Environmental Context
+Audio positioning adapts to acoustic environments:
+- **Small Room**: Intimate, reflective spaces (25m³, RT60=0.8s)
+- **Large Hall**: Expansive concert venues (500m³, RT60=2.5s)
+- **Cathedral**: Vast, reverberant spaces (2000m³, RT60=4.0s)
+- **Outdoor**: Open, natural environments (10000m³, RT60=0.5s)
+- **Alley**: Narrow, urban canyons (50m³, RT60=1.2s)
+- **Forest**: Natural, diffusive spaces (1000m³, RT60=1.8s)
+
+### Immersive Scene Creation
+Create complex 3D audio scenes by mixing multiple emotional elements with automatic spatial positioning based on their emotional content.
+
 ## 🎵 Physics and Perception of Sound in Space
 
 ### Fundamental Properties
@@ -132,6 +159,51 @@ processed = platform.spatialize_signal(
     velocity=(15, 5, 1),
     params=spatial_params
 )
+```
+
+### Emotion-Based Spatial Positioning
+
+```python
+from core.platform import ReverbPlatform
+from models.signal import AudioSignal
+
+# Create platform
+platform = ReverbPlatform()
+
+# Create audio signal
+signal = AudioSignal.create_mono(data=[0.5] * 44100, sample_rate=44100)
+
+# Process with emotion-based positioning
+joyful_audio = platform.spatial_service.process_emotion_spatial(
+    signal, 
+    emotion='joyful', 
+    environment='large_hall'
+)
+
+# Access spatial metadata
+print(f"Emotion: {joyful_audio.metadata['emotion']}")
+print(f"Description: {joyful_audio.metadata['spatial_description']}")
+```
+
+### Immersive Scene Creation
+
+```python
+from services.spatial_service import SpatialAudioService
+
+# Create spatial service
+spatial_service = SpatialAudioService()
+
+# Create multiple audio elements
+audio_elements = {
+    'joyful_strings': create_signal(660.0),   # High strings
+    'calm_piano': create_signal(261.6),       # Middle C  
+    'tense_percussion': create_signal(440.0),  # A440
+    'epic_brass': create_signal(146.8),       # D3
+}
+
+# Create immersive 3D scene
+scene = spatial_service.create_immersive_scene(audio_elements)
+# Automatically positions based on emotion in element names
 ```
 
 ## 📈 Performance and Analysis
