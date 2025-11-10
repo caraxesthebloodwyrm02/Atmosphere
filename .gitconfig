@@ -1,0 +1,49 @@
+[user]
+    name = caraxesthebloodwyrm02
+    email = caraxesthebloodwyrm02@gmail.com
+    useConfigOnly = true
+
+[core]
+    autocrlf = true
+    filemode = false
+    editor = code --wait
+    excludesFile = %USERPROFILE%/.gitignore_global
+
+[color]
+    ui = auto
+
+[init]
+    defaultBranch = main
+
+[credential]
+    helper = manager-core
+
+[pull]
+    rebase = true
+    autostash = true
+
+[rebase]
+    autostash = true
+
+[merge]
+    tool = meld
+
+[alias]
+    co = checkout
+    br = branch
+    ci = commit
+    st = status
+    lg = log --graph --decorate --all --pretty=format:'%C(yellow)%h%C(reset) %C(cyan)%ad%C(reset) %C(green)%an%C(reset) %C(red)%d%C(reset)%n    %s' --date=short
+    untracked = status --untracked-files=all
+
+[commit]
+    # Uncomment and configure after setting up GPG/SSH signing
+    # gpgSign = true
+    # template = %USERPROFILE%/.gitmessage
+
+[credential "https://github.com"]
+    helper = manager-core
+
+# Uncomment and modify the path if you need a work-specific config
+# [includeIf "gitdir:C:/Users/YourUser/Work/"]
+#     path = C:/Users/YourUser/.gitconfig-work

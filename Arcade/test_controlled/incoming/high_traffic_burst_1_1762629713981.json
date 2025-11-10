@@ -1,0 +1,411 @@
+{
+  "tool": "high_traffic_burst_1",
+  "zone": "visual",
+  "timestamp": 1762629713.9816165,
+  "node_count": 20,
+  "event_count": 20,
+  "node_states": {
+    "TrafficNode1": {
+      "id": "TrafficNode1",
+      "x": 338,
+      "y": 261.5,
+      "vx": -0.5,
+      "vy": 0.0,
+      "degree": 0.9,
+      "betweenness": 0.36000000000000004,
+      "eigenvector": 0.7200000000000001,
+      "nodeScore": 0.63,
+      "habitat": "Core Nexus",
+      "habitatColor": "#ff6b9d",
+      "timestamp": 1762629713.9816196
+    },
+    "TrafficNode2": {
+      "id": "TrafficNode2",
+      "x": 368,
+      "y": 261.5,
+      "vx": 0.0,
+      "vy": 0.3,
+      "degree": 0.85,
+      "betweenness": 0.34,
+      "eigenvector": 0.68,
+      "nodeScore": 0.595,
+      "habitat": "Core Nexus",
+      "habitatColor": "#ff6b9d",
+      "timestamp": 1762629713.9816234
+    },
+    "TrafficNode3": {
+      "id": "TrafficNode3",
+      "x": 398,
+      "y": 261.5,
+      "vx": 0.5,
+      "vy": 0.0,
+      "degree": 0.8,
+      "betweenness": 0.32000000000000006,
+      "eigenvector": 0.6400000000000001,
+      "nodeScore": 0.5599999999999999,
+      "habitat": "Core Nexus",
+      "habitatColor": "#ff6b9d",
+      "timestamp": 1762629713.9816246
+    },
+    "TrafficNode4": {
+      "id": "TrafficNode4",
+      "x": 428,
+      "y": 261.5,
+      "vx": -0.5,
+      "vy": 0.3,
+      "degree": 0.61,
+      "betweenness": 0.244,
+      "eigenvector": 0.488,
+      "nodeScore": 0.427,
+      "habitat": "Hub Zone",
+      "habitatColor": "#4ecdc4",
+      "timestamp": 1762629713.9816258
+    },
+    "TrafficNode5": {
+      "id": "TrafficNode5",
+      "x": 458,
+      "y": 261.5,
+      "vx": 0.0,
+      "vy": 0.0,
+      "degree": 0.58,
+      "betweenness": 0.23199999999999998,
+      "eigenvector": 0.46399999999999997,
+      "nodeScore": 0.40599999999999997,
+      "habitat": "Hub Zone",
+      "habitatColor": "#4ecdc4",
+      "timestamp": 1762629713.9816265
+    },
+    "TrafficNode6": {
+      "id": "TrafficNode6",
+      "x": 338,
+      "y": 301.5,
+      "vx": 0.5,
+      "vy": 0.3,
+      "degree": 0.5499999999999999,
+      "betweenness": 0.21999999999999997,
+      "eigenvector": 0.43999999999999995,
+      "nodeScore": 0.38499999999999995,
+      "habitat": "Hub Zone",
+      "habitatColor": "#4ecdc4",
+      "timestamp": 1762629713.9816272
+    },
+    "TrafficNode7": {
+      "id": "TrafficNode7",
+      "x": 368,
+      "y": 301.5,
+      "vx": -0.5,
+      "vy": 0.0,
+      "degree": 0.38,
+      "betweenness": 0.15200000000000002,
+      "eigenvector": 0.30400000000000005,
+      "nodeScore": 0.26599999999999996,
+      "habitat": "Bridge Territory",
+      "habitatColor": "#95e1d3",
+      "timestamp": 1762629713.9816282
+    },
+    "TrafficNode8": {
+      "id": "TrafficNode8",
+      "x": 398,
+      "y": 301.5,
+      "vx": 0.0,
+      "vy": 0.3,
+      "degree": 0.36,
+      "betweenness": 0.144,
+      "eigenvector": 0.288,
+      "nodeScore": 0.252,
+      "habitat": "Bridge Territory",
+      "habitatColor": "#95e1d3",
+      "timestamp": 1762629713.9816287
+    },
+    "TrafficNode9": {
+      "id": "TrafficNode9",
+      "x": 428,
+      "y": 301.5,
+      "vx": 0.5,
+      "vy": 0.0,
+      "degree": 0.33999999999999997,
+      "betweenness": 0.13599999999999998,
+      "eigenvector": 0.27199999999999996,
+      "nodeScore": 0.23799999999999996,
+      "habitat": "Bridge Territory",
+      "habitatColor": "#95e1d3",
+      "timestamp": 1762629713.9816291
+    },
+    "TrafficNode10": {
+      "id": "TrafficNode10",
+      "x": 458,
+      "y": 301.5,
+      "vx": -0.5,
+      "vy": 0.3,
+      "degree": 0.32,
+      "betweenness": 0.128,
+      "eigenvector": 0.256,
+      "nodeScore": 0.22399999999999998,
+      "habitat": "Bridge Territory",
+      "habitatColor": "#95e1d3",
+      "timestamp": 1762629713.9816296
+    },
+    "TrafficNode11": {
+      "id": "TrafficNode11",
+      "x": 338,
+      "y": 341.5,
+      "vx": 0.0,
+      "vy": 0.0,
+      "degree": 0.19999999999999998,
+      "betweenness": 0.08,
+      "eigenvector": 0.2,
+      "nodeScore": 0.13999999999999999,
+      "habitat": "Peripheral Expanse",
+      "habitatColor": "#f38181",
+      "timestamp": 1762629713.981631
+    },
+    "TrafficNode12": {
+      "id": "TrafficNode12",
+      "x": 368,
+      "y": 341.5,
+      "vx": 0.5,
+      "vy": 0.3,
+      "degree": 0.19,
+      "betweenness": 0.07600000000000001,
+      "eigenvector": 0.2,
+      "nodeScore": 0.13299999999999998,
+      "habitat": "Peripheral Expanse",
+      "habitatColor": "#f38181",
+      "timestamp": 1762629713.9816315
+    },
+    "TrafficNode13": {
+      "id": "TrafficNode13",
+      "x": 398,
+      "y": 341.5,
+      "vx": -0.5,
+      "vy": 0.0,
+      "degree": 0.18,
+      "betweenness": 0.072,
+      "eigenvector": 0.2,
+      "nodeScore": 0.126,
+      "habitat": "Peripheral Expanse",
+      "habitatColor": "#f38181",
+      "timestamp": 1762629713.9816368
+    },
+    "TrafficNode14": {
+      "id": "TrafficNode14",
+      "x": 428,
+      "y": 341.5,
+      "vx": 0.0,
+      "vy": 0.3,
+      "degree": 0.16999999999999998,
+      "betweenness": 0.06799999999999999,
+      "eigenvector": 0.2,
+      "nodeScore": 0.11899999999999998,
+      "habitat": "Peripheral Expanse",
+      "habitatColor": "#f38181",
+      "timestamp": 1762629713.9816375
+    },
+    "TrafficNode15": {
+      "id": "TrafficNode15",
+      "x": 458,
+      "y": 341.5,
+      "vx": 0.5,
+      "vy": 0.0,
+      "degree": 0.15999999999999998,
+      "betweenness": 0.06399999999999999,
+      "eigenvector": 0.2,
+      "nodeScore": 0.11199999999999997,
+      "habitat": "Peripheral Expanse",
+      "habitatColor": "#f38181",
+      "timestamp": 1762629713.981638
+    },
+    "TrafficNode16": {
+      "id": "TrafficNode16",
+      "x": 338,
+      "y": 381.5,
+      "vx": -0.5,
+      "vy": 0.3,
+      "degree": 0.15,
+      "betweenness": 0.06,
+      "eigenvector": 0.2,
+      "nodeScore": 0.105,
+      "habitat": "Peripheral Expanse",
+      "habitatColor": "#f38181",
+      "timestamp": 1762629713.9816384
+    },
+    "TrafficNode17": {
+      "id": "TrafficNode17",
+      "x": 368,
+      "y": 381.5,
+      "vx": 0.0,
+      "vy": 0.0,
+      "degree": 0.13999999999999999,
+      "betweenness": 0.055999999999999994,
+      "eigenvector": 0.2,
+      "nodeScore": 0.1,
+      "habitat": "Peripheral Expanse",
+      "habitatColor": "#f38181",
+      "timestamp": 1762629713.981639
+    },
+    "TrafficNode18": {
+      "id": "TrafficNode18",
+      "x": 398,
+      "y": 381.5,
+      "vx": 0.5,
+      "vy": 0.3,
+      "degree": 0.12999999999999998,
+      "betweenness": 0.05199999999999999,
+      "eigenvector": 0.2,
+      "nodeScore": 0.1,
+      "habitat": "Peripheral Expanse",
+      "habitatColor": "#f38181",
+      "timestamp": 1762629713.9816394
+    },
+    "TrafficNode19": {
+      "id": "TrafficNode19",
+      "x": 428,
+      "y": 381.5,
+      "vx": -0.5,
+      "vy": 0.0,
+      "degree": 0.12,
+      "betweenness": 0.05,
+      "eigenvector": 0.2,
+      "nodeScore": 0.1,
+      "habitat": "Peripheral Expanse",
+      "habitatColor": "#f38181",
+      "timestamp": 1762629713.9816399
+    },
+    "TrafficNode20": {
+      "id": "TrafficNode20",
+      "x": 458,
+      "y": 381.5,
+      "vx": 0.0,
+      "vy": 0.3,
+      "degree": 0.10999999999999999,
+      "betweenness": 0.05,
+      "eigenvector": 0.2,
+      "nodeScore": 0.1,
+      "habitat": "Peripheral Expanse",
+      "habitatColor": "#f38181",
+      "timestamp": 1762629713.9816403
+    }
+  },
+  "movement_events": [
+    {
+      "node_id": "TrafficNode1",
+      "displacement": 0.5,
+      "velocity_magnitude": 0.5,
+      "timestamp": 1762629713.9816444
+    },
+    {
+      "node_id": "TrafficNode2",
+      "displacement": 0.3,
+      "velocity_magnitude": 0.3,
+      "timestamp": 1762629713.981646
+    },
+    {
+      "node_id": "TrafficNode3",
+      "displacement": 0.5,
+      "velocity_magnitude": 0.5,
+      "timestamp": 1762629713.981647
+    },
+    {
+      "node_id": "TrafficNode4",
+      "displacement": 0.58309518948453,
+      "velocity_magnitude": 0.58309518948453,
+      "timestamp": 1762629713.9816482
+    },
+    {
+      "node_id": "TrafficNode5",
+      "displacement": 0.0,
+      "velocity_magnitude": 0.0,
+      "timestamp": 1762629713.981649
+    },
+    {
+      "node_id": "TrafficNode6",
+      "displacement": 0.58309518948453,
+      "velocity_magnitude": 0.58309518948453,
+      "timestamp": 1762629713.9816518
+    },
+    {
+      "node_id": "TrafficNode7",
+      "displacement": 0.5,
+      "velocity_magnitude": 0.5,
+      "timestamp": 1762629713.9816525
+    },
+    {
+      "node_id": "TrafficNode8",
+      "displacement": 0.3,
+      "velocity_magnitude": 0.3,
+      "timestamp": 1762629713.9816532
+    },
+    {
+      "node_id": "TrafficNode9",
+      "displacement": 0.5,
+      "velocity_magnitude": 0.5,
+      "timestamp": 1762629713.9816537
+    },
+    {
+      "node_id": "TrafficNode10",
+      "displacement": 0.58309518948453,
+      "velocity_magnitude": 0.58309518948453,
+      "timestamp": 1762629713.9816546
+    },
+    {
+      "node_id": "TrafficNode11",
+      "displacement": 0.0,
+      "velocity_magnitude": 0.0,
+      "timestamp": 1762629713.9816551
+    },
+    {
+      "node_id": "TrafficNode12",
+      "displacement": 0.58309518948453,
+      "velocity_magnitude": 0.58309518948453,
+      "timestamp": 1762629713.9816558
+    },
+    {
+      "node_id": "TrafficNode13",
+      "displacement": 0.5,
+      "velocity_magnitude": 0.5,
+      "timestamp": 1762629713.9816563
+    },
+    {
+      "node_id": "TrafficNode14",
+      "displacement": 0.3,
+      "velocity_magnitude": 0.3,
+      "timestamp": 1762629713.9816566
+    },
+    {
+      "node_id": "TrafficNode15",
+      "displacement": 0.5,
+      "velocity_magnitude": 0.5,
+      "timestamp": 1762629713.9816573
+    },
+    {
+      "node_id": "TrafficNode16",
+      "displacement": 0.58309518948453,
+      "velocity_magnitude": 0.58309518948453,
+      "timestamp": 1762629713.9816577
+    },
+    {
+      "node_id": "TrafficNode17",
+      "displacement": 0.0,
+      "velocity_magnitude": 0.0,
+      "timestamp": 1762629713.9816604
+    },
+    {
+      "node_id": "TrafficNode18",
+      "displacement": 0.58309518948453,
+      "velocity_magnitude": 0.58309518948453,
+      "timestamp": 1762629713.9816618
+    },
+    {
+      "node_id": "TrafficNode19",
+      "displacement": 0.5,
+      "velocity_magnitude": 0.5,
+      "timestamp": 1762629713.9816625
+    },
+    {
+      "node_id": "TrafficNode20",
+      "displacement": 0.3,
+      "velocity_magnitude": 0.3,
+      "timestamp": 1762629713.981663
+    }
+  ]
+}

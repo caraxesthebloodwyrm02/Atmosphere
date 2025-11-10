@@ -1,0 +1,16 @@
+{
+    "AllowedIPs": [
+        "api.openai.com"
+    ],
+    "AllowedProcesses": [
+        "pwsh.exe",
+        "code.exe",
+        "python.exe",
+        "git.exe"
+    ],
+    "ProtectedExtensions": [
+        ".ps1", ".py", ".js", ".ts", 
+        ".json", ".yaml", ".yml", ".md",
+        ".c", ".cpp", ".h", ".hpp"
+    ]
+}

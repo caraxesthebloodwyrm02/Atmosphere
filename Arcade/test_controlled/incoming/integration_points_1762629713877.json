@@ -1,0 +1,131 @@
+{
+  "tool": "integration_points",
+  "zone": "visual",
+  "timestamp": 1762629713.877538,
+  "node_count": 6,
+  "event_count": 6,
+  "node_states": {
+    "CoreHub1": {
+      "id": "CoreHub1",
+      "x": 400.0,
+      "y": 300.0,
+      "vx": 0.0,
+      "vy": 0.0,
+      "degree": 0.95,
+      "betweenness": 0.8,
+      "eigenvector": 0.95,
+      "nodeScore": 0.9,
+      "habitat": "Core Nexus",
+      "habitatColor": "#ff6b9d",
+      "timestamp": 1762629713.8775399
+    },
+    "CoreHub2": {
+      "id": "CoreHub2",
+      "x": 420.0,
+      "y": 300.0,
+      "vx": 0.0,
+      "vy": 0.0,
+      "degree": 0.85,
+      "betweenness": 0.7,
+      "eigenvector": 0.85,
+      "nodeScore": 0.8,
+      "habitat": "Core Nexus",
+      "habitatColor": "#ff6b9d",
+      "timestamp": 1762629713.877541
+    },
+    "Bridge1": {
+      "id": "Bridge1",
+      "x": 450.0,
+      "y": 320.0,
+      "vx": 0.1,
+      "vy": 0.1,
+      "degree": 0.6,
+      "betweenness": 0.5,
+      "eigenvector": 0.6,
+      "nodeScore": 0.5667,
+      "habitat": "Bridge Territory",
+      "habitatColor": "#95e1d3",
+      "timestamp": 1762629713.8775423
+    },
+    "Bridge2": {
+      "id": "Bridge2",
+      "x": 380.0,
+      "y": 280.0,
+      "vx": -0.1,
+      "vy": -0.1,
+      "degree": 0.55,
+      "betweenness": 0.45,
+      "eigenvector": 0.55,
+      "nodeScore": 0.5167,
+      "habitat": "Bridge Territory",
+      "habitatColor": "#95e1d3",
+      "timestamp": 1762629713.877543
+    },
+    "Peripheral1": {
+      "id": "Peripheral1",
+      "x": 480.0,
+      "y": 350.0,
+      "vx": 0.2,
+      "vy": 0.2,
+      "degree": 0.3,
+      "betweenness": 0.1,
+      "eigenvector": 0.3,
+      "nodeScore": 0.2333,
+      "habitat": "Peripheral Expanse",
+      "habitatColor": "#f38181",
+      "timestamp": 1762629713.8775437
+    },
+    "Peripheral2": {
+      "id": "Peripheral2",
+      "x": 350.0,
+      "y": 250.0,
+      "vx": -0.2,
+      "vy": -0.2,
+      "degree": 0.25,
+      "betweenness": 0.05,
+      "eigenvector": 0.25,
+      "nodeScore": 0.1833,
+      "habitat": "Peripheral Expanse",
+      "habitatColor": "#f38181",
+      "timestamp": 1762629713.8775446
+    }
+  },
+  "movement_events": [
+    {
+      "node_id": "CoreHub1",
+      "displacement": 0.0,
+      "velocity_magnitude": 0.0,
+      "timestamp": 1762629713.8775468
+    },
+    {
+      "node_id": "CoreHub2",
+      "displacement": 0.0,
+      "velocity_magnitude": 0.0,
+      "timestamp": 1762629713.8775477
+    },
+    {
+      "node_id": "Bridge1",
+      "displacement": 0.14142135623730953,
+      "velocity_magnitude": 0.14142135623730953,
+      "timestamp": 1762629713.8775492
+    },
+    {
+      "node_id": "Bridge2",
+      "displacement": 0.14142135623730953,
+      "velocity_magnitude": 0.14142135623730953,
+      "timestamp": 1762629713.8775501
+    },
+    {
+      "node_id": "Peripheral1",
+      "displacement": 0.28284271247461906,
+      "velocity_magnitude": 0.28284271247461906,
+      "timestamp": 1762629713.8775508
+    },
+    {
+      "node_id": "Peripheral2",
+      "displacement": 0.28284271247461906,
+      "velocity_magnitude": 0.28284271247461906,
+      "timestamp": 1762629713.877552
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+# Arcade Module Dependencies
+# Terminal and interface components
+
+# Web Framework
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+websockets>=11.0
+
+# Security and Monitoring
+psutil>=5.9.0
+
+# Configuration
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+
+# Audio-Arcade Pipeline
+watchdog>=3.0.0
+pyyaml>=6.0.0
+click>=8.0.0
+
+# TUI Framework
+textual>=0.40.0
+rich>=13.0.0

@@ -1,0 +1,33 @@
+# Routing configuration for Audio-Arcade Pipeline
+# Maps tool names to zone destinations
+
+audio_tool: audio
+visual_tool: visual
+games_tool: games
+
+# Interactive tools
+audio_analyzer: audio
+spatial_visualizer: visual
+interactive_playground: games
+game_collection: games
+
+# Network Visualizer - Moving Object Routing
+network_visualizer: visual
+network_nodes: visual
+node_tracker: visual
+node_movement: visual
+network_ecosystem: visual
+
+# Node-specific routing (by habitat)
+core_nexus_nodes: visual
+hub_zone_nodes: visual
+bridge_territory_nodes: visual
+peripheral_expanse_nodes: visual
+
+# Integration points routing
+integration_points: visual
+compass_instrumentation: visual
+
+# Add more routing rules as needed
+# tool_name: zone_name
+

@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Analysis Report</title>
+    <style>
+        body { font-family: sans-serif; margin: 2em; background-color: #f9f9f9; color: #333; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 2em; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1, h2 { color: #1a1a1a; border-bottom: 2px solid #eee; padding-bottom: 0.3em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1em; }
+        th, td { padding: 0.8em; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+        .stat-box { display: flex; justify-content: space-around; text-align: center; margin: 2em 0; }
+        .stat { padding: 1em; border: 1px solid #ddd; border-radius: 5px; min-width: 100px; }
+        .stat h3 { margin: 0; font-size: 1.5em; }
+        .stat p { margin: 0; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Network Analysis Report</h1>
+
+        <h2>Overall Statistics</h2>
+        <div class="stat-box">
+            <div class="stat">
+                <h3>42</h3>
+                <p>Nodes</p>
+            </div>
+            <div class="stat">
+                <h3>150</h3>
+                <p>Edges</p>
+            </div>
+            <div class="stat">
+                <h3>0.1754</h3>
+                <p>Density</p>
+            </div>
+        </div>
+
+        <h2>Interactive Ecosystem</h2>
+        <div id="viz-controls" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0;">
+            <button id="toggle-ips" style="background:#2a2f4a;border:none;padding:8px 12px;border-radius:6px;color:#fff;cursor:pointer;">Show IPs</button>
+            <button id="toggle-compass" style="background:#2a2f4a;border:none;padding:8px 12px;border-radius:6px;color:#fff;cursor:pointer;">Compass Active</button>
+            <button id="reset-view" style="background:#2a2f4a;border:none;padding:8px 12px;border-radius:6px;color:#fff;cursor:pointer;">Reset View</button>
+            <button id="play-pause" style="background:#ff6b9d;border:none;padding:8px 12px;border-radius:6px;color:#fff;cursor:pointer;">Pause</button>
+            <input id="nlp-input" type="text" placeholder="Try: show ips, zoom to node1, zoom to core nexus" style="flex:1;min-width:220px;padding:8px;border:1px solid #ddd;border-radius:6px;" />
+            <button id="run-nlp" style="background:#4ecdc4;border:none;padding:8px 12px;border-radius:6px;color:#fff;cursor:pointer;">Run</button>
+        </div>
+        <div id="center-pinpoint-display" style="padding:10px;background:#1a1a1a;border:1px solid #333;border-radius:6px;margin-bottom:8px;color:#ffff00;font-family:monospace;font-size:14px;text-align:center;">
+            <strong>⊙ Center Pinpoint NodeScore:</strong> <span id="pinpoint-value">Calculating...</span>
+        </div>
+        <canvas id="network-canvas" width="800" height="600" style="display:block;width:100%;max-width:760px;margin:0 auto 8px auto;border:1px solid #eee;border-radius:8px;background:#0a0e27;"></canvas>
+        <div id="ip-panel" style="display:none;border:1px solid #eee;border-radius:8px;padding:10px;background:#fafafa;color:#333;font-size:0.9em;"></div>
+        <script id="report-data" type="application/json">{"statistics": {"num_nodes": 42, "num_edges": 150, "density": 0.1754}, "metrics": {"degree": {"Node1": 0.85, "Node2": 0.72, "Node3": 0.68, "Node4": 0.65, "Node5": 0.61, "Node6": 0.58, "Node7": 0.55, "Node8": 0.52, "Node9": 0.49, "Node10": 0.45, "Node11": 0.42}, "betweenness": {"Node1": 0.32, "Node2": 0.28, "Node3": 0.25, "Node4": 0.22, "Node5": 0.19, "Node6": 0.16, "Node7": 0.13, "Node8": 0.1, "Node9": 0.08, "Node10": 0.05, "Node11": 0.02}, "eigenvector": {"Node1": 0.91, "Node2": 0.84, "Node3": 0.79, "Node4": 0.72, "Node5": 0.65, "Node6": 0.58, "Node7": 0.51, "Node8": 0.44, "Node9": 0.37, "Node10": 0.3, "Node11": 0.23}}}</script>
+        <script>
+        (function() {
+          var dataEl = document.getElementById('report-data');
+          if (!dataEl) return;
+          var data = JSON.parse(dataEl.textContent || '{}');
+          var metrics = data.metrics || {};
+          var idsSet = {};
+          Object.keys(metrics).forEach(function(k){ var m = metrics[k] || {}; Object.keys(m).forEach(function(id){ idsSet[id]=true; }); });
+          var ids = Object.keys(idsSet);
+          if (ids.length === 0) return;
+          var nodes = ids.map(function(id){
+            return {
+              id: id,
+              degree: Number((metrics.degree && metrics.degree[id]) || 0),
+              betweenness: Number((metrics.betweenness && metrics.betweenness[id]) || 0),
+              eigenvector: Number((metrics.eigenvector && metrics.eigenvector[id]) || 0),
+              type: 'peripheral'
+            };
+          });
+          var sortedEigen = nodes.slice().sort(function(a,b){ return b.eigenvector - a.eigenvector; });
+          var c = Math.min(3, sortedEigen.length);
+          var coreIds = sortedEigen.slice(0, c).map(function(n){ return n.id; });
+          var hCount = Math.min(3, Math.max(0, sortedEigen.length - c));
+          var hubIds = sortedEigen.slice(c, c + hCount).map(function(n){ return n.id; });
+          var bCount = Math.min(3, Math.max(0, sortedEigen.length - c - hCount));
+          var bridgeIds = sortedEigen.slice(c + hCount, c + hCount + bCount).map(function(n){ return n.id; });
+          var peripheralIds = sortedEigen.slice(c + hCount + bCount).map(function(n){ return n.id; });
+          var habitats = [
+            { name: 'Core Nexus', color: '#ff6b9d', radius: 120, entities: coreIds },
+            { name: 'Hub Zone', color: '#4ecdc4', radius: 200, entities: hubIds },
+            { name: 'Bridge Territory', color: '#95e1d3', radius: 280, entities: bridgeIds },
+            { name: 'Peripheral Expanse', color: '#f38181', radius: 350, entities: peripheralIds }
+          ];
+          nodes.forEach(function(n){
+            if (coreIds.indexOf(n.id) >= 0) n.type = 'core';
+            else if (hubIds.indexOf(n.id) >= 0) n.type = 'hub';
+            else if (bridgeIds.indexOf(n.id) >= 0) n.type = 'bridge';
+            else n.type = 'peripheral';
+            // Calculate composite NodeScore (average of three metrics)
+            n.nodeScore = (n.degree + n.betweenness + n.eigenvector) / 3;
+          });
+          
+          // Calculate center pinpoint value (median NodeScore)
+          var sortedScores = nodes.slice().sort(function(a,b){ return a.nodeScore - b.nodeScore; });
+          var medianIdx = Math.floor(sortedScores.length / 2);
+          var centerPinpointValue = sortedScores.length % 2 === 0
+            ? (sortedScores[medianIdx-1].nodeScore + sortedScores[medianIdx].nodeScore) / 2
+            : sortedScores[medianIdx].nodeScore;
+          var canvas = document.getElementById('network-canvas');
+          var ctx = canvas.getContext('2d');
+          var cw = canvas.width, ch = canvas.height;
+          var cx = cw/2, cy = ch/2;
+          var nodePositions = [];
+          function addPositions(ids, radius, color, name) {
+            ids.forEach(function(id, i){
+              var n = nodes.find(function(nn){ return nn.id === id; });
+              var angle = (i / Math.max(1, ids.length)) * Math.PI * 2;
+              nodePositions.push({
+                id: id,
+                degree: n.degree,
+                betweenness: n.betweenness,
+                eigenvector: n.eigenvector,
+                type: n.type,
+                habitat: name,
+                habitatColor: color,
+                x: cx + Math.cos(angle) * radius,
+                y: cy + Math.sin(angle) * radius,
+                vx: 0,
+                vy: 0
+              });
+            });
+          }
+          habitats.forEach(function(h){ addPositions(h.entities, h.radius, h.color, h.name); });
+          var edges = [];
+          for (var i=0;i<nodePositions.length;i++){
+            for (var j=i+1;j<nodePositions.length;j++){
+              var n1 = nodePositions[i], n2 = nodePositions[j];
+              var p = (n1.degree + n2.degree) / 2;
+              if (Math.random() < p * 0.5) edges.push({ source: i, target: j, strength: p });
+            }
+          }
+          var state = { isPlaying: true, showIPs: false, showCompass: true, selected: null, time: 0, cam: { x:0, y:0, tx:0, ty:0, z:1, tz:1 } };
+          var ipPanel = document.getElementById('ip-panel');
+          
+          // Display center pinpoint value
+          document.getElementById('pinpoint-value').textContent = centerPinpointValue.toFixed(4);
+          function worldFromScreen(sx, sy){
+            return { x: cx + (sx - cx)/state.cam.z - state.cam.x, y: cy + (sy - cy)/state.cam.z - state.cam.y };
+          }
+          canvas.addEventListener('click', function(e){
+            var rect = canvas.getBoundingClientRect();
+            var sx = e.clientX - rect.left;
+            var sy = e.clientY - rect.top;
+            var w = worldFromScreen(sx, sy);
+            var hit = null, minD = 1e9;
+            nodePositions.forEach(function(n){
+              var size = 8 + n.degree * 15;
+              var d = Math.hypot(w.x - n.x, w.y - n.y);
+              if (d < size && d < minD) { minD = d; hit = n.id; }
+            });
+            state.selected = hit;
+          });
+          function navigateToHabitat(name){
+            var h = habitats.find(function(hh){ return hh.name.toLowerCase() === name.toLowerCase(); });
+            if (!h || h.entities.length === 0) return;
+            var id = h.entities[0];
+            navigateToNode(id, name === 'Core Nexus' ? 2.5 : 1.8);
+          }
+          function navigateToNode(id, z){
+            var idx = nodePositions.findIndex(function(n){ return n.id === id; });
+            if (idx < 0) return;
+            var node = nodePositions[idx];
+            state.cam.tx = cx - node.x;
+            state.cam.ty = cy - node.y;
+            state.cam.tz = z || 3.5;
+            state.selected = id;
+          }
+          function resetView(){
+            state.cam.tx = 0; state.cam.ty = 0; state.cam.tz = 1; state.selected = null;
+          }
+          function integrationPoints(){
+            var core = coreIds;
+            var per = peripheralIds;
+            var list = [];
+            edges.forEach(function(e, idx){
+              var s = nodePositions[e.source], t = nodePositions[e.target];
+              var ok = (core.indexOf(s.id)>=0 && per.indexOf(t.id)>=0) || (per.indexOf(s.id)>=0 && core.indexOf(t.id)>=0);
+              if (ok) list.push({ id: 'IP-'+idx, source: s.id, target: t.id, strength: e.strength, s:s, t:t });
+            });
+            return list;
+          }
+          function renderIPList(){
+            if (!state.showIPs) { ipPanel.style.display='none'; ipPanel.innerHTML=''; return; }
+            var list = integrationPoints();
+            ipPanel.style.display='block';
+            var html = '<div style="font-weight:bold;margin-bottom:6px;">Integration Points ('+list.length+')</div>';
+            list.forEach(function(ip){
+              html += '<div data-src="'+ip.source+'" data-tgt="'+ip.target+'" style="padding:8px;margin-bottom:6px;background:#fff;border:1px solid #eee;border-radius:6px;cursor:pointer;">'+
+                '<div style="display:flex;justify-content:space-between;align-items:center;">'+
+                  '<span style="color:#a37f00;">'+ip.id+'</span>'+
+                  '<span style="font-size:12px;color:#666;">'+ip.source+' \u2192 '+ip.target+'</span>'+
+                '</div>'+
+                '<div style="font-size:12px;color:#888;">Strength: '+Math.round(ip.strength*100)+'%</div>'+
+              '</div>';
+            });
+            ipPanel.innerHTML = html;
+            Array.prototype.forEach.call(ipPanel.querySelectorAll('div[data-src]'), function(el){
+              el.onclick = function(){
+                var src = el.getAttribute('data-src');
+                navigateToNode(src, 3.0);
+              };
+            });
+          }
+          function toggleIPs(){
+            state.showIPs = !state.showIPs;
+            var btn = document.getElementById('toggle-ips');
+            btn.textContent = state.showIPs ? 'IPs Active' : 'Show IPs';
+            renderIPList();
+          }
+          document.getElementById('toggle-ips').onclick = toggleIPs;
+          document.getElementById('toggle-compass').onclick = function(){
+            state.showCompass = !state.showCompass;
+            this.textContent = state.showCompass ? 'Compass Active' : 'Show Compass';
+          };
+          document.getElementById('reset-view').onclick = function(){ resetView(); };
+          document.getElementById('play-pause').onclick = function(){
+            state.isPlaying = !state.isPlaying;
+            this.textContent = state.isPlaying ? 'Pause' : 'Activate';
+            this.style.background = state.isPlaying ? '#ff6b9d' : '#4ecdc4';
+          };
+          document.getElementById('run-nlp').onclick = function(){
+            var s = (document.getElementById('nlp-input').value || '').trim().toLowerCase();
+            if (!s) return;
+            if (s.indexOf('show ip')>=0 || s.indexOf('activate ip')>=0) { if (!state.showIPs) toggleIPs(); return; }
+            if (s.indexOf('hide ip')>=0 || s.indexOf('deactivate ip')>=0) { if (state.showIPs) toggleIPs(); return; }
+            if (s.indexOf('show compass')>=0 || s.indexOf('activate compass')>=0) { if (!state.showCompass) { state.showCompass=true; document.getElementById('toggle-compass').textContent='Compass Active'; } return; }
+            if (s.indexOf('hide compass')>=0 || s.indexOf('deactivate compass')>=0) { if (state.showCompass) { state.showCompass=false; document.getElementById('toggle-compass').textContent='Show Compass'; } return; }
+            var mNode = s.match(/zoom\s*to\s*(node\d+)/);
+            if (mNode) { navigateToNode(mNode[1].charAt(0).toUpperCase()+mNode[1].slice(1)); return; }
+            if (s.indexOf('zoom to core nexus')>=0) { navigateToHabitat('Core Nexus'); return; }
+            if (s.indexOf('zoom to hub zone')>=0) { navigateToHabitat('Hub Zone'); return; }
+            if (s.indexOf('zoom to bridge territory')>=0) { navigateToHabitat('Bridge Territory'); return; }
+            if (s.indexOf('zoom to peripheral expanse')>=0) { navigateToHabitat('Peripheral Expanse'); return; }
+            if (s.indexOf('zoom to center')>=0 || s.indexOf('zoom to pinpoint')>=0) { resetView(); return; }
+            if (s.indexOf('reset')>=0) { resetView(); return; }
+          };
+          function draw(){
+            state.cam.x += (state.cam.tx - state.cam.x) * 0.1;
+            state.cam.y += (state.cam.ty - state.cam.y) * 0.1;
+            state.cam.z += (state.cam.tz - state.cam.z) * 0.1;
+            ctx.save();
+            ctx.fillStyle = '#0a0e27';
+            ctx.fillRect(0,0,cw,ch);
+            ctx.translate(cx, cy);
+            ctx.scale(state.cam.z, state.cam.z);
+            ctx.translate(-cx + state.cam.x, -cy + state.cam.y);
+            habitats.forEach(function(h){
+              ctx.beginPath();
+              ctx.arc(cx, cy, h.radius, 0, Math.PI*2);
+              ctx.strokeStyle = h.color + '20';
+              ctx.lineWidth = 2;
+              ctx.stroke();
+              ctx.fillStyle = h.color + '60';
+              ctx.font = '12px monospace';
+              ctx.fillText(h.name, cx - 40, cy - h.radius - 10);
+            });
+            
+            // Draw compass rose geometry with concentric circles
+            if (state.showCompass) {
+              var compassRings = [60, 120, 180, 240, 300, 360];
+              ctx.strokeStyle = '#ffffff10';
+              ctx.lineWidth = 1;
+              compassRings.forEach(function(r){
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, Math.PI*2);
+                ctx.stroke();
+              });
+              
+              // Draw radial lines (bearings) to each node
+              ctx.strokeStyle = '#ffffff08';
+              ctx.lineWidth = 0.5;
+              nodePositions.forEach(function(n){
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                ctx.lineTo(n.x, n.y);
+                ctx.stroke();
+              });
+              
+              // Draw cardinal compass directions (N, E, S, W)
+              var compassLabels = [
+                {label: 'N', angle: -Math.PI/2, r: 380},
+                {label: 'E', angle: 0, r: 380},
+                {label: 'S', angle: Math.PI/2, r: 380},
+                {label: 'W', angle: Math.PI, r: 380}
+              ];
+              ctx.fillStyle = '#ffffff40';
+              ctx.font = 'bold 14px monospace';
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+              compassLabels.forEach(function(c){
+                var lx = cx + Math.cos(c.angle) * c.r;
+                var ly = cy + Math.sin(c.angle) * c.r;
+                ctx.fillText(c.label, lx, ly);
+              });
+              
+              // Draw center pinpoint with value
+              ctx.beginPath();
+              ctx.arc(cx, cy, 8, 0, Math.PI*2);
+              ctx.fillStyle = '#ffff00';
+              ctx.fill();
+              ctx.strokeStyle = '#ffffff';
+              ctx.lineWidth = 2;
+              ctx.stroke();
+              
+              // Display center pinpoint value
+              if (state.cam.z > 1.5) {
+                ctx.fillStyle = '#ffff00';
+                ctx.font = 'bold 12px monospace';
+                ctx.textAlign = 'center';
+                ctx.fillText('Center Pinpoint', cx, cy - 20);
+                ctx.fillStyle = '#fff';
+                ctx.font = '11px monospace';
+                ctx.fillText('NodeScore: ' + centerPinpointValue.toFixed(4), cx, cy - 6);
+              }
+            }
+            if (state.isPlaying){
+              nodePositions.forEach(function(n, i){
+                var h = habitats.find(function(hh){ return hh.entities.indexOf(n.id)>=0; });
+                if (h) {
+                  var ang = Math.atan2(n.y - cy, n.x - cx);
+                  var r = Math.hypot(n.x - cx, n.y - cy);
+                  var f = (h.radius - r) * 0.02;
+                  n.vx += Math.cos(ang) * f;
+                  n.vy += Math.sin(ang) * f;
+                }
+                for (var j=0;j<nodePositions.length;j++){
+                  if (i===j) continue;
+                  var o = nodePositions[j];
+                  var dx = n.x - o.x, dy = n.y - o.y, d = Math.hypot(dx, dy) || 1;
+                  if (d < 100) {
+                    var rf = (100 - d) * 0.05;
+                    n.vx += (dx / d) * rf;
+                    n.vy += (dy / d) * rf;
+                  }
+                }
+                var a = Math.atan2(n.y - cy, n.x - cx);
+                n.vx += Math.cos(a + Math.PI/2) * 0.3 * n.eigenvector;
+                n.vy += Math.sin(a + Math.PI/2) * 0.3 * n.eigenvector;
+                n.vx *= 0.95; n.vy *= 0.95;
+                n.x += n.vx; n.y += n.vy;
+              });
+            }
+            edges.forEach(function(e, idx){
+              var s = nodePositions[e.source], t = nodePositions[e.target];
+              var coreSet = coreIds, perSet = peripheralIds;
+              var ip = state.showIPs && ((coreSet.indexOf(s.id)>=0 && perSet.indexOf(t.id)>=0) || (perSet.indexOf(s.id)>=0 && coreSet.indexOf(t.id)>=0));
+              var sel = state.selected && (s.id===state.selected || t.id===state.selected);
+              var grad = ctx.createLinearGradient(s.x, s.y, t.x, t.y);
+              var alpha = '40'; if (ip) alpha='ff'; else if (sel) alpha='80';
+              grad.addColorStop(0, s.habitatColor + alpha);
+              grad.addColorStop(1, t.habitatColor + alpha);
+              ctx.beginPath();
+              ctx.moveTo(s.x, s.y);
+              ctx.lineTo(t.x, t.y);
+              ctx.strokeStyle = grad;
+              ctx.lineWidth = ip ? e.strength * 4 : (sel ? e.strength * 3 : e.strength * 2);
+              ctx.stroke();
+              var speed = ip ? 0.06 : (sel ? 0.04 : 0.02);
+              var fp = (state.time * speed * e.strength) % 1;
+              var px = s.x + (t.x - s.x) * fp;
+              var py = s.y + (t.y - s.y) * fp;
+              ctx.beginPath();
+              ctx.arc(px, py, ip ? 4 : (sel ? 3 : 2), 0, Math.PI*2);
+              ctx.fillStyle = ip ? '#ffff00' : (sel ? '#fff' : '#ffffff80');
+              ctx.fill();
+            });
+            nodePositions.forEach(function(n){
+              var sel = state.selected === n.id;
+              var size = 8 + n.degree * 15;
+              if (n.betweenness > 0.15) {
+                var g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, size*2);
+                g.addColorStop(0, n.habitatColor + '40');
+                g.addColorStop(1, 'transparent');
+                ctx.fillStyle = g;
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, size*2, 0, Math.PI*2);
+                ctx.fill();
+              }
+              ctx.beginPath();
+              ctx.arc(n.x, n.y, size, 0, Math.PI*2);
+              ctx.fillStyle = sel ? '#fff' : n.habitatColor;
+              ctx.fill();
+              ctx.strokeStyle = sel ? '#fff' : n.habitatColor + '80';
+              ctx.lineWidth = sel ? 3 : 2;
+              ctx.stroke();
+              if (sel && state.cam.z > 2.5) {
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 11px monospace';
+                ctx.fillText(n.id, n.x + size + 5, n.y + 4);
+                ctx.font = '9px monospace';
+                ctx.fillStyle = '#aaa';
+                ctx.fillText('D: ' + Math.round(n.degree*100) + '%', n.x + size + 5, n.y + 16);
+                ctx.fillText('B: ' + Math.round(n.betweenness*100) + '%', n.x + size + 5, n.y + 26);
+                ctx.fillText('E: ' + Math.round(n.eigenvector*100) + '%', n.x + size + 5, n.y + 36);
+                ctx.fillStyle = '#ffff00';
+                ctx.font = 'bold 9px monospace';
+                ctx.fillText('NodeScore: ' + n.nodeScore.toFixed(4), n.x + size + 5, n.y + 48);
+              }
+            });
+            ctx.restore();
+            state.time++;
+            requestAnimationFrame(draw);
+          }
+          renderIPList();
+          requestAnimationFrame(draw);
+        })();
+        </script>
+
+        
+        <h2>Degree Centrality</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Node</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                
+                <tr>
+                    <td>Node1</td>
+                    <td>0.8500</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node2</td>
+                    <td>0.7200</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node3</td>
+                    <td>0.6800</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node4</td>
+                    <td>0.6500</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node5</td>
+                    <td>0.6100</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node6</td>
+                    <td>0.5800</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node7</td>
+                    <td>0.5500</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node8</td>
+                    <td>0.5200</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node9</td>
+                    <td>0.4900</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node10</td>
+                    <td>0.4500</td>
+                </tr>
+                
+                
+                
+                
+            </tbody>
+        </table>
+        <p><i>Showing top 10 nodes by degree centrality.</i></p>
+        
+        <h2>Betweenness Centrality</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Node</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                
+                <tr>
+                    <td>Node1</td>
+                    <td>0.3200</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node2</td>
+                    <td>0.2800</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node3</td>
+                    <td>0.2500</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node4</td>
+                    <td>0.2200</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node5</td>
+                    <td>0.1900</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node6</td>
+                    <td>0.1600</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node7</td>
+                    <td>0.1300</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node8</td>
+                    <td>0.1000</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node9</td>
+                    <td>0.0800</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node10</td>
+                    <td>0.0500</td>
+                </tr>
+                
+                
+                
+                
+            </tbody>
+        </table>
+        <p><i>Showing top 10 nodes by betweenness centrality.</i></p>
+        
+        <h2>Eigenvector Centrality</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Node</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                
+                <tr>
+                    <td>Node1</td>
+                    <td>0.9100</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node2</td>
+                    <td>0.8400</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node3</td>
+                    <td>0.7900</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node4</td>
+                    <td>0.7200</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node5</td>
+                    <td>0.6500</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node6</td>
+                    <td>0.5800</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node7</td>
+                    <td>0.5100</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node8</td>
+                    <td>0.4400</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node9</td>
+                    <td>0.3700</td>
+                </tr>
+                
+                
+                
+                <tr>
+                    <td>Node10</td>
+                    <td>0.3000</td>
+                </tr>
+                
+                
+                
+                
+            </tbody>
+        </table>
+        <p><i>Showing top 10 nodes by eigenvector centrality.</i></p>
+        
+    </div>
+</body>
+</html>

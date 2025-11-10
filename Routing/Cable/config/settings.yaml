@@ -1,0 +1,6 @@
+api:
+  secret_key: your-secret-api-key
+search:
+  chunk_size: 64
+  persist_path: data/vector_store.json
+  top_k: 5

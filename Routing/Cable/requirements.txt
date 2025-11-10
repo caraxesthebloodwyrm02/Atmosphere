@@ -1,0 +1,32 @@
+# Ultra-Lightweight Smart Search Requirements
+# MINIMAL DEPENDENCIES - MAXIMUM PERFORMANCE
+
+# Core dependencies
+numpy>=1.24.0
+pyyaml>=6.0.0
+requests>=2.31.0
+
+# OpenAI Integration
+openai>=1.0.0
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+
+# Web Server
+flask>=2.0.0
+Flask-Limiter>=2.0.0
+Flask-Talisman>=1.0.0
+
+# Platform-specific dependencies
+pyreadline3; sys_platform == 'win32'
+
+# REMOVED DEPENDENCIES (80% reduction):
+# - faiss-cpu (replaced with simple in-memory search)
+# - fastapi (replaced with flask)
+# - uvicorn (not needed with flask)
+# - pydantic (using simple types)
+# - matplotlib/seaborn/plotly (no visualization)
+# - ollama (simple hash-based embeddings)
+# - openpyxl (no Excel support)
+# - python-dateutil (built-in datetime)
+# - structlog (simple logging)
+# - black/mypy/isort (development only)

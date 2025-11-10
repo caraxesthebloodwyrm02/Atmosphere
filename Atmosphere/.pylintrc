@@ -1,0 +1,22 @@
+[MASTER]
+# Python path configuration
+python-path = src
+
+[FORMAT]
+# Code style
+max-line-length = 100
+indent-string = "    "
+
+[MESSAGES CONTROL]
+# Disable noisy warnings
+disable = too-few-public-methods,
+         too-many-arguments,
+         too-many-instance-attributes,
+         too-many-locals,
+         too-many-branches,
+         too-many-statements
+
+[REPORTS]
+# Report settings
+output-format = colorized
+include-ids = yes

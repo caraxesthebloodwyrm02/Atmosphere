@@ -1,0 +1,71 @@
+{
+  "tool": "dynamic_movement_step_2",
+  "zone": "visual",
+  "timestamp": 1762629713.8796124,
+  "node_count": 3,
+  "event_count": 3,
+  "node_states": {
+    "MovingNode1": {
+      "id": "MovingNode1",
+      "x": 430.0,
+      "y": 316.0,
+      "vx": 1.5,
+      "vy": 0.8,
+      "degree": 0.7,
+      "betweenness": 0.4,
+      "eigenvector": 0.7,
+      "nodeScore": 0.6,
+      "habitat": "Hub Zone",
+      "habitatColor": "#4ecdc4",
+      "timestamp": 1762629713.8796132
+    },
+    "MovingNode2": {
+      "id": "MovingNode2",
+      "x": 400.0,
+      "y": 344.0,
+      "vx": -1.0,
+      "vy": 1.2,
+      "degree": 0.6,
+      "betweenness": 0.3,
+      "eigenvector": 0.6,
+      "nodeScore": 0.5,
+      "habitat": "Hub Zone",
+      "habitatColor": "#4ecdc4",
+      "timestamp": 1762629713.8796136
+    },
+    "StaticNode": {
+      "id": "StaticNode",
+      "x": 380.0,
+      "y": 280.0,
+      "vx": 0.0,
+      "vy": 0.0,
+      "degree": 0.5,
+      "betweenness": 0.2,
+      "eigenvector": 0.5,
+      "nodeScore": 0.4,
+      "habitat": "Bridge Territory",
+      "habitatColor": "#95e1d3",
+      "timestamp": 1762629713.8796144
+    }
+  },
+  "movement_events": [
+    {
+      "node_id": "MovingNode1",
+      "displacement": 1.7,
+      "velocity_magnitude": 1.7,
+      "timestamp": 1762629713.8796155
+    },
+    {
+      "node_id": "MovingNode2",
+      "displacement": 1.5620499351813308,
+      "velocity_magnitude": 1.5620499351813308,
+      "timestamp": 1762629713.8796163
+    },
+    {
+      "node_id": "StaticNode",
+      "displacement": 0.0,
+      "velocity_magnitude": 0.0,
+      "timestamp": 1762629713.8796165
+    }
+  ]
+}

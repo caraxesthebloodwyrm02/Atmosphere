@@ -1,0 +1,88 @@
+/* Arcade Terminal TUI Theme */
+
+Screen {
+    background: #0a0a0a;
+}
+
+#main-container {
+    layout: horizontal;
+    width: 100%;
+    height: 100%;
+}
+
+#sidebar {
+    width: 25;
+    border: solid $primary;
+    background: #1a1a2e;
+}
+
+#terminal-output {
+    height: 1fr;
+    border: solid $primary;
+    background: #0a0a0a;
+    color: #00ff00;
+}
+
+#command-input {
+    height: 3;
+    border: solid $primary;
+    background: #0a0a0a;
+    color: #00ff00;
+}
+
+#status-bar {
+    height: 1;
+    border: solid $primary;
+    background: #1a1a2e;
+    color: #00ffff;
+}
+
+.location-item {
+    color: #00ffff;
+}
+
+.location-item:hover {
+    background: #2a2a3e;
+}
+
+.tool-item {
+    color: #ffff00;
+}
+
+.tool-item:hover {
+    background: #2a2a3e;
+}
+
+.action-item {
+    color: #00ff00;
+}
+
+.action-item:hover {
+    background: #2a2a3e;
+}
+
+/* Color definitions */
+.primary {
+    color: #00ff00;
+}
+
+.secondary {
+    color: #00ffff;
+}
+
+.accent {
+    color: #ff00ff;
+}
+
+.success {
+    color: #00ff00;
+}
+
+.warning {
+    color: #ffff00;
+}
+
+.error {
+    color: #ff0000;
+}
+

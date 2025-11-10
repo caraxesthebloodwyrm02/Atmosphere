@@ -1,0 +1,14 @@
+# Development dependencies
+pywin32==306; sys_platform == 'win32'
+python-dotenv==1.0.0
+keyboard==0.13.5
+psutil==5.9.5
+PyQt6==6.5.2
+pyperclip==1.8.2
+pytest==7.4.0
+pytest-cov==4.1.0
+black==23.7.0
+flake8==6.1.0
+mypy==1.5.0
+types-PyYAML==6.0.12.10
+types-psutil==5.9.5.20230109

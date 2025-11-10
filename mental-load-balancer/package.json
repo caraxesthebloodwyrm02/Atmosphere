@@ -1,0 +1,75 @@
+{
+    "name": "mental-load-balancer",
+    "displayName": "Mental Load Balancer",
+    "description": "Helps developers manage cognitive load through timely, context-aware breaks",
+    "version": "0.1.0",
+    "publisher": "vscode-extensions",
+    "engines": {
+        "vscode": "^1.70.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./out/extension.js",
+    "contributes": {
+        "commands": [
+            {
+                "command": "mentalLoadBalancer.showDashboard",
+                "title": "Show Mental Load Dashboard"
+            }
+        ],
+        "configuration": {
+            "title": "Mental Load Balancer",
+            "properties": {
+                "mentalLoadBalancer.pressurePoints": {
+                    "type": "object",
+                    "default": {
+                        "debuggingThreshold": 60,
+                        "contextSwitchThreshold": 10,
+                        "lateNightThreshold": 22
+                    },
+                    "description": "Thresholds for different pressure points"
+                },
+                "mentalLoadBalancer.backoff": {
+                    "type": "object",
+                    "default": {
+                        "baseInterval": 5,
+                        "maxInterval": 60,
+                        "resetAfterBreak": true
+                    },
+                    "description": "Configuration for intervention timing"
+                },
+                "mentalLoadBalancer.ui": {
+                    "type": "object",
+                    "default": {
+                        "showStatusBar": true,
+                        "notificationStyle": "popup",
+                        "colorTheme": "default"
+                    },
+                    "description": "UI presentation settings"
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
+    },
+    "devDependencies": {
+        "@types/vscode": "^1.70.0",
+        "@types/glob": "^7.1.3",
+        "@types/node": "^14.14.37",
+        "@typescript-eslint/eslint-plugin": "^4.19.0",
+        "@typescript-eslint/parser": "^4.19.0",
+        "eslint": "^7.22.0",
+        "glob": "^7.1.6",
+        "typescript": "^4.7.4",
+        "vscode-test": "^1.5.2"
+    }
+}

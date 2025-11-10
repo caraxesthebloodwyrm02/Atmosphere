@@ -1,0 +1,9 @@
+{
+  "sandbox_root": "virtual_fs",
+  "allow_network": false,
+  "max_process_time": 30.0,
+  "max_memory_mb": 512,
+  "max_cpu_percent": 50.0,
+  "session_timeout": 3600
+}
+

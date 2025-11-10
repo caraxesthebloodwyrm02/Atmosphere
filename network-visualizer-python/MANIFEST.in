@@ -1,0 +1,9 @@
+include README.md
+include LICENSE
+include requirements.txt
+recursive-include network_visualizer *.txt *.md *.yml *.yaml
+recursive-include examples *.py
+recursive-include docs *.md
+global-exclude *.pyc
+global-exclude __pycache__
+global-exclude *.pyo

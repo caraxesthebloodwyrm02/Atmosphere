@@ -1,0 +1,16 @@
+# Routing configuration for Audio-Arcade Pipeline
+# Maps tool names to zone destinations
+
+audio_tool: audio
+visual_tool: visual
+games_tool: games
+
+# Interactive tools
+audio_analyzer: audio
+spatial_visualizer: visual
+interactive_playground: games
+game_collection: games
+
+# Add more routing rules as needed
+# tool_name: zone_name
+

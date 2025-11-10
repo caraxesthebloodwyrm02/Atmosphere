@@ -1,0 +1,260 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.python-version
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.mypy_cache/
+.ropeproject/
+.mr.developer.cfg
+.coverage.*
+*.cover.*
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+.tox/
+.nox/
+
+# Virtual Environment
+# Virtual environments
+venv/
+ENV/
+.env/
+.venv/
+env/
+venv.bak/
+.venv.bak/
+ENV.bak/
+
+# Virtual environment for pipenv
+.Pipfile.lock
+Pipfile.lock
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
+*.sublime-snippet
+.history/
+*.sublime-*
+.ropeproject/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Project specific
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# Environment variables and secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.*.local
+!.env.example
+secrets.yaml
+secrets.yml
+secrets.json
+*.pem
+*.key
+*.crt
+*.cert
+*.p12
+*.pfx
+*.der
+*.p7b
+*.p7c
+*.p7s
+*.p7m
+*.p8
+*.p8e
+*.p10
+*.p12
+*.pfx
+*.p7b
+*.p7c
+*.p7s
+*.p7m
+*.p8
+*.p8e
+*.p10
+*.p12
+*.pfx
+*.p7b
+*.p7c
+*.p7s
+*.p7m
+*.p8
+*.p8e
+*.p10
+
+# Logs and databases
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+*.sql.gz
+
+# Local development
+.DS_Store
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.stackdump
+[Dd]esktop.ini
+Thumbs.db:encryptable
+ehthumbs.db
+*.lnk
+
+# Project specific outputs
+monetization_outputs/
+audio_analysis_results/
+audio_reports/
+audio_test_results/
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+*.tmp
+*.temp
+*.sass-cache/
+node_modules/
+bower_components/
+.sass-cache/
+.parcel-cache/
+.cache/
+.vercel/
+.netlify/
+.next/
+.nuxt/
+.gatsby-context.json
+.report
+.ionide
+.history/
+.quarto/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Testing and quality
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.hypothesis/
+.pytest_cache/
+.tox/
+.nox/
+.coverage.*
+coverage-*.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+.mypy_cache/
+.pytype/
+pytype_output/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Sphinx documentation
+docs/_build/
+docs/api/
+
+# MkDocs
+site/
+
+# Local development environment
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local Netlify folder
+.netlify
+
+# Next.js build output
+.next
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+public
+
+# vuepress build output
+.vuepress/dist
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test/
+
+# yarn v2
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
