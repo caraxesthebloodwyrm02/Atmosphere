@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "Microsoft.PowerShell:ExecutionPolicy": "RemoteSigned",
   "WindowsPowerShellCompatibilityModuleDenyList": [
@@ -6,3 +7,13 @@
     "UpdateServices"
   ]
 }
+=======
+{
+  "Microsoft.PowerShell:ExecutionPolicy": "RemoteSigned",
+  "WindowsPowerShellCompatibilityModuleDenyList": [
+    "PSScheduledJob",
+    "BestPractices",
+    "UpdateServices"
+  ]
+}
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628

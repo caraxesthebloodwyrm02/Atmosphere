@@ -4,7 +4,10 @@ __pycache__/
 *$py.class
 *.so
 .Python
+<<<<<<< HEAD
 .python-version
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 build/
 develop-eggs/
 dist/
@@ -20,6 +23,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+<<<<<<< HEAD
 .pytest_cache/
 .mypy_cache/
 .ropeproject/
@@ -49,10 +53,19 @@ ENV.bak/
 Pipfile.lock
 
 # IDEs and editors
+=======
+
+# Virtual Environment
+venv/
+ENV/
+
+# IDE
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 .idea/
 .vscode/
 *.swp
 *.swo
+<<<<<<< HEAD
 *~
 .project
 .pydevproject
@@ -70,6 +83,8 @@ Pipfile.lock
 !.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
 # Project specific
 *.png
@@ -77,6 +92,7 @@ Pipfile.lock
 *.jpeg
 *.gif
 
+<<<<<<< HEAD
 # Environment variables and secrets
 .env
 .env.local
@@ -258,3 +274,15 @@ public
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+=======
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# Local development
+.DS_Store
+Thumbs.db
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628

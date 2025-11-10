@@ -1,4 +1,9 @@
 from typing import Optional
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 # ------------------------------------------------------------------
 # 2️⃣  Core Delay representation (audio‑inspired)
 # ------------------------------------------------------------------
@@ -31,12 +36,30 @@ class Delay:
     persistent_theme : Optional[str]
         Thematic fixation inspired by Claude's Golden Gate Bridge obsession.
     """
+<<<<<<< HEAD
     def __init__(self, time_ms: float = 250, feedback: float = 0.3,
                  level: float = 0.5, dry_wet: float = 0.5,
                  delay_type: str = 'digital', rate: Optional[str] = None,
                  pre_delay: float = 0, filter_type: Optional[str] = None,
                  filter_freq: float = 1000, modulation: float = 0,
                  persistent_theme: Optional[str] = None):
+=======
+
+    def __init__(
+        self,
+        time_ms: float = 250,
+        feedback: float = 0.3,
+        level: float = 0.5,
+        dry_wet: float = 0.5,
+        delay_type: str = "digital",
+        rate: Optional[str] = None,
+        pre_delay: float = 0,
+        filter_type: Optional[str] = None,
+        filter_freq: float = 1000,
+        modulation: float = 0,
+        persistent_theme: Optional[str] = None,
+    ):
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         self.time_ms = max(0, time_ms)
         self.feedback = min(max(feedback, 0.0), 1.0)
         self.level = min(max(level, 0.0), 1.0)
@@ -79,14 +102,19 @@ def describe_delay(d: Delay) -> str:
         time_desc = f" at {d.rate} note rate"
     else:
         time_desc = (
+<<<<<<< HEAD
             "short"   if d.time_ms < 120 else
             "medium"  if d.time_ms < 300 else
             "long"
+=======
+            "short" if d.time_ms < 120 else "medium" if d.time_ms < 300 else "long"
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         )
         time_desc = f" {time_desc} ({d.time_ms}ms)"
 
     # Feedback description
     feedback_desc = (
+<<<<<<< HEAD
         "none"      if d.feedback == 0 else
         "light"     if d.feedback < 0.35 else
         "moderate"  if d.feedback < 0.7 else
@@ -105,10 +133,28 @@ def describe_delay(d: Delay) -> str:
         "dry-only"   if d.dry_wet == 0 else
         "wet-only"   if d.dry_wet == 1 else
         "balanced"
+=======
+        "none"
+        if d.feedback == 0
+        else (
+            "light"
+            if d.feedback < 0.35
+            else "moderate" if d.feedback < 0.7 else "heavy"
+        )
+    )
+
+    # Level description
+    level_desc = "quiet" if d.level < 0.3 else "balanced" if d.level < 0.7 else "loud"
+
+    # Dry/wet description
+    dry_wet_desc = (
+        "dry-only" if d.dry_wet == 0 else "wet-only" if d.dry_wet == 1 else "balanced"
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
     )
 
     # Type description
     type_descriptions = {
+<<<<<<< HEAD
         'digital': 'clean digital',
         'analog': 'warm analog',
         'tape': 'vintage tape',
@@ -116,6 +162,15 @@ def describe_delay(d: Delay) -> str:
         'slapback': 'retro slapback',
         'doubling': 'thickening doubling',
         'multi_tap': 'rhythmic multi-tap'
+=======
+        "digital": "clean digital",
+        "analog": "warm analog",
+        "tape": "vintage tape",
+        "ping_pong": "bouncing ping-pong",
+        "slapback": "retro slapback",
+        "doubling": "thickening doubling",
+        "multi_tap": "rhythmic multi-tap",
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
     }
     type_desc = type_descriptions.get(d.delay_type, d.delay_type)
 
@@ -127,6 +182,7 @@ def describe_delay(d: Delay) -> str:
     desc_parts.append(f"and a {dry_wet_desc} dry/wet mix")
 
     if d.pre_delay > 0:
+<<<<<<< HEAD
         pre_desc = "short" if d.pre_delay < 20 else "moderate" if d.pre_delay < 50 else "long"
         desc_parts.append(f"(with {pre_desc} {d.pre_delay}ms pre-delay)")
 
@@ -140,6 +196,31 @@ def describe_delay(d: Delay) -> str:
 
     if d.persistent_theme:
         desc_parts.append(f" featuring persistent obsession on '{d.persistent_theme}' (inspired by Claude's Golden Gate Bridge fixation)")
+=======
+        pre_desc = (
+            "short" if d.pre_delay < 20 else "moderate" if d.pre_delay < 50 else "long"
+        )
+        desc_parts.append(f"(with {pre_desc} {d.pre_delay}ms pre-delay)")
+
+    if d.filter_type:
+        freq_desc = (
+            "low" if d.filter_freq < 500 else "mid" if d.filter_freq < 5000 else "high"
+        )
+        desc_parts.append(f"(with {d.filter_type} filter at {freq_desc} frequencies)")
+
+    if d.modulation > 0:
+        mod_desc = (
+            "subtle"
+            if d.modulation < 0.3
+            else "moderate" if d.modulation < 0.7 else "strong"
+        )
+        desc_parts.append(f"(with {mod_desc} modulation)")
+
+    if d.persistent_theme:
+        desc_parts.append(
+            f" featuring persistent obsession on '{d.persistent_theme}' (inspired by Claude's Golden Gate Bridge fixation)"
+        )
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
     return "The delay is " + ", ".join(desc_parts) + "."
 
@@ -151,6 +232,7 @@ if __name__ == "__main__":
     # Example: Standard digital delay with balanced mix
     my_delay = Delay(time_ms=250, feedback=0.45, level=0.6, dry_wet=0.65)
 
+<<<<<<< HEAD
     print(my_delay)                 # technical representation
     print(describe_delay(my_delay)) # human‑readable interpretation
     print()
@@ -159,16 +241,50 @@ if __name__ == "__main__":
     ping_pong_delay = Delay(time_ms=0, feedback=0.4, level=0.5, dry_wet=0.7,
                            delay_type='ping_pong', rate='1/8', pre_delay=10,
                            filter_type='lowpass', filter_freq=8000, modulation=0.2)
+=======
+    print(my_delay)  # technical representation
+    print(describe_delay(my_delay))  # human‑readable interpretation
+    print()
+
+    # Example: Ping pong delay with tempo sync at 1/8 note rate
+    ping_pong_delay = Delay(
+        time_ms=0,
+        feedback=0.4,
+        level=0.5,
+        dry_wet=0.7,
+        delay_type="ping_pong",
+        rate="1/8",
+        pre_delay=10,
+        filter_type="lowpass",
+        filter_freq=8000,
+        modulation=0.2,
+    )
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
     print(ping_pong_delay)
     print(describe_delay(ping_pong_delay))
     print()
 
     # Example: Slapback delay with 3/8 rate and Golden Gate theme obsession
+<<<<<<< HEAD
     slapback_bridge_delay = Delay(time_ms=0, feedback=0.1, level=0.8, dry_wet=0.6,
                                  delay_type='slapback', rate='3/8', pre_delay=5,
                                  filter_type='highpass', filter_freq=200,
                                  persistent_theme="Golden Gate Bridge")
+=======
+    slapback_bridge_delay = Delay(
+        time_ms=0,
+        feedback=0.1,
+        level=0.8,
+        dry_wet=0.6,
+        delay_type="slapback",
+        rate="3/8",
+        pre_delay=5,
+        filter_type="highpass",
+        filter_freq=200,
+        persistent_theme="Golden Gate Bridge",
+    )
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
     print(slapback_bridge_delay)
     print(describe_delay(slapback_bridge_delay))

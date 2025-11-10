@@ -4,7 +4,10 @@ Tests NetworkPresence and DeviceInfo classes with mocked sockets.
 """
 
 import json
+<<<<<<< HEAD
 import socket
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 import time
 from unittest.mock import MagicMock, Mock, patch
 
@@ -132,6 +135,7 @@ class TestNetworkPresenceStartStop:
         presence.stop()
         assert presence.running is False
 
+<<<<<<< HEAD
     @patch('time.sleep')
     @patch('threading.Thread')
     def test_stop_waits_for_threads(self, mock_thread_class, mock_sleep):
@@ -194,6 +198,21 @@ class TestNetworkPresenceStartStop:
             
             # Verify the broadcast socket was closed
             mock_broadcast_socket.close.assert_called_once()
+=======
+    def test_stop_waits_for_threads(self):
+        """Test stop() waits for threads to finish."""
+        presence = NetworkPresence("device-1")
+        
+        mock_thread = MagicMock()
+        presence._announce_thread = mock_thread
+        presence._listen_thread = mock_thread
+        presence.running = True
+        
+        presence.stop()
+        
+        # Verify join was called with timeout
+        assert mock_thread.join.called
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
 
 class TestNetworkPresenceGetDevices:
@@ -228,7 +247,11 @@ class TestNetworkPresenceGetDevices:
         assert "device-2" in devices
         assert devices["device-2"]["address"] == "192.168.1.100"
         assert devices["device-2"]["port"] == 37021
+<<<<<<< HEAD
         assert devices["device-2"]["metadata"] == metadata
+=======
+        assert devices["device-2"]["hostname"] == "host-1"
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
     def test_get_devices_calls_cleanup(self):
         """Test get_devices calls cleanup."""
@@ -257,6 +280,7 @@ class TestNetworkPresenceAnnounce:
 
     @patch("socket.socket")
     @patch("socket.gethostname")
+<<<<<<< HEAD
     @patch('socket.getaddrinfo')
     def test_announce_presence_creates_socket(self, mock_getaddrinfo, mock_hostname, mock_socket_class):
         """Test _announce_presence creates socket."""
@@ -265,10 +289,15 @@ class TestNetworkPresenceAnnounce:
             (socket.AF_INET, socket.SOCK_DGRAM, 17, '', ('8.8.8.8', 80))
         ]
         
+=======
+    def test_announce_presence_creates_socket(self, mock_hostname, mock_socket_class):
+        """Test _announce_presence creates socket."""
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         mock_hostname.return_value = "test-host"
         mock_socket = MagicMock()
         mock_socket_class.return_value = mock_socket
         
+<<<<<<< HEAD
         # Mock the socket context manager methods
         mock_socket.__enter__.return_value = mock_socket
         mock_socket.__exit__.return_value = None
@@ -310,11 +339,25 @@ class TestNetworkPresenceAnnounce:
     @patch("socket.gethostname")
     @patch('time.time', return_value=1234567890.0)
     def test_announce_presence_sends_message(self, mock_time, mock_hostname, mock_socket_class):
+=======
+        presence = NetworkPresence("device-1")
+        presence._announce_presence()
+        
+        mock_socket_class.assert_called_once_with(
+            __import__("socket").AF_INET,
+            __import__("socket").SOCK_DGRAM
+        )
+
+    @patch("socket.socket")
+    @patch("socket.gethostname")
+    def test_announce_presence_sends_message(self, mock_hostname, mock_socket_class):
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         """Test _announce_presence sends message."""
         mock_hostname.return_value = "test-host"
         mock_socket = MagicMock()
         mock_socket_class.return_value = mock_socket
         
+<<<<<<< HEAD
         # Mock the socket context manager methods
         mock_socket.__enter__.return_value = mock_socket
         mock_socket.__exit__.return_value = None
@@ -353,6 +396,24 @@ class TestNetworkPresenceAnnounce:
         
         # Verify the socket was closed
         mock_socket.close.assert_called_once()
+=======
+        presence = NetworkPresence("device-1", broadcast_port=37020)
+        presence._announce_presence()
+        
+        # Verify sendto was called
+        assert mock_socket.sendto.called
+        
+        # Get the message that was sent
+        call_args = mock_socket.sendto.call_args
+        message_bytes = call_args[0][0]
+        message = json.loads(message_bytes.decode("utf-8"))
+        
+        assert message["type"] == "PRESENCE"
+        assert message["device_id"] == "device-1"
+        assert "timestamp" in message
+        assert "port" in message
+        assert "metadata" in message
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
     @patch("socket.socket")
     @patch("socket.gethostname")
@@ -362,6 +423,7 @@ class TestNetworkPresenceAnnounce:
         mock_socket = MagicMock()
         mock_socket_class.return_value = mock_socket
         
+<<<<<<< HEAD
         # Mock the socket context manager methods
         mock_socket.__enter__.return_value = mock_socket
         mock_socket.__exit__.return_value = None
@@ -390,14 +452,28 @@ class TestNetworkPresenceAnnounce:
         # Mock the socket context manager methods
         mock_socket.__enter__.return_value = mock_socket
         mock_socket.__exit__.return_value = None
+=======
+        presence = NetworkPresence("device-1")
+        presence._announce_presence()
+        
+        mock_socket.close.assert_called_once()
+
+    @patch("socket.socket")
+    def test_announce_presence_handles_socket_error(self, mock_socket_class):
+        """Test _announce_presence handles socket errors."""
+        mock_socket_class.side_effect = OSError("Network error")
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         
         presence = NetworkPresence("device-1")
         
         # Should not raise exception
         presence._announce_presence()
+<<<<<<< HEAD
         
         # Verify the socket was still closed even if there was an error
         mock_socket.close.assert_called_once()
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
     @patch("socket.socket")
     @patch("socket.gethostname")
@@ -407,6 +483,7 @@ class TestNetworkPresenceAnnounce:
         mock_socket = MagicMock()
         mock_socket_class.return_value = mock_socket
         
+<<<<<<< HEAD
         # Mock the socket context manager methods
         mock_socket.__enter__.return_value = mock_socket
         mock_socket.__exit__.return_value = None
@@ -420,6 +497,13 @@ class TestNetworkPresenceAnnounce:
             socket.SO_BROADCAST,
             1
         )
+=======
+        presence = NetworkPresence("device-1")
+        presence._announce_presence()
+        
+        # Verify setsockopt was called for broadcast
+        mock_socket.setsockopt.assert_called()
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
 
 class TestNetworkPresenceAnnounceLoop:
@@ -452,6 +536,7 @@ class TestNetworkPresenceAnnounceLoop:
         
         assert call_count >= 1
 
+<<<<<<< HEAD
     @patch('src.network.logger')
     @patch('time.sleep')
     def test_announce_loop_handles_errors(self, mock_sleep, mock_logger):
@@ -479,6 +564,28 @@ class TestNetworkPresenceAnnounceLoop:
             
             # Verify the error was logged
             mock_logger.error.assert_called_once_with("Error in announcement loop: Network error")
+=======
+    def test_announce_loop_handles_errors(self):
+        """Test _announce_loop handles errors gracefully."""
+        presence = NetworkPresence("device-1", presence_interval=1)
+        presence.running = True
+        
+        call_count = 0
+        
+        def failing_announce():
+            nonlocal call_count
+            call_count += 1
+            if call_count == 1:
+                raise OSError("Network error")
+            presence.running = False
+        
+        presence._announce_presence = failing_announce
+        
+        # Should not raise exception
+        presence._announce_loop()
+        
+        assert call_count >= 1
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
 
 class TestNetworkPresenceIntegration:
@@ -517,12 +624,16 @@ class TestNetworkPresenceIntegration:
         
         assert len(devices) == 3
         for i in range(3):
+<<<<<<< HEAD
             device_id = f"device-{i}"
             assert device_id in devices
             assert isinstance(devices[device_id], dict)
             assert devices[device_id]['address'] == f"192.168.1.{100+i}"
             assert devices[device_id]['port'] == 37021 + i
             assert devices[device_id]['metadata'] == {"id": i}
+=======
+            assert f"device-{i}" in devices
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 # Arcade Module Dependencies
 # Terminal and interface components
 
+<<<<<<< HEAD
 # Web Framework
 fastapi>=0.104.0
 uvicorn[standard]>=0.24.0
@@ -21,3 +22,10 @@ click>=8.0.0
 # TUI Framework
 textual>=0.40.0
 rich>=13.0.0
+=======
+# Core dependencies (none required, uses standard library)
+
+# Optional: Enhanced terminal features (uncomment if needed)
+# rich>=10.0.0
+# click>=8.0.0
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628

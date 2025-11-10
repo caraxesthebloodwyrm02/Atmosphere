@@ -19,6 +19,7 @@ __description__ = "Advanced audio and AI processing platform"
 echoes_version = delay_version = reverb_version = routing_version = api_version = "unknown"
 
 try:
+<<<<<<< HEAD
     # Try different import strategies
     try:
         # Try as installed package
@@ -30,6 +31,17 @@ try:
 except ImportError as e:
     print(f"Warning: Echoes import failed - {str(e)}")
     echoes_version = "not_installed"
+=======
+    # Try absolute imports first
+    import Echoes
+    echoes_version = Echoes.__version__
+except ImportError:
+    try:
+        # Fallback to relative imports
+        from .Echoes import __version__ as echoes_version
+    except ImportError:
+        echoes_version = "not_installed"
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
 try:
     import Delay
@@ -82,14 +94,22 @@ def main():
     """Main entry point for the Atmosphere project."""
     print("🌍 Atmosphere Platform v{}".format(__version__))
     print("=" * 50)
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
     versions = get_version_info()
     for component, version in versions.items():
         if version not in ["unknown", "not_installed"]:
             print(f"  {component.title()}: v{version}")
         else:
             print(f"  {component.title()}: {version}")
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
     print("=" * 50)
     print("Use 'python -m <component>' to start specific modules")
     print("Available components: echoes, delay, reverb, routing, api")

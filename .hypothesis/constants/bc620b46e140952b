@@ -1,0 +1,4 @@
+# file: E:\Projects\Atmosphere\api\__init__.py
+# hypothesis_version: 6.146.0
+
+[0.7, '1.0.0', '=', 'Atmosphere Team', 'OPENAI_API_KEY', 'Usage:', '__main__', 'available', 'available_models', 'capabilities', 'chat_completions', 'connected', 'disconnected', 'ecosystem_status', 'gpt-3.5-turbo', 'model_access', 'openai_connected', 'openai_integration', 'token_tracking', 'version', '✅ Available', '❌ Not Available']

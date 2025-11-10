@@ -31,6 +31,7 @@ The **Acoustic Routing System** is a comprehensive platform that bridges transpo
 - **Route Optimization**: Distance, delay-time, and reverb-density criteria
 - **Real-Time Analysis**: Network acoustics metrics and performance insights
 
+<<<<<<< HEAD
 ## 🎭 Emotion-Enhanced Routing to Arcade
 
 **Using Cable's emotional intelligence for stable Arcade connections**
@@ -57,6 +58,8 @@ Specialized routing for Arcade terminal connections:
 - **Analytical Connections**: Optimized for technical exploration
 - **Urgent Pathways**: Fast-tracked for immediate access needs
 
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 ## 📁 Project Structure
 
 ### Core Components
@@ -65,11 +68,14 @@ Specialized routing for Arcade terminal connections:
 - `demo.py`: Comprehensive demonstration with pulse propagation
 - `platform_integration.py`: Integration examples with Delay/Reverb components
 
+<<<<<<< HEAD
 ### Emotion-Enhanced Components
 - `emotion_enhanced_routing.py`: Cable-powered emotional routing system
 - `demo_emotion_arcade_routing.py`: Emotion-to-Arcade routing demonstration
 - `test_emotion_arcade_routing.py`: Comprehensive integration tests
 
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 ### Spatial Audio Tools
 - `spatial_audio_visualizer.py`: Standalone 3D spatial audio visualizer
 - `spatial_audio_api.py`: Flask REST API for visualization generation
@@ -87,6 +93,7 @@ cd Routing
 python demo.py
 ```
 
+<<<<<<< HEAD
 ### Emotion-Enhanced Routing to Arcade
 ```bash
 # Find stable path to Arcade based on emotion
@@ -182,6 +189,8 @@ print(f"Average stability: {report['average_stability']:.3f}")
 print(f"Most stable emotion: {report['most_stable_emotion']}")
 ```
 
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 ### Spatial Audio Visualization
 ```bash
 # Default positions

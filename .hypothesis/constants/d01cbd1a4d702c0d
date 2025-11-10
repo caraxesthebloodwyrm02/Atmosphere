@@ -1,0 +1,4 @@
+# file: E:\Projects\Atmosphere\src\reverb\core\platform.py
+# hypothesis_version: 6.146.0
+
+['active', 'delay', 'echo', 'effects_chain', 'hall', 'name', 'plate', 'platform', 'presets', 'reverb', 'room', 'services', 'spatial', 'status']

@@ -40,6 +40,7 @@ The spatial audio stage adds:
 - **Interactive Demonstrations**: Doppler, attenuation, and HRTF analysis
 - **Physics Validation**: Visual confirmation of acoustic principles
 
+<<<<<<< HEAD
 ## 🧠 Emotion-Based Spatial Positioning
 
 **Grounding audio in emotional depth and environmental space**
@@ -67,6 +68,8 @@ Audio positioning adapts to acoustic environments:
 ### Immersive Scene Creation
 Create complex 3D audio scenes by mixing multiple emotional elements with automatic spatial positioning based on their emotional content.
 
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 ## 🎵 Physics and Perception of Sound in Space
 
 ### Fundamental Properties
@@ -161,6 +164,7 @@ processed = platform.spatialize_signal(
 )
 ```
 
+<<<<<<< HEAD
 ### Emotion-Based Spatial Positioning
 
 ```python
@@ -206,6 +210,8 @@ scene = spatial_service.create_immersive_scene(audio_elements)
 # Automatically positions based on emotion in element names
 ```
 
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 ## 📈 Performance and Analysis
 
 ### Generated Visualizations

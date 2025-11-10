@@ -27,9 +27,15 @@ def test_reverb_imports():
 
 def test_routing_imports():
     """Test routing module imports."""
+<<<<<<< HEAD
     from atmosphere_audio.routing.core.network import \
         AcousticRoutingNetwork
     from atmosphere_audio.routing.core.visualization import \
+=======
+    from src.routing.acoustic_routing.core.network import \
+        AcousticRoutingNetwork
+    from src.routing.acoustic_routing.core.visualization import \
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         visualize_network
 
     assert AcousticRoutingNetwork is not None
@@ -58,7 +64,11 @@ def test_reverb_instantiation():
 
 def test_routing_instantiation():
     """Test AcousticRoutingNetwork instantiation."""
+<<<<<<< HEAD
     from atmosphere_audio.routing.core.network import \
+=======
+    from src.routing.acoustic_routing.core.network import \
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         AcousticRoutingNetwork
 
     network = AcousticRoutingNetwork()
@@ -101,7 +111,11 @@ def test_reverb_system_status():
 
 def test_routing_network_operations():
     """Test basic routing network operations."""
+<<<<<<< HEAD
     from atmosphere_audio.routing.core.network import \
+=======
+    from src.routing.acoustic_routing.core.network import \
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         AcousticRoutingNetwork
 
     # Create network with test nodes
@@ -123,9 +137,15 @@ def test_routing_network_operations():
 
 def test_routing_visualization():
     """Test routing network visualization."""
+<<<<<<< HEAD
     from atmosphere_audio.routing.core.network import \
         AcousticRoutingNetwork
     from atmosphere_audio.routing.core.visualization import \
+=======
+    from src.routing.acoustic_routing.core.network import \
+        AcousticRoutingNetwork
+    from src.routing.acoustic_routing.core.visualization import \
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         visualize_network
 
     network = AcousticRoutingNetwork()
@@ -152,7 +172,11 @@ def test_full_pipeline():
     from src.delay.core.delay_essence import Delay
     from src.delay.core.echoes_essence import EchoesPlatform
     from src.reverb.core.platform import ReverbPlatform
+<<<<<<< HEAD
     from atmosphere_audio.routing.core.network import \
+=======
+    from src.routing.acoustic_routing.core.network import \
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         AcousticRoutingNetwork
 
     # Create instances

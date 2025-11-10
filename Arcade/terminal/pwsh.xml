@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0"?>
 <doc>
     <assembly>
@@ -19,3 +20,26 @@
         </member>
     </members>
 </doc>
+=======
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>pwsh</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.PowerShell.ManagedPSEntry">
+            <summary>
+            Defines an entry point for the .NET CLI "powershell" app.
+            </summary>
+        </member>
+        <member name="M:Microsoft.PowerShell.ManagedPSEntry.Main(System.String[])">
+            <summary>
+            Starts PowerShell.
+            </summary>
+            <param name="args">
+            Command line arguments to PowerShell
+            </param>
+        </member>
+    </members>
+</doc>
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628

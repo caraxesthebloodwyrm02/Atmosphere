@@ -1,0 +1,663 @@
+WARNING: [youtube] -DVyjdw4t9I: Some web_safari client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details       
+WARNING: [youtube] -DVyjdw4t9I: Some web client https formats have been skipped as they are missing a url. YouTube is forcing SABR streaming for this client. See  https://github.com/yt-dlp/yt-dlp/issues/12482  for more details
+[youtube] -DVyjdw4t9I: Downloading m3u8 information
+[info] -DVyjdw4t9I: Downloading 1 format(s): 251 
+[download] Sleeping 4.00 seconds as required by the site... 
+[download] Destination: temp_audio.webm 
+[download] 100% of  160.27MiB in 00:00:19 at 8.06MiB/s
+[ExtractAudio] Destination: temp_audio.mp3 
+Deleting original file temp_audio.webm (pass -k to keep) 
+Transcribing audio...
+Traceback (most recent call last):
+  File "E:\Projects\Atmosphere\transcribe.py", line 81, in <module>
+    transcribe_video()
+    ~~~~~~~~~~~~~~~~^^
+  File "E:\Projects\Atmosphere\transcribe.py", line 19, in transcribe_video     
+    transcript = transcribe_audio(audio_file)
+  File "E:\Projects\Atmosphere\transcribe.py", line 62, in transcribe_audio     
+    transcript = client.audio.transcriptions.create(
+        model="whisper-1",
+        file=f,
+        response_format="text"
+    )
+  File "E:\Projects\Atmosphere\.venv\Lib\site-packages\openai\_utils\_utils.py", line 286, in wrapper
+    return func(*args, **kwargs)
+  File "E:\Projects\Atmosphere\.venv\Lib\site-packages\openai\resources\audio\transcriptions.py", line 468, in create
+    return self._post(  # type: ignore[return-value]
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        "/audio/transcriptions",
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<12 lines>...
+        stream_cls=Stream[TranscriptionStreamEvent],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "E:\Projects\Atmosphere\.venv\Lib\site-packages\openai\_base_client.py", line 1259, in post
+    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
+                           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+line 1047, in request
+line 1047, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'message': 'something went line 1047, in request
+    raise self._make_status_error_from_response(err.response) from None
+openai.BadRequestError: Error code: 400 - {'error': {'message': 'something went openai.BadRequestError: Error code: 400 - {'error': {'message': 'something went wrong reading your request', 'type': 'invalid_request_error', 'param': None, 'cowrong reading your request', 'type': 'invalid_request_error', 'param': None, 'code': None}}
+(.venv) PS E:\Projects\Atmosphere> python transcribe.py
+wrong reading your request', 'type': 'invalid_request_error', 'param': None, 'code': None}}
+(.venv) PS E:\Projects\Atmosphere> python transcribe.py
+=== Video Transcription Process ===
+=== Video Transcription Process ===
+
+[1/3] Downloading audio...
+=== Video Transcription Process ===
+
+[1/3] Downloading audio...
+
+
+
+[2/3] Transcribing audio...
+
+✗ Error: Transcription failed: Audio file is too large (242.81MB). Max size is 25MB.
+(.venv) PS E:\Projects\Atmosphere> python transcribe.py
+=== Video Transcription Process ===
+
+[1/3] Downloading audio...
+[2/3] Transcribing audio...
+
+[2/3] Transcribing audio...
+[2/3] Transcribing audio...
+[2/3] Transcribing audio...
+[2/3] Transcribing audio...
+[2/3] Transcribing audio...
+[2/3] Transcribing audio...
+[2/3] Transcribing audio...
+[2/3] Transcribing audio...
+
+✗ Error: Transcription failed: Audio file is too large (242.81MB). Max size is 25MB.
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> ^C
+(.venv) PS E:\Projects\Atmosphere> rm transcribe.py
+(.venv) PS E:\Projects\Atmosphere> 
+ *  History restored 
+
+[Python Env] Commands available:
+  pyenv        - Activate environment (auto-repairs)
+  pyenv-create - Create/recreate environment
+  pyenv-list   - Show available environments
+  pyenv-remove - Delete environment
+PS E:\Projects\Atmosphere> venv\Scripts\activate
+venv\Scripts\activate: The module 'venv' could not be loaded. For more information, run 'Import-Module venv'.
+PS E:\Projects\Atmosphere> .\.venv\Scripts\Activate.ps1
+(.venv) PS E:\Projects\Atmosphere> python assistant.py
+E:\Projects\Atmosphere\.venv\Scripts\python.exe: can't open file 'E:\\Projects\\Atmosphere\\assistant.py': [Errno 2] No such file or directory
+(.venv) PS E:\Projects\Atmosphere> cd echoes     
+(.venv) PS E:\Projects\Atmosphere\Echoes> python assistant.py
+Traceback (most recent call last):
+  File "E:\Projects\Atmosphere\Echoes\assistant.py", line 33, in <module>
+    from echoes.caching import TokenAwareCache, cached_function
+  File "E:\Projects\Atmosphere\Echoes\echoes\__init__.py", line 4, in <module>
+    from .config import (DEFAULT_MAX_TOKENS, DEFAULT_MODEL, DEFAULT_TEMPERATURE,
+                         RuntimeOptions)
+  File "E:\Projects\Atmosphere\Echoes\echoes\config.py", line 8, in <module>
+    from pydantic_settings import BaseSettings
+ModuleNotFoundError: No module named 'pydantic_settings'
+(.venv) PS E:\Projects\Atmosphere\Echoes> Import-Module venv
+Import-Module: The specified module 'venv' was not loaded because no valid module file was found in any module directory.
+(.venv) PS E:\Projects\Atmosphere\Echoes> deactivate
+PS E:\Projects\Atmosphere\Echoes> python -m venv venv 
+python: The term 'python' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+PS E:\Projects\Atmosphere\Echoes> pyenv
+[pyenv] Repairing environment: default
+[pyenv] ERROR: Failed to create environment: The term 'python' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+PS E:\Projects\Atmosphere\Echoes> python.exe -m venv venv
+python.exe: The term 'python.exe' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+PS E:\Projects\Atmosphere\Echoes> .\.venv\Scripts\Activate.ps1
+.\.venv\Scripts\Activate.ps1: The term '.\.venv\Scripts\Activate.ps1' is not recognized as a name of a cmdlet, function, script file, or executable program.
+Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+PS E:\Projects\Atmosphere\Echoes> cd ..    
+PS E:\Projects\Atmosphere> .venv\Scripts\python.exe -V
+Python 3.14.0
+PS E:\Projects\Atmosphere> .\.venv\Scripts\Activate.ps1
+(.venv) PS E:\Projects\Atmosphere> cd echoes
+(.venv) PS E:\Projects\Atmosphere\Echoes> .venv\Scripts\pip.exe install --upgrade pip
+.venv\Scripts\pip.exe: The module '.venv' could not be loaded. For more information, run 'Import-Module .venv'.
+(.venv) PS E:\Projects\Atmosphere\Echoes> pip install --upgrade pip
+Requirement already satisfied: pip in e:\projects\atmosphere\.venv\lib\site-packages (25.3)
+(.venv) PS E:\Projects\Atmosphere\Echoes> cd ..                                        
+(.venv) PS E:\Projects\Atmosphere> .venv\Scripts\pip install -r requirements.txt
+Requirement already satisfied: openai>=1.3.7 in e:\projects\atmosphere\.venv\lib\site-packages (from -r requirements.txt (line 2)) (2.7.1)
+Collecting fastapi>=0.104.1 (from -r requirements.txt (line 3))
+  Downloading fastapi-0.121.0-py3-none-any.whl.metadata (28 kB)
+Collecting uvicorn>=0.24.0 (from uvicorn[standard]>=0.24.0->-r requirements.txt (line 4))
+  Using cached uvicorn-0.38.0-py3-none-any.whl.metadata (6.8 kB)
+Requirement already satisfied: httpx>=0.25.2 in e:\projects\atmosphere\.venv\lib\site-packages (from -r requirements.txt (line 5)) (0.28.1)
+Collecting requests>=2.32.5 (from -r requirements.txt (line 6))
+  Using cached requests-2.32.5-py3-none-any.whl.metadata (4.9 kB)
+Collecting python-dotenv>=1.0.0 (from -r requirements.txt (line 7))
+  Using cached python_dotenv-1.2.1-py3-none-any.whl.metadata (25 kB)
+Collecting slowapi>=0.1.9 (from -r requirements.txt (line 10))
+  Using cached slowapi-0.1.9-py3-none-any.whl.metadata (3.0 kB)
+Collecting python-jose>=3.3.0 (from python-jose[cryptography]>=3.3.0->-r requirements.txt (line 11))
+  Using cached python_jose-3.5.0-py2.py3-none-any.whl.metadata (5.5 kB)
+Collecting passlib>=1.7.4 (from passlib[bcrypt]>=1.7.4->-r requirements.txt (line 12))
+  Using cached passlib-1.7.4-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting pygments>=2.19.2 (from -r requirements.txt (line 13))
+  Using cached pygments-2.19.2-py3-none-any.whl.metadata (2.5 kB)
+Collecting psycopg2-binary>=2.9.9 (from -r requirements.txt (line 16))
+  Using cached psycopg2_binary-2.9.11-cp314-cp314-win_amd64.whl.metadata (5.1 kB)
+Collecting sqlalchemy>=2.0.23 (from -r requirements.txt (line 17))
+  Using cached sqlalchemy-2.0.44-py3-none-any.whl.metadata (9.5 kB)
+Collecting alembic>=1.13.1 (from -r requirements.txt (line 18))
+  Using cached alembic-1.17.1-py3-none-any.whl.metadata (7.2 kB)
+Collecting redis>=5.0.1 (from -r requirements.txt (line 19))
+  Using cached redis-7.0.1-py3-none-any.whl.metadata (12 kB)
+Collecting aioredis>=2.0.1 (from -r requirements.txt (line 20))
+  Using cached aioredis-2.0.1-py3-none-any.whl.metadata (15 kB)
+Collecting numpy>=1.24.0 (from -r requirements.txt (line 23))
+  Using cached numpy-2.3.4-cp314-cp314-win_amd64.whl.metadata (60 kB)
+Collecting pandas>=2.0.0 (from -r requirements.txt (line 24))
+  Using cached pandas-2.3.3-cp314-cp314-win_amd64.whl.metadata (19 kB)
+Collecting scikit-learn>=1.3.0 (from -r requirements.txt (line 25))
+  Using cached scikit_learn-1.7.2-cp314-cp314-win_amd64.whl.metadata (11 kB)
+Collecting tiktoken>=0.5.2 (from -r requirements.txt (line 26))
+  Using cached tiktoken-0.12.0-cp314-cp314-win_amd64.whl.metadata (6.9 kB)
+Requirement already satisfied: pydantic>=2.5.0 in e:\projects\atmosphere\.venv\lib\site-packages (from -r requirements.txt (line 29)) (2.12.3)
+Collecting pydantic-settings>=2.1.0 (from -r requirements.txt (line 30))
+  Using cached pydantic_settings-2.11.0-py3-none-any.whl.metadata (3.4 kB)
+Collecting python-multipart>=0.0.6 (from -r requirements.txt (line 31))
+  Using cached python_multipart-0.0.20-py3-none-any.whl.metadata (1.8 kB)
+Collecting aiofiles>=23.2.1 (from -r requirements.txt (line 32))
+  Using cached aiofiles-25.1.0-py3-none-any.whl.metadata (6.3 kB)
+Collecting click>=8.1.7 (from -r requirements.txt (line 33))
+  Using cached click-8.3.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting rich>=13.7.0 (from -r requirements.txt (line 34))
+  Using cached rich-14.2.0-py3-none-any.whl.metadata (18 kB)
+Collecting typer>=0.9.0 (from -r requirements.txt (line 35))
+  Using cached typer-0.20.0-py3-none-any.whl.metadata (16 kB)
+Collecting pyyaml>=6.0.1 (from -r requirements.txt (line 36))
+  Using cached pyyaml-6.0.3-cp314-cp314-win_amd64.whl.metadata (2.4 kB)
+Collecting jinja2>=3.1.2 (from -r requirements.txt (line 37))
+  Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting orjson>=3.9.10 (from -r requirements.txt (line 38))
+  Using cached orjson-3.11.4-cp314-cp314-win_amd64.whl.metadata (42 kB)
+Collecting cryptography>=41.0.8 (from -r requirements.txt (line 39))
+  Using cached cryptography-46.0.3-cp311-abi3-win_amd64.whl.metadata (5.7 kB)
+Collecting prometheus-client>=0.19.0 (from -r requirements.txt (line 42))
+  Using cached prometheus_client-0.23.1-py3-none-any.whl.metadata (1.9 kB)
+Collecting jaeger-client>=4.8.0 (from -r requirements.txt (line 43))
+  Using cached jaeger_client-4.8.0-py3-none-any.whl
+Collecting opentelemetry-api>=1.21.0 (from -r requirements.txt (line 44))
+  Using cached opentelemetry_api-1.38.0-py3-none-any.whl.metadata (1.5 kB)
+Collecting opentelemetry-sdk>=1.21.0 (from -r requirements.txt (line 45))
+  Using cached opentelemetry_sdk-1.38.0-py3-none-any.whl.metadata (1.5 kB)
+Collecting opentelemetry-instrumentation-fastapi>=0.42b0 (from -r requirements.txt (line 46))
+  Using cached opentelemetry_instrumentation_fastapi-0.59b0-py3-none-any.whl.metadata (2.2 kB)
+Collecting websockets>=12.0 (from -r requirements.txt (line 49))
+  Using cached websockets-15.0.1-py3-none-any.whl.metadata (6.8 kB)
+Collecting cachetools>=5.3.2 (from -r requirements.txt (line 50))
+  Using cached cachetools-6.2.1-py3-none-any.whl.metadata (5.5 kB)
+Collecting strawberry-graphql>=0.215.1 (from -r requirements.txt (line 51))
+  Using cached strawberry_graphql-0.284.1-py3-none-any.whl.metadata (7.7 kB)
+Collecting anthropic>=0.7.8 (from -r requirements.txt (line 52))
+  Using cached anthropic-0.72.0-py3-none-any.whl.metadata (28 kB)
+Collecting duckduckgo-search>=6.1.0 (from -r requirements.txt (line 53))
+  Using cached duckduckgo_search-8.1.1-py3-none-any.whl.metadata (16 kB)
+Collecting matplotlib>=3.4.0 (from -r requirements.txt (line 56))
+  Using cached matplotlib-3.10.7-cp314-cp314-win_amd64.whl.metadata (11 kB)
+Collecting networkx>=2.6.0 (from -r requirements.txt (line 57))
+  Using cached networkx-3.5-py3-none-any.whl.metadata (6.3 kB)
+Requirement already satisfied: anyio<5,>=3.5.0 in e:\projects\atmosphere\.venv\lib\site-packages (from openai>=1.3.7->-r requirements.txt (line 2)) (4.11.0)
+Requirement already satisfied: distro<2,>=1.7.0 in e:\projects\atmosphere\.venv\lib\site-packages (from openai>=1.3.7->-r requirements.txt (line 2)) (1.9.0)
+Requirement already satisfied: jiter<1,>=0.10.0 in e:\projects\atmosphere\.venv\lib\site-packages (from openai>=1.3.7->-r requirements.txt (line 2)) (0.11.1)
+Requirement already satisfied: sniffio in e:\projects\atmosphere\.venv\lib\site-packages (from openai>=1.3.7->-r requirements.txt (line 2)) (1.3.1)
+Requirement already satisfied: tqdm>4 in e:\projects\atmosphere\.venv\lib\site-packages (from openai>=1.3.7->-r requirements.txt (line 2)) (4.67.1)
+Requirement already satisfied: typing-extensions<5,>=4.11 in e:\projects\atmosphere\.venv\lib\site-packages (from openai>=1.3.7->-r requirements.txt (line 2)) (4.15.0)
+Requirement already satisfied: certifi in e:\projects\atmosphere\.venv\lib\site-packages (from httpx>=0.25.2->-r requirements.txt (line 5)) (2025.10.5)
+Requirement already satisfied: httpcore==1.* in e:\projects\atmosphere\.venv\lib\site-packages (from httpx>=0.25.2->-r requirements.txt (line 5)) (1.0.9)
+Requirement already satisfied: idna in e:\projects\atmosphere\.venv\lib\site-packages (from httpx>=0.25.2->-r requirements.txt (line 5)) (3.11)
+Requirement already satisfied: annotated-types>=0.6.0 in e:\projects\atmosphere\.venv\lib\site-packages (from pydantic>=2.5.0->-r requirements.txt (line 29)) (0.7.0)
+Requirement already satisfied: pydantic-core==2.41.4 in e:\projects\atmosphere\.venv\lib\site-packages (from pydantic>=2.5.0->-r requirements.txt (line 29)) (2.41.4)
+Requirement already satisfied: typing-inspection>=0.4.2 in e:\projects\atmosphere\.venv\lib\site-packages (from pydantic>=2.5.0->-r requirements.txt (line 29)) (0.4.2)
+Requirement already satisfied: h11>=0.16 in e:\projects\atmosphere\.venv\lib\site-packages (from httpcore==1.*->httpx>=0.25.2->-r requirements.txt (line 5)) (0.16.0)
+Collecting starlette<0.50.0,>=0.40.0 (from fastapi>=0.104.1->-r requirements.txt (line 3))
+  Using cached starlette-0.49.3-py3-none-any.whl.metadata (6.4 kB)
+Collecting annotated-doc>=0.0.2 (from fastapi>=0.104.1->-r requirements.txt (line 3))
+  Using cached annotated_doc-0.0.3-py3-none-any.whl.metadata (6.6 kB)
+Collecting charset_normalizer<4,>=2 (from requests>=2.32.5->-r requirements.txt (line 6))
+  Using cached charset_normalizer-3.4.4-cp314-cp314-win_amd64.whl.metadata (38 kB)
+Collecting urllib3<3,>=1.21.1 (from requests>=2.32.5->-r requirements.txt (line 6))
+  Using cached urllib3-2.5.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting limits>=2.3 (from slowapi>=0.1.9->-r requirements.txt (line 10))
+  Using cached limits-5.6.0-py3-none-any.whl.metadata (10 kB)
+Collecting ecdsa!=0.15 (from python-jose>=3.3.0->python-jose[cryptography]>=3.3.0->-r requirements.txt (line 11))
+  Using cached ecdsa-0.19.1-py2.py3-none-any.whl.metadata (29 kB)
+Collecting rsa!=4.1.1,!=4.4,<5.0,>=4.0 (from python-jose>=3.3.0->python-jose[cryptography]>=3.3.0->-r requirements.txt (line 11))
+  Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+Collecting pyasn1>=0.5.0 (from python-jose>=3.3.0->python-jose[cryptography]>=3.3.0->-r requirements.txt (line 11))
+  Using cached pyasn1-0.6.1-py3-none-any.whl.metadata (8.4 kB)
+Collecting greenlet>=1 (from sqlalchemy>=2.0.23->-r requirements.txt (line 17))
+  Using cached greenlet-3.2.4-cp314-cp314-win_amd64.whl.metadata (4.2 kB)
+Collecting Mako (from alembic>=1.13.1->-r requirements.txt (line 18))
+  Using cached mako-1.3.10-py3-none-any.whl.metadata (2.9 kB)
+Collecting async-timeout (from aioredis>=2.0.1->-r requirements.txt (line 20))
+  Using cached async_timeout-5.0.1-py3-none-any.whl.metadata (5.1 kB)
+Collecting python-dateutil>=2.8.2 (from pandas>=2.0.0->-r requirements.txt (line 24))
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting pytz>=2020.1 (from pandas>=2.0.0->-r requirements.txt (line 24))
+  Using cached pytz-2025.2-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzdata>=2022.7 (from pandas>=2.0.0->-r requirements.txt (line 24))
+  Using cached tzdata-2025.2-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting scipy>=1.8.0 (from scikit-learn>=1.3.0->-r requirements.txt (line 25))
+  Using cached scipy-1.16.3-cp314-cp314-win_amd64.whl.metadata (60 kB)
+Collecting joblib>=1.2.0 (from scikit-learn>=1.3.0->-r requirements.txt (line 25))
+  Using cached joblib-1.5.2-py3-none-any.whl.metadata (5.6 kB)
+Collecting threadpoolctl>=3.1.0 (from scikit-learn>=1.3.0->-r requirements.txt (line 25))
+  Using cached threadpoolctl-3.6.0-py3-none-any.whl.metadata (13 kB)
+Collecting regex>=2022.1.18 (from tiktoken>=0.5.2->-r requirements.txt (line 26))
+  Using cached regex-2025.11.3-cp314-cp314-win_amd64.whl.metadata (41 kB)
+Requirement already satisfied: colorama in e:\projects\atmosphere\.venv\lib\site-packages (from click>=8.1.7->-r requirements.txt (line 33)) (0.4.6)
+Collecting markdown-it-py>=2.2.0 (from rich>=13.7.0->-r requirements.txt (line 34))
+  Using cached markdown_it_py-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting shellingham>=1.3.0 (from typer>=0.9.0->-r requirements.txt (line 35))
+  Using cached shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting MarkupSafe>=2.0 (from jinja2>=3.1.2->-r requirements.txt (line 37))
+  Using cached markupsafe-3.0.3-cp314-cp314-win_amd64.whl.metadata (2.8 kB)
+Collecting cffi>=2.0.0 (from cryptography>=41.0.8->-r requirements.txt (line 39))
+  Using cached cffi-2.0.0-cp314-cp314-win_amd64.whl.metadata (2.6 kB)
+Collecting threadloop<2,>=1 (from jaeger-client>=4.8.0->-r requirements.txt (line 43))
+  Using cached threadloop-1.0.2-py3-none-any.whl
+Collecting thrift (from jaeger-client>=4.8.0->-r requirements.txt (line 43))
+  Using cached thrift-0.22.0-py3-none-any.whl
+Collecting tornado>=4.3 (from jaeger-client>=4.8.0->-r requirements.txt (line 43))
+  Using cached tornado-6.5.2-cp39-abi3-win_amd64.whl.metadata (2.9 kB)
+Collecting opentracing<3.0,>=2.1 (from jaeger-client>=4.8.0->-r requirements.txt (line 43))
+  Using cached opentracing-2.4.0-py3-none-any.whl
+Collecting importlib-metadata<8.8.0,>=6.0 (from opentelemetry-api>=1.21.0->-r requirements.txt (line 44))
+  Using cached importlib_metadata-8.7.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting zipp>=3.20 (from importlib-metadata<8.8.0,>=6.0->opentelemetry-api>=1.21.0->-r requirements.txt (line 44))
+  Using cached zipp-3.23.0-py3-none-any.whl.metadata (3.6 kB)
+Collecting opentelemetry-semantic-conventions==0.59b0 (from opentelemetry-sdk>=1.21.0->-r requirements.txt (line 45))
+  Using cached opentelemetry_semantic_conventions-0.59b0-py3-none-any.whl.metadata (2.4 kB)
+Collecting opentelemetry-instrumentation-asgi==0.59b0 (from opentelemetry-instrumentation-fastapi>=0.42b0->-r requirements.txt (line 46))
+  Using cached opentelemetry_instrumentation_asgi-0.59b0-py3-none-any.whl.metadata (2.0 kB)
+Collecting opentelemetry-instrumentation==0.59b0 (from opentelemetry-instrumentation-fastapi>=0.42b0->-r requirements.txt (line 46))
+  Using cached opentelemetry_instrumentation-0.59b0-py3-none-any.whl.metadata (7.1 kB)
+Collecting opentelemetry-util-http==0.59b0 (from opentelemetry-instrumentation-fastapi>=0.42b0->-r requirements.txt (line 46))
+  Using cached opentelemetry_util_http-0.59b0-py3-none-any.whl.metadata (2.6 kB)
+Collecting packaging>=18.0 (from opentelemetry-instrumentation==0.59b0->opentelemetry-instrumentation-fastapi>=0.42b0->-r requirements.txt (line 46))
+  Using cached packaging-25.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting wrapt<2.0.0,>=1.0.0 (from opentelemetry-instrumentation==0.59b0->opentelemetry-instrumentation-fastapi>=0.42b0->-r requirements.txt (line 46))
+  Using cached wrapt-1.17.3-cp314-cp314-win_amd64.whl.metadata (6.5 kB)
+Collecting asgiref~=3.0 (from opentelemetry-instrumentation-asgi==0.59b0->opentelemetry-instrumentation-fastapi>=0.42b0->-r requirements.txt (line 46))
+  Using cached asgiref-3.10.0-py3-none-any.whl.metadata (9.3 kB)
+Collecting graphql-core<3.4.0,>=3.2.0 (from strawberry-graphql>=0.215.1->-r requirements.txt (line 51))
+  Using cached graphql_core-3.2.7-py3-none-any.whl.metadata (11 kB)
+Collecting lia-web>=0.2.1 (from strawberry-graphql>=0.215.1->-r requirements.txt (line 51))
+  Using cached lia_web-0.2.3-py3-none-any.whl.metadata (1.1 kB)
+Collecting six>=1.5 (from python-dateutil>=2.8.2->pandas>=2.0.0->-r requirements.txt (line 24))
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting docstring-parser<1,>=0.15 (from anthropic>=0.7.8->-r requirements.txt (line 52))
+  Using cached docstring_parser-0.17.0-py3-none-any.whl.metadata (3.5 kB)
+Collecting primp>=0.15.0 (from duckduckgo-search>=6.1.0->-r requirements.txt (line 53))
+  Using cached primp-0.15.0-cp38-abi3-win_amd64.whl.metadata (13 kB)
+Collecting lxml>=5.3.0 (from duckduckgo-search>=6.1.0->-r requirements.txt (line 53))
+  Using cached lxml-6.0.2-cp314-cp314-win_amd64.whl.metadata (3.7 kB)
+Collecting contourpy>=1.0.1 (from matplotlib>=3.4.0->-r requirements.txt (line 56))
+  Using cached contourpy-1.3.3-cp314-cp314-win_amd64.whl.metadata (5.5 kB)
+Collecting cycler>=0.10 (from matplotlib>=3.4.0->-r requirements.txt (line 56))
+  Using cached cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools>=4.22.0 (from matplotlib>=3.4.0->-r requirements.txt (line 56))
+  Using cached fonttools-4.60.1-cp314-cp314-win_amd64.whl.metadata (114 kB)
+Collecting kiwisolver>=1.3.1 (from matplotlib>=3.4.0->-r requirements.txt (line 56))
+  Using cached kiwisolver-1.4.9-cp314-cp314-win_amd64.whl.metadata (6.4 kB)
+Collecting pillow>=8 (from matplotlib>=3.4.0->-r requirements.txt (line 56))
+  Using cached pillow-12.0.0-cp314-cp314-win_amd64.whl.metadata (9.0 kB)
+Collecting pyparsing>=3 (from matplotlib>=3.4.0->-r requirements.txt (line 56))
+  Using cached pyparsing-3.2.5-py3-none-any.whl.metadata (5.0 kB)
+Collecting pycparser (from cffi>=2.0.0->cryptography>=41.0.8->-r requirements.txt (line 39))
+  Using cached pycparser-2.23-py3-none-any.whl.metadata (993 bytes)
+Collecting deprecated>=1.2 (from limits>=2.3->slowapi>=0.1.9->-r requirements.txt (line 10))
+  Using cached deprecated-1.3.1-py2.py3-none-any.whl.metadata (5.9 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13.7.0->-r requirements.txt (line 34))
+  Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Collecting bcrypt>=3.1.0 (from passlib[bcrypt]>=1.7.4->-r requirements.txt (line 12))
+  Using cached bcrypt-5.0.0-cp39-abi3-win_amd64.whl.metadata (10 kB)
+Collecting httptools>=0.6.3 (from uvicorn[standard]>=0.24.0->-r requirements.txt (line 4))
+  Using cached httptools-0.7.1-cp314-cp314-win_amd64.whl.metadata (3.6 kB)
+Collecting watchfiles>=0.13 (from uvicorn[standard]>=0.24.0->-r requirements.txt (line 4))
+  Using cached watchfiles-1.1.1-cp314-cp314-win_amd64.whl.metadata (5.0 kB)
+Downloading fastapi-0.121.0-py3-none-any.whl (109 kB)
+Using cached starlette-0.49.3-py3-none-any.whl (74 kB)
+Using cached uvicorn-0.38.0-py3-none-any.whl (68 kB)
+Using cached requests-2.32.5-py3-none-any.whl (64 kB)
+Using cached charset_normalizer-3.4.4-cp314-cp314-win_amd64.whl (107 kB)
+Using cached urllib3-2.5.0-py3-none-any.whl (129 kB)
+Using cached python_dotenv-1.2.1-py3-none-any.whl (21 kB)
+Using cached slowapi-0.1.9-py3-none-any.whl (14 kB)
+Using cached python_jose-3.5.0-py2.py3-none-any.whl (34 kB)
+Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+Using cached passlib-1.7.4-py2.py3-none-any.whl (525 kB)
+Using cached pygments-2.19.2-py3-none-any.whl (1.2 MB)
+Using cached psycopg2_binary-2.9.11-cp314-cp314-win_amd64.whl (2.8 MB)
+Using cached sqlalchemy-2.0.44-py3-none-any.whl (1.9 MB)
+Using cached alembic-1.17.1-py3-none-any.whl (247 kB)
+Using cached redis-7.0.1-py3-none-any.whl (339 kB)
+Using cached aioredis-2.0.1-py3-none-any.whl (71 kB)
+Using cached numpy-2.3.4-cp314-cp314-win_amd64.whl (12.9 MB)
+Using cached pandas-2.3.3-cp314-cp314-win_amd64.whl (11.1 MB)
+Using cached scikit_learn-1.7.2-cp314-cp314-win_amd64.whl (8.8 MB)
+Using cached tiktoken-0.12.0-cp314-cp314-win_amd64.whl (921 kB)
+Using cached pydantic_settings-2.11.0-py3-none-any.whl (48 kB)
+Using cached python_multipart-0.0.20-py3-none-any.whl (24 kB)
+Using cached aiofiles-25.1.0-py3-none-any.whl (14 kB)
+Using cached click-8.3.0-py3-none-any.whl (107 kB)
+Using cached rich-14.2.0-py3-none-any.whl (243 kB)
+Using cached typer-0.20.0-py3-none-any.whl (47 kB)
+Using cached pyyaml-6.0.3-cp314-cp314-win_amd64.whl (156 kB)
+Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Using cached orjson-3.11.4-cp314-cp314-win_amd64.whl (131 kB)
+Using cached cryptography-46.0.3-cp311-abi3-win_amd64.whl (3.5 MB)
+Using cached prometheus_client-0.23.1-py3-none-any.whl (61 kB)
+Using cached opentelemetry_api-1.38.0-py3-none-any.whl (65 kB)
+Using cached importlib_metadata-8.7.0-py3-none-any.whl (27 kB)
+Using cached opentelemetry_sdk-1.38.0-py3-none-any.whl (132 kB)
+Using cached opentelemetry_semantic_conventions-0.59b0-py3-none-any.whl (207 kB)
+Using cached opentelemetry_instrumentation_fastapi-0.59b0-py3-none-any.whl (13 kB)
+Using cached opentelemetry_instrumentation-0.59b0-py3-none-any.whl (33 kB)
+Using cached opentelemetry_instrumentation_asgi-0.59b0-py3-none-any.whl (16 kB)
+Using cached opentelemetry_util_http-0.59b0-py3-none-any.whl (7.6 kB)
+Using cached asgiref-3.10.0-py3-none-any.whl (24 kB)
+Using cached wrapt-1.17.3-cp314-cp314-win_amd64.whl (39 kB)
+Using cached websockets-15.0.1-py3-none-any.whl (169 kB)
+Using cached cachetools-6.2.1-py3-none-any.whl (11 kB)
+Using cached strawberry_graphql-0.284.1-py3-none-any.whl (308 kB)
+Using cached graphql_core-3.2.7-py3-none-any.whl (207 kB)
+Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Using cached anthropic-0.72.0-py3-none-any.whl (357 kB)
+Using cached docstring_parser-0.17.0-py3-none-any.whl (36 kB)
+Using cached duckduckgo_search-8.1.1-py3-none-any.whl (18 kB)
+Using cached matplotlib-3.10.7-cp314-cp314-win_amd64.whl (8.3 MB)
+Using cached networkx-3.5-py3-none-any.whl (2.0 MB)
+Using cached annotated_doc-0.0.3-py3-none-any.whl (5.5 kB)
+Using cached cffi-2.0.0-cp314-cp314-win_amd64.whl (185 kB)
+Using cached contourpy-1.3.3-cp314-cp314-win_amd64.whl (232 kB)
+Using cached cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Using cached ecdsa-0.19.1-py2.py3-none-any.whl (150 kB)
+Using cached fonttools-4.60.1-cp314-cp314-win_amd64.whl (2.3 MB)
+Using cached greenlet-3.2.4-cp314-cp314-win_amd64.whl (303 kB)
+Using cached joblib-1.5.2-py3-none-any.whl (308 kB)
+Using cached kiwisolver-1.4.9-cp314-cp314-win_amd64.whl (75 kB)
+Using cached lia_web-0.2.3-py3-none-any.whl (13 kB)
+Using cached limits-5.6.0-py3-none-any.whl (60 kB)
+Using cached deprecated-1.3.1-py2.py3-none-any.whl (11 kB)
+Using cached lxml-6.0.2-cp314-cp314-win_amd64.whl (4.1 MB)
+Using cached markdown_it_py-4.0.0-py3-none-any.whl (87 kB)
+Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Using cached markupsafe-3.0.3-cp314-cp314-win_amd64.whl (15 kB)
+Using cached packaging-25.0-py3-none-any.whl (66 kB)
+Using cached bcrypt-5.0.0-cp39-abi3-win_amd64.whl (150 kB)
+Using cached pillow-12.0.0-cp314-cp314-win_amd64.whl (7.1 MB)
+Using cached primp-0.15.0-cp38-abi3-win_amd64.whl (3.1 MB)
+Using cached pyasn1-0.6.1-py3-none-any.whl (83 kB)
+Using cached pyparsing-3.2.5-py3-none-any.whl (113 kB)
+Using cached pytz-2025.2-py2.py3-none-any.whl (509 kB)
+Using cached regex-2025.11.3-cp314-cp314-win_amd64.whl (280 kB)
+Using cached scipy-1.16.3-cp314-cp314-win_amd64.whl (39.4 MB)
+Using cached shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Using cached threadpoolctl-3.6.0-py3-none-any.whl (18 kB)
+Using cached tornado-6.5.2-cp39-abi3-win_amd64.whl (445 kB)
+Using cached tzdata-2025.2-py2.py3-none-any.whl (347 kB)
+Using cached httptools-0.7.1-cp314-cp314-win_amd64.whl (88 kB)
+Using cached watchfiles-1.1.1-cp314-cp314-win_amd64.whl (287 kB)
+Using cached zipp-3.23.0-py3-none-any.whl (10 kB)
+Using cached async_timeout-5.0.1-py3-none-any.whl (6.2 kB)
+Using cached mako-1.3.10-py3-none-any.whl (78 kB)
+Using cached pycparser-2.23-py3-none-any.whl (118 kB)
+Installing collected packages: thrift, pytz, passlib, opentracing, zipp, wrapt, websockets, urllib3, tzdata, tornado, threadpoolctl, six, shellingham, regex, redis, pyyaml, python-multipart, python-dotenv, pyparsing, pygments, pycparser, pyasn1, psycopg2-binary, prometheus-client, primp, pillow, packaging, orjson, opentelemetry-util-http, numpy, networkx, mdurl, MarkupSafe, lxml, lia-web, kiwisolver, joblib, httptools, greenlet, graphql-core, fonttools, docstring-parser, cycler, click, charset_normalizer, cachetools, bcrypt, async-timeout, asgiref, annotated-doc, aiofiles, watchfiles, uvicorn, threadloop, starlette, sqlalchemy, scipy, rsa, requests, python-dateutil, markdown-it-py, Mako, jinja2, importlib-metadata, ecdsa, duckduckgo-search, deprecated, contourpy, cffi, aioredis, tiktoken, strawberry-graphql, scikit-learn, rich, python-jose, pydantic-settings, pandas, opentelemetry-api, matplotlib, limits, jaeger-client, fastapi, cryptography, anthropic, alembic, typer, slowapi, opentelemetry-semantic-conventions, opentelemetry-sdk, opentelemetry-instrumentation, opentelemetry-instrumentation-asgi, opentelemetry-instrumentation-fastapi
+   ━━━━━━━━━━━━━━━━━╺━━━━━━━━━━━━━━━━━━━━━━ 40/92 [fonttools]ERROR: Operation cancelled by user
+(.venv) PS E:\Projects\Atmosphere> .venv\Scripts\pip install -r requirements.txt                                       
+Requirement already satisfied: numpy>=1.21.0 in e:\projects\atmosphere\.venv\lib\site-packages (from -r requirements.txt (line 1)) (2.3.4)
+Collecting matplotlib>=3.4.0 (from -r requirements.txt (line 2))
+  Using cached matplotlib-3.10.7-cp314-cp314-win_amd64.whl.metadata (11 kB)
+Requirement already satisfied: networkx>=2.6.0 in e:\projects\atmosphere\.venv\lib\site-packages (from -r requirements.txt (line 3)) (3.5)
+Collecting fastapi>=0.68.0 (from -r requirements.txt (line 4))
+  Using cached fastapi-0.121.0-py3-none-any.whl.metadata (28 kB)
+Collecting uvicorn>=0.15.0 (from -r requirements.txt (line 5))
+  Using cached uvicorn-0.38.0-py3-none-any.whl.metadata (6.8 kB)
+Requirement already satisfied: pydantic>=1.8.0 in e:\projects\atmosphere\.venv\lib\site-packages (from -r requirements.txt (line 6)) (2.12.3)
+Requirement already satisfied: python-dotenv>=0.19.0 in e:\projects\atmosphere\.venv\lib\site-packages (from -r requirements.txt (line 7)) (1.2.1)
+Collecting contourpy>=1.0.1 (from matplotlib>=3.4.0->-r requirements.txt (line 2))
+  Using cached contourpy-1.3.3-cp314-cp314-win_amd64.whl.metadata (5.5 kB)
+Collecting cycler>=0.10 (from matplotlib>=3.4.0->-r requirements.txt (line 2))
+  Using cached cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Requirement already satisfied: fonttools>=4.22.0 in e:\projects\atmosphere\.venv\lib\site-packages (from matplotlib>=3.4.0->-r requirements.txt (line 2)) (4.60.1)
+Requirement already satisfied: kiwisolver>=1.3.1 in e:\projects\atmosphere\.venv\lib\site-packages (from matplotlib>=3.4.0->-r requirements.txt (line 2)) (1.4.9)
+Requirement already satisfied: packaging>=20.0 in e:\projects\atmosphere\.venv\lib\site-packages (from matplotlib>=3.4.0->-r requirements.txt (line 2)) (25.0)
+Requirement already satisfied: pillow>=8 in e:\projects\atmosphere\.venv\lib\site-packages (from matplotlib>=3.4.0->-r requirements.txt (line 2)) (12.0.0)
+Requirement already satisfied: pyparsing>=3 in e:\projects\atmosphere\.venv\lib\site-packages (from matplotlib>=3.4.0->-r requirements.txt (line 2)) (3.2.5)
+Collecting python-dateutil>=2.7 (from matplotlib>=3.4.0->-r requirements.txt (line 2))
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting starlette<0.50.0,>=0.40.0 (from fastapi>=0.68.0->-r requirements.txt (line 4))
+  Using cached starlette-0.49.3-py3-none-any.whl.metadata (6.4 kB)
+Requirement already satisfied: typing-extensions>=4.8.0 in e:\projects\atmosphere\.venv\lib\site-packages (from fastapi>=0.68.0->-r requirements.txt (line 4)) (4.15.0)
+Collecting annotated-doc>=0.0.2 (from fastapi>=0.68.0->-r requirements.txt (line 4))
+  Using cached annotated_doc-0.0.3-py3-none-any.whl.metadata (6.6 kB)
+Requirement already satisfied: annotated-types>=0.6.0 in e:\projects\atmosphere\.venv\lib\site-packages (from pydantic>=1.8.0->-r requirements.txt (line 6)) (0.7.0)
+Requirement already satisfied: pydantic-core==2.41.4 in e:\projects\atmosphere\.venv\lib\site-packages (from pydantic>=1.8.0->-r requirements.txt (line 6)) (2.41.4)
+Requirement already satisfied: typing-inspection>=0.4.2 in e:\projects\atmosphere\.venv\lib\site-packages (from pydantic>=1.8.0->-r requirements.txt (line 6)) (0.4.2)
+Requirement already satisfied: anyio<5,>=3.6.2 in e:\projects\atmosphere\.venv\lib\site-packages (from starlette<0.50.0,>=0.40.0->fastapi>=0.68.0->-r requirements.txt (line 4)) (4.11.0)
+Requirement already satisfied: idna>=2.8 in e:\projects\atmosphere\.venv\lib\site-packages (from anyio<5,>=3.6.2->starlette<0.50.0,>=0.40.0->fastapi>=0.68.0->-r requirements.txt (line 4)) (3.11)
+Requirement already satisfied: sniffio>=1.1 in e:\projects\atmosphere\.venv\lib\site-packages (from anyio<5,>=3.6.2->starlette<0.50.0,>=0.40.0->fastapi>=0.68.0->-r requirements.txt (line 4)) (1.3.1)
+Collecting click>=7.0 (from uvicorn>=0.15.0->-r requirements.txt (line 5))
+  Using cached click-8.3.0-py3-none-any.whl.metadata (2.6 kB)
+Requirement already satisfied: h11>=0.8 in e:\projects\atmosphere\.venv\lib\site-packages (from uvicorn>=0.15.0->-r requirements.txt (line 5)) (0.16.0)
+Requirement already satisfied: colorama in e:\projects\atmosphere\.venv\lib\site-packages (from click>=7.0->uvicorn>=0.15.0->-r requirements.txt (line 5)) (0.4.6)
+Requirement already satisfied: six>=1.5 in e:\projects\atmosphere\.venv\lib\site-packages (from python-dateutil>=2.7->matplotlib>=3.4.0->-r requirements.txt (line 2)) (1.17.0)
+Using cached matplotlib-3.10.7-cp314-cp314-win_amd64.whl (8.3 MB)
+Using cached fastapi-0.121.0-py3-none-any.whl (109 kB)
+Using cached starlette-0.49.3-py3-none-any.whl (74 kB)
+Using cached uvicorn-0.38.0-py3-none-any.whl (68 kB)
+Using cached annotated_doc-0.0.3-py3-none-any.whl (5.5 kB)
+Using cached click-8.3.0-py3-none-any.whl (107 kB)
+Using cached contourpy-1.3.3-cp314-cp314-win_amd64.whl (232 kB)
+Using cached cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Installing collected packages: python-dateutil, cycler, contourpy, click, annotated-doc, uvicorn, starlette, matplotlib, fastapi
+Successfully installed annotated-doc-0.0.3 click-8.3.0 contourpy-1.3.3 cycler-0.12.1 fastapi-0.121.0 matplotlib-3.10.7 python-dateutil-2.9.0.post0 starlette-0.49.3 uvicorn-0.38.0
+(.venv) PS E:\Projects\Atmosphere> cd echoes
+(.venv) PS E:\Projects\Atmosphere\Echoes> python assistant.py      
+Traceback (most recent call last):
+  File "E:\Projects\Atmosphere\Echoes\assistant.py", line 76, in <module>
+    from smart_terminal.interface.terminal import TerminalInterface
+  File "E:\Projects\Atmosphere\Echoes\smart_terminal\interface\__init__.py", line 2, in <module>
+    from .terminal import TerminalInterface
+  File "E:\Projects\Atmosphere\Echoes\smart_terminal\interface\terminal.py", line 287, in <module>
+    class SmartCompleter(Completer):
+                         ^^^^^^^^^
+NameError: name 'Completer' is not defined
+(.venv) PS E:\Projects\Atmosphere\Echoes> python assistant.py
+Traceback (most recent call last):
+  File "E:\Projects\Atmosphere\Echoes\assistant.py", line 76, in <module>
+    from smart_terminal.interface.terminal import TerminalInterface
+  File "E:\Projects\Atmosphere\Echoes\smart_terminal\interface\__init__.py", line 2, in <module>
+    from .terminal import TerminalInterface
+  File "E:\Projects\Atmosphere\Echoes\smart_terminal\interface\terminal.py", line 327, in <module>
+    class TerminalInterface:
+    ...<674 lines>...
+            asyncio.run(run())
+  File "E:\Projects\Atmosphere\Echoes\smart_terminal\interface\terminal.py", line 334, in TerminalInterface
+    preset: Union[str, TerminalPreset] = TerminalPreset.DEVELOPER,
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'NoneType' object has no attribute 'DEVELOPER'
+(.venv) PS E:\Projects\Atmosphere\Echoes> python assistant.py
+🤖 OpenAI integration available
+Traceback (most recent call last):
+  File "E:\Projects\Atmosphere\Echoes\assistant.py", line 3324, in <module>
+    exit(main())
+         ~~~~^^
+  File "E:\Projects\Atmosphere\Echoes\assistant.py", line 3204, in main
+    assistant = FusedAssistant()
+  File "E:\Projects\Atmosphere\Echoes\assistant.py", line 982, in __init__
+    self._init_caching()
+    ^^^^^^^^^^^^^^^^^^
+AttributeError: 'FusedAssistant' object has no attribute '_init_caching'
+(.venv) PS E:\Projects\Atmosphere\Echoes> python assistant.py
+🤖 OpenAI integration available
+2025-11-04 14:54:39,155 - httpx - INFO - HTTP Request: GET https://api.openai.com/v1/models "HTTP/1.1 200 OK"
+2025-11-04 14:54:41,738 - httpx - INFO - HTTP Request: GET https://api.openai.com/v1/models "HTTP/1.1 200 OK"
+✅ OpenAI connected. Available models: gpt-3.5-turbo-1106, gpt-4-1106-preview, gpt-4-vision-preview
+2025-11-04 14:54:42,000 - FusedAssistant - WARNING - Smart terminal disabled: prompt_toolkit is required for TerminalInterface. Install 'prompt_toolkit' to enable smart terminal features.
+2025-11-04 14:54:42,000 - FusedAssistant - INFO - FusedAssistant v2.1 initialized (Session: 47f6fbfa)
+🤖 Fused Assistant v2.1 - Ready for Chat & Commands with Selective Attention
+🎯 Session ID: 47f6fbfa
+⚡ Active: 10 tool categories, 8 experience domains
+🧠 Attention: Threshold=0.7, Max items=10
+Traceback (most recent call last):
+  File "E:\Projects\Atmosphere\Echoes\assistant.py", line 3342, in <module>
+    exit(main())
+         ~~~~^^
+  File "E:\Projects\Atmosphere\Echoes\assistant.py", line 3222, in main
+    assistant = FusedAssistant()
+  File "E:\Projects\Atmosphere\Echoes\assistant.py", line 1126, in __init__
+    print(f"🧠 OpenAI connected: {self.model_preference}")
+                                  ^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'FusedAssistant' object has no attribute 'model_preference'
+(.venv) PS E:\Projects\Atmosphere\Echoes> python assistant.py
+🤖 OpenAI integration available
+2025-11-04 14:56:36,292 - httpx - INFO - HTTP Request: GET https://api.openai.com/v1/models "HTTP/1.1 200 OK"
+2025-11-04 14:56:39,859 - httpx - INFO - HTTP Request: GET https://api.openai.com/v1/models "HTTP/1.1 200 OK"
+✅ OpenAI connected. Available models: gpt-3.5-turbo-1106, gpt-4-1106-preview, gpt-4-vision-preview
+2025-11-04 14:56:41,308 - httpx - INFO - HTTP Request: GET https://api.openai.com/v1/models "HTTP/1.1 200 OK"
+2025-11-04 14:56:41,559 - FusedAssistant - WARNING - Smart terminal disabled: prompt_toolkit is required for TerminalInterface. Install 'prompt_toolkit' to enable smart terminal features.
+2025-11-04 14:56:41,559 - FusedAssistant - INFO - FusedAssistant v2.1 initialized (Session: ac0535ab)
+🤖 Fused Assistant v2.1 - Ready for Chat & Commands with Selective Attention
+🎯 Session ID: ac0535ab
+⚡ Active: 10 tool categories, 8 experience domains
+🧠 Attention: Threshold=0.7, Max items=10
+🧠 OpenAI connected: gpt-4
+⌨️ Smart Terminal: Disabled (prompt_toolkit is required for TerminalInterface. Install 'prompt_toolkit' to enable smartt terminal features.)
+🔍 Selective Attention Demo:
+   Input: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+   Focused on even numbers: [2, 4, 6, 8, 10]
+   Attention rate: 5/10 (50.0%)
+
+🤖 Fused Assistant - Main Menu
+========================================
+1. Chat Mode (conversational)
+2. Command Mode (precise operations)
+3. Smart Terminal (intelligent CLI)
+4. Status
+5. Attention Status
+6. Help
+7. Quit
+========================================
+Select option (1-7): 1
+🤖 Chat Mode Started - Type 'quit' or 'exit' to return to menu
+============================================================
+💬 You: hello
+2025-11-04 14:56:56,970 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: Hello! How can I assist you today?
+💬 You: can you tell me more about emmit fenn
+2025-11-04 14:57:26,124 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: Emmit Fenn is a singer, songwriter, and producer known for his emotionally charged and atmospheric electronic music. He gained attention with his debut single "Painting Greys" in 2015 and has since released a number of well-received tracks and EPs. Fenn's music often features haunting vocals, lush production, and introspective lyrics. If you would like to explore more about Emmit Fenn, I can help you search for his discography, biography, or latest news.    
+💬 You: i am curious about the atmospheric elements, what im trying to build is foley. and i need to learn about atmosp
+heric textures
+2025-11-04 15:01:41,127 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: To learn about atmospheric textures for foley, you may want to explore sounds related to nature, weather, and environmental ambiances. You can search for and listen to audio samples of wind, rain, thunder, birdsong, ocean waves, and other natural elements. Additionally, you can look for resources on creating atmospheric textures using musical instruments, synthesis, and sound design techniques.
+
+If you have specific sounds or samples in mind that you'd like to search for, let me know and I can assist with finding them.
+💬 You: i explored the sound design techniques and have the basic idea needed to shape sound and synthesize. i need a p
+roper start point exploring foley and learning what aspects in the sound contributes to the soothing nature in foley
+2025-11-04 15:03:49,673 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: It's great to hear that you're interested in sound design and foley! Foley sound is created by recording everyday sounds to enhance the audio of visual media, and it often involves simulating sounds that can contribute to the immersive and soothing nature of a scene. To start exploring foley, you can begin by:
+
+1. Researching Foley Artistry: Look into the techniques and practices used by foley artists to create realistic and engaging sounds.
+
+2. Analyzing Soothing Sounds: Study the characteristics of soothing sounds and how they are created using foley techniques. This could involve researching the use of natural elements, soft textures, and subtle movements.
+
+3. Foley Workshops and Tutorials: Consider finding workshops or online tutorials that focus on foley sound design, as they often provide practical insights and demonstrations.
+
+As you delve deeper into foley, you can also experiment with recording your own sounds and analyzing how they contribute to the soothing nature of foley. If you have specific questions or need resources on this topic, feel free to ask!   
+💬 You: thanks, recommend one movie or youtube video that is a topper for it's design and unique use in foleyi      
+2025-11-04 15:05:34,002 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: I'd recommend the movie "Inception" for its innovative design and unique use of visual effects to create mind-bending dreamscapes. It's a visually stunning film that pushes the boundaries of traditional filmmaking.
+💬 You: zimmerman?
+2025-11-04 15:05:53,897 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: It seems like you've mentioned "Zimmerman" without providing additional context. Can you please specify what you'd like to know or discuss about Zimmerman?
+💬 You: i forgot the first name of the composer
+2025-11-04 15:06:07,929 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: I can help you find the first name of the composer. Do you have any specific composer or piece in mind?
+💬 You: the person who composed time in the movie inception
+2025-11-04 15:06:31,137 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: The composer of the song "Time" in the movie Inception is Hans Zimmer.
+💬 You: ^A^A i appreciate the assistance           
+2025-11-04 15:07:20,101 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: You're welcome! If you need help with anything, feel free to ask.
+💬 You: ^W yes, can you help me specifically for the sounds that usually (based on my reasoning) belongs to drums secti
+on. like clicks and noises and snaps but smooth and soothing to hear. raindrops... percussion is what it is called
+2025-11-04 15:09:35,967 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: It sounds like you are looking for smooth and soothing percussion sounds, such as clicks, noises, snaps, and raindrops. If you are interested in finding such sounds, you can search for royalty-free percussion samples or sound libraries online. There are various websites and platforms where you can find high-quality percussion samples for your music production or sound design needs. Would you like me to assist you in searching for these sounds?
+💬 You: not for composing. for learning what aspects of these sounds make them so nice and wholesome to hear to our ear
+s
+2025-11-04 15:10:39,940 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: Understanding what makes sounds pleasant and wholesome to our ears involves various fields such as music theory, psychology, and acoustics. Some aspects that contribute to pleasant sounds include harmony, consonance, timbre, rhythm, and dynamics. If you'd like to explore the acoustic properties of specific sounds or analyze their musical elements, I can assist with that.
+💬 You: i believe theory has little to do with anything here, percussions and foley are not instruments so they dont ha
+ve the musical note that of of a musical instrument. they don't belong to the proximity of concept of harmony or melody
+ being correct
+2025-11-04 15:12:10,127 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: It seems like you're discussing the musical aspects of percussions and foley. While percussions and foley may not produce musical notes in the traditional sense, they play a crucial role in creating rhythm, ambiance, and sound effects in music and film. Their contribution to the overall auditory experience is significant, even if they don't adhere to traditional melodic or harmonic principles. If you have specific inquiries about musical theory or the role of percussions and foley in music and film, feel free to ask!
+💬 You: exactly. these percussive sounds in the background, sometimes even quieter than the main sounds can make it (th
+e music track or soundscape or even day to day scenarios) count. really makes the difference when a movie scene has goo
+d foley
+2025-11-04 15:13:50,891 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: Absolutely, foley sounds play a crucial role in creating an immersive audio experience. They add depth and realism to the soundscape, enhancing the overall impact of the scene. Whether it's the subtle rustle of clothing, the clinking of glasses, or the footsteps on different surfaces, foley artists contribute significantly to the richness of the auditory environment. Their attention to detail can truly elevate the audience's perception of the visual content.
+💬 You: currently in my spotify now playing, immunity by jon hopkins is playing and i must say that the sound adds sign
+ificantly because it is the single source that is giving a sort of psychological protection from noise
+2025-11-04 15:15:53,805 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: That's great to hear! Music can indeed have a powerful impact on our mental state. If you'd like, I can help you find more information about the song or the artist, or assist you with any other music-related tasks. Just let me know how I can assist you further!
+💬 You: why i mention that will round it all up for context. the song uses foley sounds throughout and i am intrigued b
+y the effect and wanna learn how and why it creates such a soothing effect
+2025-11-04 15:17:05,542 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: It sounds like you're interested in learning about the use of foley sounds in a song and how they contribute to creating a soothing effect. Foley sounds are recorded sound effects that are added to films, videos, and, in this case, songs to enhance the audio experience.
+
+To understand the specific foley sounds used in the song and how they contribute to the soothing effect, you may want to consider the following steps:
+
+1. Listen closely to the song and try to identify the foley sounds used. These could include sounds of footsteps, rustling leaves, or any other environmental sounds that have been added to the music.
+
+2. Research the specific foley sounds used in the song and their meanings or associations. Understanding the cultural and psychological associations of certain sounds can provide insight into why they create a soothing effect.
+
+3. Experiment with adding foley sounds to your own music compositions to understand their impact on the overall mood and feel of the music.
+
+If you have access to the song's stems or a version of the song with isolated tracks, you can analyze the foley sounds more closely. Let me know if you need any specific help with the song or if you have any other questions related to music production or sound design.
+💬 You: foley used: percussions, naturally made and recorded
+2025-11-04 15:17:43,136 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: It sounds like you're describing foley sound production using naturally made and recorded percussive sounds. Is there something specific you'd like to know or discuss about this process?
+💬 You: yes, the foley used in the song are raindrops and natural sounds
+2025-11-04 15:18:11,279 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: It sounds like you're discussing the use of foley in a song. If you need help with anything related to foley or sound editing, feel free to ask!
+💬 You: list 5 most soothing sounds 
+2025-11-04 15:18:38,926 - httpx - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+🤖 Assistant: Sure! Here are five of the most commonly cited soothing sounds:
+
+1. Ocean waves
+2. Rainfall
+3. Birdsong
+4. Classical music
+5. Wind chimes

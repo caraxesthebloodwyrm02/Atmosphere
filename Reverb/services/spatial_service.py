@@ -2,7 +2,11 @@
 Spatial Audio Service
 
 Provides 3D spatial audio processing including HRTF, Doppler effect, distance attenuation, and reverb integration.
+<<<<<<< HEAD
 Implements binaural rendering for immersive audio experiences with emotion-based spatial positioning.
+=======
+Implements binaural rendering for immersive audio experiences.
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 """
 
 import math
@@ -38,6 +42,7 @@ class ReverbSpace:
         return reverb_left, reverb_right
 
 
+<<<<<<< HEAD
 class EmotionSpatializer:
     """Emotion-based spatial positioning for immersive audio experiences."""
     
@@ -124,6 +129,8 @@ class EmotionSpatializer:
         }
 
 
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 class SpatialAudioService:
     """Service for 3D spatial audio processing with binaural rendering."""
     
@@ -136,9 +143,12 @@ class SpatialAudioService:
         # Initialize reverb space
         self.reverb_space = ReverbSpace(size=100, reflectivity=0.7, rt60=1.5)
         
+<<<<<<< HEAD
         # Initialize emotion spatializer for immersive positioning
         self.emotion_spatializer = EmotionSpatializer()
         
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
     def _generate_simple_hrtf(self) -> Dict[str, Dict[str, np.ndarray]]:
         """Generate simplified HRTF data for different directions."""
         # This is a highly simplified HRTF - real implementations use measured data
@@ -333,6 +343,7 @@ class SpatialAudioService:
         
         return stereo_signal
     
+<<<<<<< HEAD
     def process_emotion_spatial(self, signal: AudioSignal, emotion: str, 
                               environment: str = 'small_room') -> AudioSignal:
         """Process audio with emotion-based spatial positioning."""
@@ -416,6 +427,8 @@ class SpatialAudioService:
         """Get available environmental presets."""
         return self.emotion_spatializer.environments
     
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
     def get_status(self) -> dict:
         """Get service status."""
         return {
@@ -425,15 +438,23 @@ class SpatialAudioService:
                 "hrtf": self.default_params.hrtf_enabled,
                 "doppler": self.default_params.doppler_enabled,
                 "distance_attenuation": self.default_params.distance_attenuation_enabled,
+<<<<<<< HEAD
                 "reverb_integration": self.default_params.reverb_enabled,
                 "emotion_spatialization": True,
                 "immersive_scenes": True
+=======
+                "reverb_integration": self.default_params.reverb_enabled
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
             },
             "reverb_space": {
                 "size": self.reverb_space.size,
                 "reflectivity": self.reverb_space.reflectivity,
                 "rt60": self.reverb_space.rt60
+<<<<<<< HEAD
             },
             "emotion_positions": len(self.emotion_spatializer.emotion_positions),
             "environments": len(self.emotion_spatializer.environments)
+=======
+            }
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         }

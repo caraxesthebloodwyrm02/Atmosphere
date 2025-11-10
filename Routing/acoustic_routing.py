@@ -422,6 +422,7 @@ class AcousticRoutingNetwork:
 
         plt.show()
 
+<<<<<<< HEAD
     def calculate_route_metrics(self, route: List[str]) -> Dict[str, float]:
         """
         Calculate comprehensive metrics for a route including enhanced optimization criteria.
@@ -638,6 +639,8 @@ class AcousticRoutingNetwork:
 
         return optimal_route, detailed_metrics
 
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
     def find_optimal_route(self, start: str, end: str,
                           criteria: str = 'distance') -> List[str]:
         """

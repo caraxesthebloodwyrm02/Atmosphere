@@ -119,6 +119,7 @@ class OrchestralChannel:
             else:
                 raise Exception("No active routing connections available")
                 
+<<<<<<< HEAD
         except (ImportError, Exception):
             # Try to import from Routing module
             try:
@@ -139,6 +140,12 @@ class OrchestralChannel:
                 self.platform_status['routing_connected'] = False
                 print("⚠️  Routing system not available, running in standalone mode")
                 print("   (This is normal for demonstration purposes)")
+=======
+        except ImportError:
+            # Fallback if routing not available
+            self.platform_status['routing_connected'] = False
+            logging.warning("Routing system not available, using standalone mode")
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
     
     async def _initialize_channels(self):
         """Initialize distribution channels"""
@@ -458,6 +465,7 @@ __all__ = [
     "receive_orchestral_data", 
     "get_arcade_platform_status"
 ]
+<<<<<<< HEAD
 
 async def main():
     """Main entry point for orchestral channel demonstration"""
@@ -645,3 +653,5 @@ async def demonstrate_data_throughput():
 if __name__ == "__main__":
     # Run the async main function
     asyncio.run(main())
+=======
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628

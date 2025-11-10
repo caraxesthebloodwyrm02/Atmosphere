@@ -1,0 +1,45 @@
+# Global .gitconfig template — replace placeholders before using
+[user]
+	# Replace these with your real name and email
+	name = Your Name
+	email = you@example.com
+	# If true, Git will only use explicit config values and won't guess
+	useConfigOnly = true
+
+[core]
+	# Windows-friendly defaults
+	autocrlf = true
+	filemode = false
+	editor = code --wait
+	# Global ignore file (expanded path set by CLI when applied)
+	excludesFile = %USERPROFILE%/.gitignore_global
+
+[color]
+	ui = auto
+
+[init]
+	defaultBranch = main
+
+[credential]
+	helper = manager-core
+
+[pull]
+	rebase = true
+	autostash = true
+
+[rebase]
+	autostash = true
+
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	lg = log --oneline --decorate --graph --all
+
+# Conditional include example (adjust path before applying)
+[includeIf "gitdir:~/Work/"]
+	path = %USERPROFILE%/.gitconfig-work
+SECURITY_JWT_SECRET_KEY=your-secure-key-here
+SECURITY_ACCESS_TOKEN_EXPIRE_MINUTES=30
+SECURITY_ALLOWED_API_KEYS=["key1", "key2"]

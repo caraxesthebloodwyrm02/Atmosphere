@@ -1,0 +1,4 @@
+# file: E:\Projects\Atmosphere\src\__init__.py
+# hypothesis_version: 6.146.0
+
+['1.0.0', 'delay', 'echo', 'reverb', 'routing', 'unknown']

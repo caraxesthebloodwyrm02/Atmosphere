@@ -1,0 +1,4 @@
+# file: E:\Projects\Atmosphere\src\routing\acoustic_routing\core\visualization.py
+# hypothesis_version: 6.146.0
+
+[0.08, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.5, -150, -100, 100, 150, 200, 255, 300, 500, 10000, '#000000', '#0a0a0a', '#2a2a2a', '#404040', '#4a90e2', '#cccccc', '-', 'Blues', 'Medium Connectivity', 'auto', 'bold', 'both', 'center', 'none', 'o', 'offset points', 'png', 'round,pad=0.7', 'tight', 'upper right', 'w', 'white']

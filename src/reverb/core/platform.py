@@ -5,6 +5,7 @@ Main orchestration system for audio effects processing.
 Implements the effects chain: Input -> Delay -> Echo -> Reverb -> Output
 """
 
+<<<<<<< HEAD
 from typing import Optional
 
 from ..models.signal import (
@@ -14,6 +15,12 @@ from ..models.signal import (
     ReverbParameters,
     SpatialParameters,
 )
+=======
+from typing import Optional, Tuple
+
+from ..models.signal import (AudioSignal, DelayParameters, EchoParameters,
+                             ReverbParameters, SpatialParameters)
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 from ..services.delay_service import DelayService
 from ..services.echo_service import EchoService
 from ..services.reverb_service import ReverbService
@@ -44,12 +51,21 @@ class ReverbPlatform:
         return {
             "platform": "reverb",
             "status": "active",
+<<<<<<< HEAD
             "services": {
                 "delay": self.delay_service.get_status(),
                 "echo": self.echo_service.get_status(),
                 "reverb": self.reverb_service.get_status(),
                 "spatial": self.spatial_service.get_status(),
             },
+=======
+            "services": [
+                {"name": "delay", "status": self.delay_service.get_status()},
+                {"name": "echo", "status": self.echo_service.get_status()},
+                {"name": "reverb", "status": self.reverb_service.get_status()},
+                {"name": "spatial", "status": self.spatial_service.get_status()},
+            ],
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
             "effects_chain": "Input -> Delay -> Echo -> Reverb -> Spatial -> Output",
             "presets": self.get_available_presets(),
         }
@@ -86,17 +102,31 @@ class ReverbPlatform:
         spatialized = self.spatial_service.process(reverberated, params=spatial_params)
         return spatialized
 
+<<<<<<< HEAD
     def spatialize_signal(self, signal: AudioSignal, 
                          source_pos: Tuple[float, float, float] = (1, 0, 0),
                          listener_pos: Tuple[float, float, float] = (0, 0, 0),
                          velocity: Tuple[float, float, float] = (0, 0, 0)) -> AudioSignal:
+=======
+    def spatialize_signal(
+        self,
+        signal: AudioSignal,
+        source_pos: Tuple[float, float, float] = (1, 0, 0),
+        listener_pos: Tuple[float, float, float] = (0, 0, 0),
+        velocity: Tuple[float, float, float] = (0, 0, 0),
+    ) -> AudioSignal:
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         """Apply spatial audio processing with specific source parameters."""
         return self.spatial_service.process(signal, source_pos, listener_pos, velocity)
 
     def apply_reverb_preset(self, preset_name: str):
         """Apply a reverb preset to the platform."""
         preset_params = self.reverb_service.apply_preset(preset_name)
+<<<<<<< HEAD
         # Update the default params for future processing
+=======
+        # Update default params for future processing
+>>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
         self.reverb_service.default_params = preset_params
         return preset_params
 
