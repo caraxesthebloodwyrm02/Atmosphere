@@ -45,28 +45,28 @@ except ImportError:
         def __init__(self, parent=None):
             self.parent = parent
             self._is_running = False
-            
+            self.finished = None  # Signal placeholder
+            self.started = None   # Signal placeholder
+
         def start(self):
             self._is_running = True
-            self.run()
-            
+            if hasattr(self, 'run'):
+                self.run()
+
         def run(self):
             pass
-            
+
         def quit(self):
             self._is_running = False
-            
+
         def wait(self):
             pass
-            
+
         def isRunning(self):
             return self._is_running
-            
+
         def terminate(self):
             self._is_running = False
-            
-        def finished = None
-        started = None
 
 # Try to import VS Code integration
 try:
@@ -268,98 +268,113 @@ class LoadMonitor(QThread):
     
     def record_keystroke(self):
         """Record a keystroke event."""
-        if KEYBOARD_AVAILABLE:
-            self.metrics.record_keystroke()
+        # Always record keystrokes for monitoring purposes, regardless of keyboard hook availability
+        self.metrics.record_keystroke()
     
     def record_error(self):
         """Record an error event."""
         self.metrics.record_error()
 
 
-class SettingsDialog(QDialog):
-    """Dialog for configuring the Mental Load Balancer settings."""
-    
-    def __init__(self, config, parent=None):
-        super().__init__(parent)
-        self.config = config
-        self.setWindowTitle("Mental Load Balancer Settings")
-        self.setMinimumWidth(400)
+if QT_AVAILABLE:
+    class SettingsDialog(QDialog):
+        """Dialog for configuring the Mental Load Balancer settings."""
         
-        # Create form layout
-        layout = QFormLayout()
+        def __init__(self, config, parent=None):
+            super().__init__(parent)
+            self.config = config
+            self.setWindowTitle("Mental Load Balancer Settings")
+            self.setMinimumWidth(400)
+            
+            # Create form layout
+            layout = QFormLayout()
+            
+            # Keystroke threshold
+            self.keystroke_slider = QSlider(Qt.Orientation.Horizontal)
+            self.keystroke_slider.setRange(100, 2000)
+            self.keystroke_slider.setValue(self.config.get("keystroke_threshold", 500))
+            self.keystroke_slider.valueChanged.connect(self.update_keystroke_label)
+            self.keystroke_label = QLabel(f"{self.keystroke_slider.value()} keystrokes")
+            
+            # Time threshold
+            self.time_spin = QSpinBox()
+            self.time_spin.setRange(5, 120)
+            self.time_spin.setValue(self.config.get("time_threshold", 45))
+            self.time_spin.setSuffix(" minutes")
+            
+            # Error threshold
+            self.error_spin = QSpinBox()
+            self.error_spin.setRange(1, 50)
+            self.error_spin.setValue(self.config.get("error_threshold", 10))
+            self.error_spin.setSuffix(" errors")
+            
+            # Joke style
+            self.joke_combo = QComboBox()
+            self.joke_combo.addItems(["programming", "general"])
+            self.joke_combo.setCurrentText(self.config.get("joke_style", "programming"))
+            
+            # Intervention style
+            self.intervention_combo = QComboBox()
+            self.intervention_combo.addItems(["popup", "notification"])
+            self.intervention_combo.setCurrentText(self.config.get("intervention_style", "popup"))
+            
+            # Min time between interventions
+            self.min_time_spin = QSpinBox()
+            self.min_time_spin.setRange(1, 240)
+            self.min_time_spin.setValue(self.config.get("min_time_between_interventions", 30))
+            self.min_time_spin.setSuffix(" minutes")
+            
+            # Buttons
+            self.save_btn = QPushButton("Save")
+            self.save_btn.clicked.connect(self.accept)
+            self.cancel_btn = QPushButton("Cancel")
+            self.cancel_btn.clicked.connect(self.reject)
+            
+            # Add widgets to layout
+            layout.addRow("Keystroke threshold:", self.keystroke_slider)
+            layout.addRow("", self.keystroke_label)
+            layout.addRow("Time threshold:", self.time_spin)
+            layout.addRow("Error threshold:", self.error_spin)
+            layout.addRow("Joke style:", self.joke_combo)
+            layout.addRow("Intervention style:", self.intervention_combo)
+            layout.addRow("Min time between interventions:", self.min_time_spin)
+            
+            # Add buttons
+            button_layout = QVBoxLayout()
+            button_layout.addWidget(self.save_btn)
+            button_layout.addWidget(self.cancel_btn)
+            layout.addRow("", button_layout)
+            
+            self.setLayout(layout)
         
-        # Keystroke threshold
-        self.keystroke_slider = QSlider(Qt.Orientation.Horizontal)
-        self.keystroke_slider.setRange(100, 2000)
-        self.keystroke_slider.setValue(self.config.get("keystroke_threshold", 500))
-        self.keystroke_slider.valueChanged.connect(self.update_keystroke_label)
-        self.keystroke_label = QLabel(f"{self.keystroke_slider.value()} keystrokes")
+        def update_keystroke_label(self, value):
+            """Update the keystroke threshold label."""
+            self.keystroke_label.setText(f"{value} keystrokes")
         
-        # Time threshold
-        self.time_spin = QSpinBox()
-        self.time_spin.setRange(5, 120)
-        self.time_spin.setValue(self.config.get("time_threshold", 45))
-        self.time_spin.setSuffix(" minutes")
+        def get_values(self):
+            """Get the current values from the dialog."""
+            return {
+                "keystroke_threshold": self.keystroke_slider.value(),
+                "time_threshold": self.time_spin.value(),
+                "error_threshold": self.error_spin.value(),
+                "joke_style": self.joke_combo.currentText(),
+                "intervention_style": self.intervention_combo.currentText(),
+                "min_time_between_interventions": self.min_time_spin.value()
+            }
+else:
+    # Fallback implementation when Qt is not available
+    class SettingsDialog:
+        """Fallback settings dialog when Qt is not available."""
         
-        # Error threshold
-        self.error_spin = QSpinBox()
-        self.error_spin.setRange(1, 50)
-        self.error_spin.setValue(self.config.get("error_threshold", 10))
-        self.error_spin.setSuffix(" errors")
+        def __init__(self, config, parent=None):
+            self.config = config
         
-        # Joke style
-        self.joke_combo = QComboBox()
-        self.joke_combo.addItems(["programming", "general"])
-        self.joke_combo.setCurrentText(self.config.get("joke_style", "programming"))
+        def exec(self):
+            print("Settings dialog not available in headless mode")
+            return 0  # Rejected
         
-        # Intervention style
-        self.intervention_combo = QComboBox()
-        self.intervention_combo.addItems(["popup", "notification"])
-        self.intervention_combo.setCurrentText(self.config.get("intervention_style", "popup"))
-        
-        # Min time between interventions
-        self.min_time_spin = QSpinBox()
-        self.min_time_spin.setRange(1, 240)
-        self.min_time_spin.setValue(self.config.get("min_time_between_interventions", 30))
-        self.min_time_spin.setSuffix(" minutes")
-        
-        # Buttons
-        self.save_btn = QPushButton("Save")
-        self.save_btn.clicked.connect(self.accept)
-        self.cancel_btn = QPushButton("Cancel")
-        self.cancel_btn.clicked.connect(self.reject)
-        
-        # Add widgets to layout
-        layout.addRow("Keystroke threshold:", self.keystroke_slider)
-        layout.addRow("", self.keystroke_label)
-        layout.addRow("Time threshold:", self.time_spin)
-        layout.addRow("Error threshold:", self.error_spin)
-        layout.addRow("Joke style:", self.joke_combo)
-        layout.addRow("Intervention style:", self.intervention_combo)
-        layout.addRow("Min time between interventions:", self.min_time_spin)
-        
-        # Add buttons
-        button_layout = QVBoxLayout()
-        button_layout.addWidget(self.save_btn)
-        button_layout.addWidget(self.cancel_btn)
-        layout.addRow("", button_layout)
-        
-        self.setLayout(layout)
-    
-    def update_keystroke_label(self, value):
-        """Update the keystroke threshold label."""
-        self.keystroke_label.setText(f"{value} keystrokes")
-    
-    def get_values(self):
-        """Get the current values from the dialog."""
-        return {
-            "keystroke_threshold": self.keystroke_slider.value(),
-            "time_threshold": self.time_spin.value(),
-            "error_threshold": self.error_spin.value(),
-            "joke_style": self.joke_combo.currentText(),
-            "intervention_style": self.intervention_combo.currentText(),
-            "min_time_between_interventions": self.min_time_spin.value()
-        }
+        def get_values(self):
+            return self.config.copy()
 
 
 class MentalLoadBalancerApp(QApplication if QT_AVAILABLE else object):
@@ -392,7 +407,7 @@ class MentalLoadBalancerApp(QApplication if QT_AVAILABLE else object):
             self._setup_tray()
         
         # Connect signals
-        if hasattr(self.monitor, 'intervention_needed'):
+        if QT_AVAILABLE and hasattr(self.monitor, 'intervention_needed') and self.monitor.intervention_needed:
             self.monitor.intervention_needed.connect(self.handle_intervention)
         
         # Start monitoring
