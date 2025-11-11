@@ -1,0 +1,12 @@
+{
+  "admin": {
+    "username": "admin",
+    "email": "admin@atmosphere.local",
+    "full_name": "System Administrator",
+    "role": "admin",
+    "is_active": true,
+    "created_at": "2025-11-11 14:02:16.258639+00:00",
+    "last_login": null,
+    "password_hash": "6224255804cc92d04f6650b3695eca12843abadc90735a59ebdbc906b91e03de"
+  }
+}
