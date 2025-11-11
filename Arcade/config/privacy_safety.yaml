@@ -1,0 +1,83 @@
+# Privacy & Safety Governance Configuration
+# Independent oversight layer for emotional detection system
+
+privacy:
+  differential_privacy:
+    enabled: true
+    epsilon_per_session: 1.0  # Stricter than default
+    delta: 1e-5
+
+  data_minimization:
+    retention_hours: 24  # Auto-delete raw data after 24h
+    store_aggregates_only: true  # Only keep statistical summaries
+
+  consent:
+    required_permissions:
+      - emotional_analysis
+      - audio_processing
+      - data_retention
+    refresh_interval_hours: 24  # Re-prompt daily
+    required_granularity: session  # Not blanket consent
+    withdrawal:
+      enabled: true
+      purge_deadline_hours: 24  # GDPR requirement
+      allow_partial_withdrawal: true  # Can revoke audio but keep text
+
+  minors:
+    additional_guardian_consent: true  # COPPA compliance
+    max_retention_hours: 6  # Stricter for children
+
+safety:
+  enabled: true  # **Cannot be disabled in production**
+  human_oversight:
+    required_for_risk_score: 0.75  # If risk > 0.75, human must approve
+    auto_escalation_timeout_seconds: 300
+
+  ethical_constraints:
+    enable_manipulation_detection: true
+    max_intervention_attempts_per_hour: 10  # Prevent harassment
+    incompatible_intervention_pairs:
+      - ["frustration_relief", "urgent_challenge"]
+      - ["stress_relief", "engagement_boost"]
+      - ["calm_induction", "intensity_amplification"]
+
+  audit:
+    log_all_vetos: true
+    log_intervention_outcomes: true
+    retention_years: 7  # Legal requirement for educational data
+
+bias_monitoring:
+  enabled: true
+  protected_attributes:
+    - speech_pattern
+    - response_language
+    - interaction_style
+  disparate_impact_threshold: 0.8  # 80% rule
+  auto_disable_on_bias: true
+
+audit_logging:
+  enabled: true
+  append_only: true
+  signature_algorithm: "SHA256"  # Simplified for demo
+  retention:
+    on_disk_years: 7
+    in_memory_entries: 1000
+  regulator:
+    auto_export_schedule: "weekly"
+    export_path: "regulator_exports/"
+  alerts:
+    critical_event_webhook: "https://hooks.slack.com/critical-audit"
+    integrity_check_interval_hours: 1
+
+emergency_kill_switch:
+  enabled: false  # **Feature flagged OFF by default**
+  gpio_pin: 17  # For Raspberry Pi hardware kill switch
+  requires_hardware_key: true
+  requires_maintenance_pin: true
+  auto_test_interval_days: 7
+  escalation:
+    sms_alerts: ["+1-555-0199"]  # On-call engineer
+    webhook: "https://hooks.pagerduty.com/critical"
+  reboot_policy:
+    requires_physical_presence: true
+    required_signoffs: 2

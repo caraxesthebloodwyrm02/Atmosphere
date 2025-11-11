@@ -14,6 +14,51 @@ import os
 from pathlib import Path
 import importlib.util
 
+# Windows-safe, ASCII-friendly printing
+def _sanitize_text(text: str) -> str:
+	"""Replace emojis/symbols with ASCII to avoid Windows console Unicode errors."""
+	replacements = {
+		"🚀": "[LAUNCH]",
+		"🎯": "[TARGET]",
+		"🎉": "[SUCCESS]",
+		"✅": "[PASS]",
+		"❌": "[FAIL]",
+		"⚠️": "[WARN]",
+		"⚠": "[WARN]",
+		"🔍": "[SEARCH]",
+		"🔧": "[TOOL]",
+		"📊": "[STATS]",
+		"📁": "[DIR]",
+		"📄": "[FILE]",
+		"📋": "[CLIP]",
+		"📍": "[HERE]",
+		"✓": "[OK]",
+		"✗": "[ERROR]",
+	}
+	for u, a in replacements.items():
+		text = text.replace(u, a)
+	return text
+
+def _safe_print(*args, sep=" ", end="\n"):
+	"""Print that sanitizes Unicode and never crashes on encoding issues."""
+	message = sep.join(str(a) for a in args)
+	message = _sanitize_text(message)
+	try:
+		# Prefer UTF-8 on capable terminals
+		if hasattr(sys.stdout, "reconfigure"):
+			try:
+				sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+				sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+			except Exception:
+				pass
+		sys.stdout.write(message + end)
+	except Exception:
+		# Last resort: strip to ASCII
+		sys.stdout.write(message.encode("ascii", errors="ignore").decode("ascii") + end)
+
+# Shadow built-in print within this module to ensure safe output everywhere
+print = _safe_print
+
 def run_command(cmd, cwd=None):
     """Run a command and return the result."""
     try:

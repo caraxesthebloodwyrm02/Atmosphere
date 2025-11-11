@@ -1,0 +1,11 @@
+{
+  "session_id": "bg-processing-test",
+  "transmission_type": "test",
+  "data": {
+    "test": "data"
+  },
+  "metadata": {},
+  "received_at": "2025-11-11T10:52:56.131296",
+  "data_size_bytes": 16,
+  "processing_status": "received"
+}

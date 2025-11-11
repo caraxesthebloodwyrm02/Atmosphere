@@ -1,0 +1,86 @@
+{
+  "34dfcbc9ad562117c4ffac66e484b9463e43a6c4e177712387cb41da377db067": {
+    "key_hash": "34dfcbc9ad562117c4ffac66e484b9463e43a6c4e177712387cb41da377db067",
+    "name": "test_app",
+    "user_id": "user123",
+    "role": "developer",
+    "permissions": [
+      "read",
+      "write"
+    ],
+    "created_at": "2025-11-11T14:24:03.489059+00:00",
+    "is_active": false,
+    "last_used": "2025-11-11T14:24:03.489570+00:00"
+  },
+  "52ccb81043433fc7024a4217ee741559ff14275ac3270a4a7b72e50938c1c85c": {
+    "key_hash": "52ccb81043433fc7024a4217ee741559ff14275ac3270a4a7b72e50938c1c85c",
+    "name": "test_app",
+    "user_id": "user123",
+    "role": "developer",
+    "permissions": [
+      "write",
+      "read"
+    ],
+    "created_at": "2025-11-11T14:35:14.447688+00:00",
+    "is_active": true,
+    "last_used": "2025-11-11T14:35:14.449281+00:00"
+  },
+  "a3a2f45cc2011ae48f0ee21e2f83188babe716aade90b54afabae5a3776a13b0": {
+    "key_hash": "a3a2f45cc2011ae48f0ee21e2f83188babe716aade90b54afabae5a3776a13b0",
+    "name": "test_app",
+    "user_id": "user123",
+    "role": "developer",
+    "permissions": [
+      "read",
+      "write"
+    ],
+    "created_at": "2025-11-11T14:36:16.838354+00:00",
+    "is_active": true,
+    "last_used": "2025-11-11T14:36:16.839634+00:00"
+  },
+  "e2ffa64db2417da2d302d0eea43fe97e2c0c464cacacfd37425b7d2df90bed6c": {
+    "key_hash": "e2ffa64db2417da2d302d0eea43fe97e2c0c464cacacfd37425b7d2df90bed6c",
+    "name": "test_app",
+    "user_id": "user123",
+    "role": "developer",
+    "permissions": [
+      "read",
+      "write"
+    ],
+    "created_at": "2025-11-11T14:36:39.278697+00:00",
+    "is_active": true,
+    "last_used": "2025-11-11T14:36:39.279981+00:00"
+  },
+  "95a50267fa53e65c33fcdda51aef0be63defe551d0135afca1662fb96b1dfaab": {
+    "key_hash": "95a50267fa53e65c33fcdda51aef0be63defe551d0135afca1662fb96b1dfaab",
+    "name": "test-key",
+    "user_id": "user123",
+    "role": "researcher",
+    "permissions": [
+      "read",
+      "write"
+    ],
+    "created_at": "2025-11-11T14:55:37.495292+00:00",
+    "is_active": true
+  },
+  "0aca3a68c613801db3bba465a5281fa162f3c187ecbff68f6e9f7ae49f432719": {
+    "key_hash": "0aca3a68c613801db3bba465a5281fa162f3c187ecbff68f6e9f7ae49f432719",
+    "name": "test-key",
+    "user_id": "user123",
+    "role": "researcher",
+    "permissions": [],
+    "created_at": "2025-11-11T14:55:37.503408+00:00",
+    "is_active": true,
+    "last_used": "2025-11-11T14:55:37.504767+00:00"
+  },
+  "735407a2b86c5ac0fc95d2ad00bce74d4d796b5ab7424f16c121ba4c0327e4a2": {
+    "key_hash": "735407a2b86c5ac0fc95d2ad00bce74d4d796b5ab7424f16c121ba4c0327e4a2",
+    "name": "test-key",
+    "user_id": "user123",
+    "role": "researcher",
+    "permissions": [],
+    "created_at": "2025-11-11T14:55:37.513315+00:00",
+    "is_active": true,
+    "last_used": "2025-11-11T14:55:37.513806+00:00"
+  }
+}

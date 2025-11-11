@@ -21,7 +21,10 @@ echoes_version = delay_version = reverb_version = routing_version = api_version 
 try:
     # Try absolute imports first
     import Echoes
-    echoes_version = Echoes.__version__
+    try:
+        echoes_version = Echoes.__version__
+    except AttributeError:
+        echoes_version = "no_version"
 except ImportError:
     try:
         # Fallback to relative imports
@@ -31,7 +34,10 @@ except ImportError:
 
 try:
     import Delay
-    delay_version = Delay.__version__
+    try:
+        delay_version = Delay.__version__
+    except AttributeError:
+        delay_version = "no_version"
 except ImportError:
     try:
         from .Delay import __version__ as delay_version
@@ -40,7 +46,10 @@ except ImportError:
 
 try:
     import Reverb
-    reverb_version = Reverb.__version__
+    try:
+        reverb_version = Reverb.__version__
+    except AttributeError:
+        reverb_version = "no_version"
 except ImportError:
     try:
         from .Reverb import __version__ as reverb_version
@@ -49,7 +58,10 @@ except ImportError:
 
 try:
     import Routing
-    routing_version = Routing.__version__
+    try:
+        routing_version = Routing.__version__
+    except AttributeError:
+        routing_version = "no_version"
 except ImportError:
     try:
         from .Routing import __version__ as routing_version
@@ -58,7 +70,10 @@ except ImportError:
 
 try:
     import api
-    api_version = api.__version__
+    try:
+        api_version = api.__version__
+    except AttributeError:
+        api_version = "no_version"
 except ImportError:
     try:
         from .api import __version__ as api_version
@@ -78,7 +93,7 @@ def get_version_info():
 
 def main():
     """Main entry point for the Atmosphere project."""
-    print("🌍 Atmosphere Platform v{}".format(__version__))
+    print("Atmosphere Platform v{}".format(__version__))
     print("=" * 50)
 
     versions = get_version_info()

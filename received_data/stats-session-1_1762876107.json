@@ -1,0 +1,11 @@
+{
+  "session_id": "stats-session-1",
+  "transmission_type": "type-1",
+  "data": {
+    "test": "data-1"
+  },
+  "metadata": {},
+  "received_at": "2025-11-11T10:48:27.393969",
+  "data_size_bytes": 18,
+  "processing_status": "received"
+}
