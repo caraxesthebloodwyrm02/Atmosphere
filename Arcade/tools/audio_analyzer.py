@@ -18,6 +18,7 @@ class Colors:
     RED = '\033[31m'
     MAGENTA = '\033[35m'
     GRAY = '\033[90m'
+    BLUE = '\033[34m'
     RESET = '\033[0m'
     BOLD = '\033[1m'
 
@@ -199,6 +200,105 @@ class AudioAnalyzer:
         self._print_colored(f"   Description: {data['description']}", Colors.YELLOW, output_stream)
         
         return {'success': True, 'demo': True, 'effect_type': effect_type}
+    
+    def advanced_spectral_analysis(self, file_path: Optional[str] = None, output_stream=None) -> Dict[str, Any]:
+        """Advanced spectral analysis using licensed DSP libraries."""
+        try:
+            self._print_colored("🔬 Advanced Spectral Analysis", Colors.MAGENTA, output_stream)
+            self._print_colored("=" * 50, Colors.CYAN, output_stream)
+            
+            # Try to use licensed libraries for real analysis
+            try:
+                import numpy as np
+                import scipy.io.wavfile as wav
+                import scipy.signal as signal
+                
+                if file_path and Path(file_path).exists():
+                    self._print_colored(f"\n📁 Analyzing: {file_path}", Colors.CYAN, output_stream)
+                    
+                    # Read audio file
+                    sample_rate, audio_data = wav.read(file_path)
+                    
+                    # Convert to mono if stereo
+                    if len(audio_data.shape) > 1:
+                        audio_data = np.mean(audio_data, axis=1)
+                    
+                    # Normalize
+                    audio_data = audio_data / np.max(np.abs(audio_data))
+                    
+                    # Compute FFT
+                    fft = np.fft.fft(audio_data)
+                    freqs = np.fft.fftfreq(len(audio_data), 1/sample_rate)
+                    
+                    # Get magnitude spectrum
+                    magnitude = np.abs(fft)
+                    magnitude_db = 20 * np.log10(magnitude + 1e-10)  # Avoid log(0)
+                    
+                    # Frequency ranges
+                    bass_range = (freqs >= 20) & (freqs <= 250)
+                    mid_range = (freqs >= 250) & (freqs <= 4000)
+                    treble_range = (freqs >= 4000) & (freqs <= 20000)
+                    
+                    bass_power = np.mean(magnitude_db[bass_range])
+                    mid_power = np.mean(magnitude_db[mid_range])
+                    treble_power = np.mean(magnitude_db[treble_range])
+                    
+                    # Compute spectral centroid
+                    centroid = np.sum(freqs * magnitude) / np.sum(magnitude)
+                    
+                    # Compute spectral rolloff
+                    cumulative_energy = np.cumsum(magnitude**2)
+                    rolloff_idx = np.where(cumulative_energy >= 0.85 * cumulative_energy[-1])[0][0]
+                    rolloff_freq = freqs[rolloff_idx]
+                    
+                    self._print_colored("\n✅ Analysis Complete!", Colors.GREEN, output_stream)
+                    self._print_colored("\n📊 Spectral Analysis Results:", Colors.CYAN, output_stream)
+                    self._print_colored(f"   Sample Rate: {sample_rate} Hz", Colors.GRAY, output_stream)
+                    self._print_colored(f"   Duration: {len(audio_data)/sample_rate:.2f}s", Colors.GRAY, output_stream)
+                    self._print_colored(f"   Spectral Centroid: {centroid:.1f} Hz", Colors.YELLOW, output_stream)
+                    self._print_colored(f"   Spectral Rolloff (85%): {rolloff_freq:.1f} Hz", Colors.YELLOW, output_stream)
+                    self._print_colored(f"   Bass Power: {bass_power:.1f} dB", Colors.BLUE, output_stream)
+                    self._print_colored(f"   Mid Power: {mid_power:.1f} dB", Colors.GREEN, output_stream)
+                    self._print_colored(f"   Treble Power: {treble_power:.1f} dB", Colors.MAGENTA, output_stream)
+                    
+                    return {
+                        'success': True,
+                        'sample_rate': sample_rate,
+                        'duration': len(audio_data)/sample_rate,
+                        'centroid': centroid,
+                        'rolloff': rolloff_freq,
+                        'bass_power': bass_power,
+                        'mid_power': mid_power,
+                        'treble_power': treble_power
+                    }
+                    
+                else:
+                    self._print_colored("\n⚠️  No audio file provided, using demo analysis", Colors.YELLOW, output_stream)
+                    return self._demo_spectral_analysis(output_stream)
+                    
+            except ImportError as e:
+                self._print_colored(f"⚠️  Advanced libraries not available: {e}", Colors.YELLOW, output_stream)
+                self._print_colored("   Falling back to demo mode", Colors.GRAY, output_stream)
+                return self._demo_spectral_analysis(output_stream)
+            except Exception as e:
+                self._print_colored(f"❌ Analysis error: {e}", Colors.RED, output_stream)
+                return self._demo_spectral_analysis(output_stream)
+                
+        except Exception as e:
+            self._print_colored(f"❌ Error: {e}", Colors.RED, output_stream)
+            return {'success': False, 'error': str(e)}
+    
+    def _demo_spectral_analysis(self, output_stream=None) -> Dict[str, Any]:
+        """Demo spectral analysis."""
+        self._print_colored("\n📊 Demo Spectral Analysis Results:", Colors.CYAN, output_stream)
+        self._print_colored("   Sample Rate: 44100 Hz", Colors.GRAY, output_stream)
+        self._print_colored("   Duration: 3.50s", Colors.GRAY, output_stream)
+        self._print_colored("   Spectral Centroid: 1200.5 Hz", Colors.YELLOW, output_stream)
+        self._print_colored("   Spectral Rolloff (85%): 8500.0 Hz", Colors.YELLOW, output_stream)
+        self._print_colored("   Bass Power: -15.2 dB", Colors.BLUE, output_stream)
+        self._print_colored("   Mid Power: -8.7 dB", Colors.GREEN, output_stream)
+        self._print_colored("   Treble Power: -22.1 dB", Colors.MAGENTA, output_stream)
+        return {'success': True, 'demo': True}
 
 
 def main():
@@ -206,7 +306,7 @@ def main():
     import argparse
     
     parser = argparse.ArgumentParser(description='Audio Analyzer Tool')
-    parser.add_argument('command', choices=['808-bass', 'bass-delay', 'sound-effects'], help='Analysis type')
+    parser.add_argument('command', choices=['808-bass', 'bass-delay', 'sound-effects', 'spectral'], help='Analysis type')
     parser.add_argument('--file', '-f', help='Audio file path (optional)')
     parser.add_argument('--effect', '-e', default='reverb', help='Effect type for sound-effects')
     
@@ -220,6 +320,8 @@ def main():
         analyzer.analyze_bass_vs_delay(args.file)
     elif args.command == 'sound-effects':
         analyzer.analyze_sound_effects(args.effect)
+    elif args.command == 'spectral':
+        analyzer.advanced_spectral_analysis(args.file)
 
 
 if __name__ == "__main__":

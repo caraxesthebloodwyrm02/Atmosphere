@@ -1,66 +1,24 @@
 """
-Arcade Module - Terminal and Interface Components
-Integrated component of the Atmosphere ecosystem.
+Atmosphere Arcade - AI Terminal System
+=====================================
 
-Version: 1.0.0 (Ecosystem Sync)
-Status: Basic Implementation
-Ecosystem Integration: Complete
+A comprehensive AI-powered terminal with multilingual support,
+natural language processing, and secure file operations.
 """
 
-__version__ = "1.0.0"
+__version__ = "2.0.0"
 __author__ = "Atmosphere Team"
-__description__ = "Terminal and interface components with ecosystem integration"
+__description__ = "AI-powered terminal with multilingual and file system capabilities"
 
-# Import ecosystem integration
-try:
-    import sys
-    import os
-    ecosystem_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    sys.path.append(ecosystem_root)
-
-    from ecosystem import get_ecosystem
-    ECOSYSTEM_AVAILABLE = True
-except ImportError:
-    ECOSYSTEM_AVAILABLE = False
-
-def get_arcade_status():
-    """Get comprehensive Arcade status."""
-    status = {
-        "version": __version__,
-        "ecosystem_integration": ECOSYSTEM_AVAILABLE,
-        "capabilities": [
-            "terminal_interface",
-            "orchestral_channel",
-            "ecosystem_coordination"
-        ]
-    }
-
-    if ECOSYSTEM_AVAILABLE:
-        try:
-            ecosystem = get_ecosystem()
-            status["ecosystem_status"] = "connected"
-        except:
-            status["ecosystem_status"] = "available"
-    else:
-        status["ecosystem_status"] = "disconnected"
-
-    return status
+def get_version():
+    """Get the current version."""
+    return __version__
 
 def main():
-    """Main entry point for Arcade module."""
-    print("🎮 Arcade v{}".format(__version__))
-    print("=" * 30)
-    print("Terminal and interface components")
-    print("Ecosystem Integration: {}".format("✅ Available" if ECOSYSTEM_AVAILABLE else "❌ Not Available"))
-
-    status = get_arcade_status()
-
-    if status.get("ecosystem_status") == "connected":
-        print("🌍 Ecosystem: Connected")
-
-    print("")
-    print("Usage:")
-    print("  python -m Arcade.orchestral_channel")
+    """Main entry point."""
+    print("🎮 Atmosphere Arcade v{}".format(__version__))
+    print("AI-powered terminal with multilingual support")
+    print("Run 'python start_arcade.py' to launch")
 
 if __name__ == "__main__":
     main()

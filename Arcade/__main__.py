@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Arcade Module Main Entry Point
+Enhanced Arcade Terminal Module Main Entry Point
 """
 
-from . import main
+from .enhanced_launcher import main
 
 if __name__ == "__main__":
     main()

@@ -29,6 +29,12 @@ A comprehensive audio processing, routing system, and emotionally-adaptive learn
 - **Quality Assessment**: Audio quality metrics and analysis tools
 - **WebSocket Terminal**: Real-time terminal access through modern web interfaces
 
+### Licensed Advanced Tools & Features 🎯
+- **AI Assistant**: OpenAI/Anthropic-powered intelligent chat, code analysis, and generation
+- **Advanced Spectral Analysis**: NumPy/SciPy-based FFT audio processing with professional DSP algorithms
+- **Network Graph Analysis**: NetworkX-powered centrality measures, community detection, and statistical analysis
+- **Licensed API Integration**: Secure integration with OpenAI, Anthropic, and scientific computing libraries
+
 ## Quick Start
 
 ### Automated Setup
@@ -148,6 +154,40 @@ async def terminal_session():
 asyncio.run(terminal_session())
 ```
 
+### Licensed Advanced Tools
+
+#### AI Assistant
+```bash
+# Interactive AI chat
+python Arcade/ui_cli.py ai chat --message "Explain quantum computing"
+
+# Code analysis
+python Arcade/ui_cli.py ai analyze --code "def hello(): print('world')" --language python
+
+# Code generation
+python Arcade/ui_cli.py ai generate --description "Create a REST API endpoint" --language python
+```
+
+#### Advanced Audio Analysis
+```bash
+# Spectral analysis with licensed DSP libraries
+python Arcade/ui_cli.py analyze spectral --file test_audio/high_quality.wav
+
+# Traditional audio analysis
+python Arcade/ui_cli.py analyze 808-bass
+python Arcade/ui_cli.py analyze sound-effects --effect reverb
+```
+
+#### Spatial Visualization
+```bash
+# 3D spatial audio visualization
+python Arcade/ui_cli.py visualize 3d --source 5.0 0.0 2.0 --listener 0.0 0.0 0.0
+
+# Interactive demos
+python Arcade/ui_cli.py demo audio
+python Arcade/ui_cli.py playground
+```
+
 ## Project Structure
 
 ```
@@ -157,10 +197,20 @@ Atmosphere/
 │   │   ├── server.py          # FastAPI server with WebSocket
 │   │   ├── learning_companion_api.py  # AI learning endpoints
 │   │   └── terminal_handler.py # Terminal session management
-│   └── learning_companion/    # Adaptive learning features
-│       ├── emotional_detection.py
-│       ├── content_adaptation.py
-│       └── intervention_system.py
+│   ├── tools/                 # Licensed Advanced Tools
+│   │   ├── ai_assistant.py     # OpenAI/Anthropic AI integration
+│   │   ├── audio_analyzer.py   # NumPy/SciPy spectral analysis
+│   │   ├── spatial_visualizer.py # 3D audio visualization
+│   │   ├── interactive_playground.py # Demo system
+│   │   ├── game_collection.py  # Mini-games
+│   │   └── network_node_processor.py # NetworkX graph processing
+│   ├── config/
+│   │   ├── routing.yaml        # Tool dispatch routing
+│   │   └── tools.yaml          # Tool configurations
+│   ├── incoming/               # Tool dispatch queue
+│   ├── zones/                  # Tool execution zones
+│   ├── ui_cli.py               # Command-line interface
+│   └── dispatcher.py           # Tool routing system
 ├── Delay/                     # Time-based audio effects
 ├── Echoes/                    # Signal reflection processing
 ├── Reverb/                    # Spatial audio processing
@@ -193,6 +243,13 @@ Atmosphere/
 - **Adaptive Content**: Dynamic content selection based on emotional feedback
 - **Progress Tracking**: Comprehensive skill mastery analytics
 - **Intervention Support**: Automated assistance for learning difficulties
+
+### Licensed Advanced Tools 🎯
+- **AI Assistant**: Intelligent chat, code analysis, and generation using OpenAI/Anthropic APIs
+- **Advanced Spectral Analysis**: Professional DSP analysis using NumPy/SciPy FFT algorithms
+- **Network Graph Analysis**: Advanced graph algorithms with NetworkX (centrality, communities, statistics)
+- **Tool Dispatch System**: Automated routing and execution of licensed tools across zones
+- **Interactive Playground**: Demo system showcasing all licensed capabilities
 
 ## Learning Companion Capabilities
 
@@ -291,6 +348,7 @@ python -c "import atmosphere_audio; print('✅ Package imports successful')"
 
 ### Technical Documentation
 - **[Architecture Overview](./GUIDEBOOK.md)**: System design and patterns
+- **[Licensed Features Guide](./docs/LICENSED_FEATURES.md)**: Advanced tools and API integration
 - **[Performance Guide](./docs/COVERAGE.md)**: Optimization techniques
 - **[Security Guide](./docs/Security Violation Remediation.md)**: Security best practices
 

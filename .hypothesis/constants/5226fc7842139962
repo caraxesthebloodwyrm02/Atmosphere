@@ -1,4 +1,0 @@
-# file: E:\Projects\Atmosphere\__init__.py
-# hypothesis_version: 6.146.0
-
-['1.0.0', '=', 'Atmosphere Team', '__main__', 'api', 'atmosphere', 'delay', 'echoes', 'not_installed', 'reverb', 'routing', 'unknown']

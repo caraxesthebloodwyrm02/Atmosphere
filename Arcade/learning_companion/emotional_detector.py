@@ -12,7 +12,17 @@ from typing import Dict, List, Any, Optional
 from dataclasses import dataclass
 from enum import Enum
 import asyncio
-import random  # For simulation in testing
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from sensor_integration import (
+    get_typing_patterns,
+    get_facial_expressions,
+    get_physiological_data,
+    get_all_sensor_readings,
+    get_sensor_status
+)
 
 class Emotion(Enum):
     EXPLORATORY = "exploratory"
@@ -111,11 +121,11 @@ class EmotionalDetector:
             'time_since_last_interaction': session_data.get('time_since_last_interaction', 0),
         }
 
-        # Simulate additional signals (in real implementation, this would use actual sensors)
+        # Real sensor integrations (when available)
         signals.update({
-            'typing_patterns': self._simulate_typing_patterns(signals),
-            'facial_expressions': self._simulate_facial_analysis(),
-            'physiological_data': self._simulate_physiological_data(signals),
+            'typing_patterns': get_typing_patterns(),
+            'facial_expressions': get_facial_expressions(),
+            'physiological_data': get_physiological_data(),
         })
 
         return signals
@@ -279,35 +289,6 @@ class EmotionalDetector:
             stress_factors.append(-0.1)
 
         return max(0.0, min(1.0, statistics.mean(stress_factors) if stress_factors else 0.0))
-
-    def _simulate_typing_patterns(self, signals: Dict[str, Any]) -> Dict[str, Any]:
-        """Simulate typing pattern analysis (would use actual keyboard telemetry)."""
-        return {
-            'typing_speed': random.uniform(50, 200),  # WPM
-            'pause_frequency': random.uniform(0.1, 0.8),  # Pauses per minute
-            'correction_rate': signals['error_count'] / max(signals['total_attempts'], 1),
-            'burst_typing': random.choice([True, False]),  # Rapid typing bursts
-        }
-
-    def _simulate_facial_analysis(self) -> Dict[str, Any]:
-        """Simulate facial expression analysis (would use webcam data)."""
-        expressions = ['neutral', 'focused', 'confused', 'frustrated', 'engaged', 'relaxed']
-        return {
-            'dominant_expression': random.choice(expressions),
-            'expression_confidence': random.uniform(0.6, 0.95),
-            'attention_level': random.uniform(0.4, 0.9),
-            'stress_markers': random.uniform(0.1, 0.7),
-        }
-
-    def _simulate_physiological_data(self, signals: Dict[str, Any]) -> Dict[str, Any]:
-        """Simulate physiological data (would use wearables/sensors)."""
-        base_stress = signals['error_count'] / max(signals['total_attempts'], 1)
-        return {
-            'heart_rate_variability': random.uniform(20, 80),  # ms
-            'skin_conductance': random.uniform(1, 10),  # microsiemens
-            'respiration_rate': random.uniform(12, 20),  # breaths per minute
-            'stress_level': min(1.0, base_stress + random.uniform(-0.2, 0.3)),
-        }
 
     def get_emotional_trends(self, learner_id: str, time_window: int = 3600) -> Dict[str, Any]:
         """Analyze emotional trends over time for the learner."""

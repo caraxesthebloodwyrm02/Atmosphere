@@ -1,4 +1,0 @@
-# file: E:\Projects\Atmosphere\api\client.py
-# hypothesis_version: 6.146.0
-
-[0.7, '=', 'OPENAI_API_KEY', '__main__', 'completion_tokens', 'content', 'finish_reason', 'gpt-3.5-turbo', 'model', 'prompt_tokens', 'role', 'total_tokens', 'usage', 'user']

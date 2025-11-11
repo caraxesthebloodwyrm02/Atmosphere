@@ -180,7 +180,7 @@ def zones():
         logs = list(zone_dir.glob("*.log"))
         active_tools = [f.stem for f in zone_dir.glob("*.log") if f.stat().st_mtime > (os.path.getmtime(__file__) - 3600)]
         
-        status = click.style("●", fg="green") if logs else click.style("○", fg="gray")
+        status = click.style("●", fg="green") if logs else click.style("○", fg="bright_black")
         click.echo(f"  {status} {zone_dir.name}")
         if logs:
             latest = max(logs, key=lambda p: p.stat().st_ctime)
@@ -289,7 +289,7 @@ def web():
 # 9️⃣  Audio Analysis Commands
 # --------------------------------------------------------------- #
 @cli.command()
-@click.argument('analysis_type', type=click.Choice(['808-bass', 'bass-delay', 'sound-effects']))
+@click.argument('analysis_type', type=click.Choice(['808-bass', 'bass-delay', 'sound-effects', 'spectral']))
 @click.option('--file', '-f', help='Audio file path (optional)')
 @click.option('--effect', '-e', default='reverb', help='Effect type for sound-effects')
 def analyze(analysis_type, file, effect):
@@ -305,6 +305,8 @@ def analyze(analysis_type, file, effect):
         analyzer.analyze_bass_vs_delay(file)
     elif analysis_type == 'sound-effects':
         analyzer.analyze_sound_effects(effect)
+    elif analysis_type == 'spectral':
+        analyzer.advanced_spectral_analysis(file)
 
 
 # --------------------------------------------------------------- #
@@ -350,6 +352,36 @@ def playground(demo):
         playground.show_menu()
 
 
+@cli.command()
+@click.argument('command', type=click.Choice(['chat', 'analyze', 'generate']))
+@click.option('--message', '-m', help='Message for chat')
+@click.option('--code', '-c', help='Code to analyze')
+@click.option('--description', '-d', help='Description for code generation')
+@click.option('--language', '-l', default='python', help='Programming language')
+def ai(command, message, code, description, language):
+    """AI assistant commands."""
+    sys.path.insert(0, str(BASE_DIR))
+    from tools.ai_assistant import AIAssistant
+    
+    assistant = AIAssistant()
+    
+    if command == 'chat':
+        if not message:
+            click.echo("Error: --message required for chat")
+            return
+        assistant.chat(message)
+    elif command == 'analyze':
+        if not code:
+            click.echo("Error: --code required for analyze")
+            return
+        assistant.analyze_code(code, language)
+    elif command == 'generate':
+        if not description:
+            click.echo("Error: --description required for generate")
+            return
+        assistant.generate_code(description, language)
+
+
 # --------------------------------------------------------------- #
 # 1️⃣2️⃣  Game Collection Commands
 # --------------------------------------------------------------- #
@@ -383,13 +415,15 @@ def game(game, max, length):
 @click.argument('demo_type', type=click.Choice(['audio', 'spatial', 'trajectory', 'preview', 'random', 'interactive']))
 def demo(demo_type):
     """Run interactive demos."""
+    sys.path.insert(0, str(BASE_DIR))
+    from tools.interactive_playground import InteractivePlayground
+    
+    playground = InteractivePlayground()
+    
     if demo_type == 'interactive':
-        # Show menu
-        playground_cmd = cli.get_command(ctx=None, name='playground')
-        playground_cmd.callback(demo=None)
+        playground.show_menu()
     else:
-        playground_cmd = cli.get_command(ctx=None, name='playground')
-        playground_cmd.callback(demo=demo_type)
+        playground.run_demo(demo_type)
 
 
 # --------------------------------------------------------------- #

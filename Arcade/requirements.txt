@@ -1,31 +1,49 @@
-# Arcade Module Dependencies
-# Terminal and interface components
+# Enhanced Arcade Terminal Dependencies
+# ====================================
 
-<<<<<<< HEAD
 # Web Framework
 fastapi>=0.104.0
 uvicorn[standard]>=0.24.0
 websockets>=11.0
 
+# AI and Machine Learning
+openai>=1.0.0
+openai-chatkit>=0.1.0  # Advanced ChatKit integration
+python-dotenv>=1.0.0
+
+# Data Processing and Configuration
+pydantic>=2.0.0
+pyyaml>=6.0.0
+
 # Security and Monitoring
 psutil>=5.9.0
 
-# Configuration
-python-dotenv>=1.0.0
-pydantic>=2.0.0
-
-# Audio-Arcade Pipeline
-watchdog>=3.0.0
-pyyaml>=6.0.0
-click>=8.0.0
-
-# TUI Framework
-textual>=0.40.0
+# Terminal Interface
 rich>=13.0.0
-=======
-# Core dependencies (none required, uses standard library)
+click>=8.0.0
+textual>=0.40.0
 
-# Optional: Enhanced terminal features (uncomment if needed)
-# rich>=10.0.0
-# click>=8.0.0
->>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
+# File System Monitoring
+watchdog>=3.0.0
+
+# Testing Framework
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.0.0
+pytest-mock>=3.10.0
+pytest-xdist>=3.0.0
+coverage[toml]>=7.0.0
+faker>=18.0.0
+httpx>=0.25.0
+
+# Development Tools
+black>=23.0.0
+isort>=5.12.0
+flake8>=6.0.0
+mypy>=1.0.0
+
+# Optional AI Providers (uncomment as needed)
+# anthropic>=0.7.0
+# google-generativeai>=0.3.0
+# transformers>=4.30.0
+# replicate>=0.15.0

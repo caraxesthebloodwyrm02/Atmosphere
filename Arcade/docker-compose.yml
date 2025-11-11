@@ -1,0 +1,130 @@
+version: '3.8'
+
+services:
+  arcade:
+    build:
+      context: .
+      target: production
+    ports:
+      - "7681:7681"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ARCADE_HOST=0.0.0.0
+      - ARCADE_PORT=7681
+      - ARCADE_DEBUG=false
+      - ARCADE_SANDBOX_PATH=/app/sandbox
+      - ARCADE_SECRET_KEY=${ARCADE_SECRET_KEY:-change_this_in_production}
+    volumes:
+      - arcade_logs:/app/logs
+      - arcade_data:/app/data
+      - arcade_sandbox:/app/sandbox
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7681/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - arcade_network
+
+  arcade-dev:
+    build:
+      context: .
+      target: development
+    ports:
+      - "7682:7681"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ARCADE_HOST=0.0.0.0
+      - ARCADE_PORT=7681
+      - ARCADE_DEBUG=true
+      - ARCADE_SANDBOX_PATH=/app/sandbox
+      - ARCADE_SECRET_KEY=dev_secret_key_not_for_production
+    volumes:
+      - .:/app
+      - arcade_dev_logs:/app/logs
+      - arcade_dev_data:/app/data
+      - arcade_dev_sandbox:/app/sandbox
+    profiles:
+      - dev
+    networks:
+      - arcade_network
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+      - nginx_logs:/var/log/nginx
+    depends_on:
+      - arcade
+    restart: unless-stopped
+    profiles:
+      - web
+    networks:
+      - arcade_network
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    restart: unless-stopped
+    profiles:
+      - monitoring
+    networks:
+      - arcade_network
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+    depends_on:
+      - prometheus
+    restart: unless-stopped
+    profiles:
+      - monitoring
+    networks:
+      - arcade_network
+
+volumes:
+  arcade_logs:
+    driver: local
+  arcade_data:
+    driver: local
+  arcade_sandbox:
+    driver: local
+  arcade_dev_logs:
+    driver: local
+  arcade_dev_data:
+    driver: local
+  arcade_dev_sandbox:
+    driver: local
+  nginx_logs:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  arcade_network:
+    driver: bridge

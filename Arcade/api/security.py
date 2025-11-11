@@ -10,6 +10,7 @@ import platform
 from pathlib import Path
 from typing import List, Dict, Set, Optional
 from dataclasses import dataclass
+import difflib
 import psutil
 import time
 
@@ -43,25 +44,28 @@ class CommandValidator:
         Returns (is_allowed, reason)
         """
         command_lower = command.strip().lower()
-        
+
         # Check for blocked commands first
         for blocked in self.blocked_commands:
             if blocked in command_lower:
                 return False, f"Command '{blocked}' is not allowed for security reasons"
-        
+
         # Check for allowed commands (whitelist approach)
         if self.allowed_commands:
             # Extract base command (first word)
             base_command = command_lower.split()[0] if command_lower.split() else ""
-            
+
+            if not base_command:
+                return False, "No command detected. Try 'help' to see available options."
+
             # Special handling for cd commands (game navigation)
             if command_lower.startswith("cd"):
                 return True, None
-            
+
             # Check if base command is in whitelist
             if base_command in self.allowed_commands:
                 return True, None
-            
+
             # Check for PowerShell cmdlets (Get-*, Set-*, etc.)
             if "-" in base_command and any(
                 base_command.startswith(prefix) 
@@ -71,9 +75,14 @@ class CommandValidator:
                 verb_part = base_command.split("-")[0]
                 if verb_part in ["get", "set", "show", "write", "read", "test"]:
                     return True, None
-            
+
+            suggestions = self._suggest_commands(base_command)
+            if suggestions:
+                suggestion_text = ", ".join(suggestions)
+                return False, f"Command '{base_command}' is not recognized. Try: {suggestion_text}"
+
             return False, f"Command '{base_command}' is not in the allowed list"
-        
+
         return True, None
     
     def sanitize_input(self, input_str: str) -> str:
@@ -88,6 +97,27 @@ class CommandValidator:
             sanitized = sanitized[:1000]
             logger.warning(f"Input truncated to 1000 characters")
         return sanitized
+
+    def _suggest_commands(self, base_command: str) -> List[str]:
+        """Provide user-friendly suggestions for similar commands."""
+        if not base_command:
+            return []
+
+        # Direct prefix matches first
+        prefix_matches = sorted(
+            {cmd for cmd in self.allowed_commands if cmd.startswith(base_command)}
+        )
+        if prefix_matches:
+            return prefix_matches[:3]
+
+        # Fuzzy match suggestions
+        fuzzy_matches = difflib.get_close_matches(
+            base_command,
+            list(self.allowed_commands),
+            n=3,
+            cutoff=0.5
+        )
+        return fuzzy_matches
 
 
 class ResourceLimiter:
@@ -252,4 +282,3 @@ class SecurityManager:
     def stop_resource_monitoring(self, process_id: int) -> Dict:
         """Stop monitoring and get resource stats"""
         return self.limiter.stop_monitoring(process_id)
-

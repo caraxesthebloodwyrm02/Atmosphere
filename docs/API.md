@@ -79,7 +79,137 @@ visualizer = SpatialAudioVisualizer()
 signal, t = visualizer.generate_signal(frequency=440, duration=1.0)
 ```
 
-## atmosphere_audio.routing
+## Arcade Licensed Tools
+
+The Arcade Terminal provides access to licensed advanced tools and features.
+
+### AI Assistant
+
+Intelligent assistant powered by OpenAI/Anthropic APIs with fallback demo mode.
+
+#### Methods
+
+- **chat(message, model="auto")**: Have a conversation with the AI
+- **analyze_code(code, language="python")**: Analyze code for improvements and best practices
+- **generate_code(description, language="python")**: Generate code based on description
+
+#### Example
+
+```python
+from Arcade.tools.ai_assistant import AIAssistant
+
+assistant = AIAssistant()
+
+# Chat with AI
+response = assistant.chat("Explain machine learning")
+print(response['response'])
+
+# Analyze code
+analysis = assistant.analyze_code("def hello(): print('world')", "python")
+print(analysis['analysis'])
+
+# Generate code
+code = assistant.generate_code("Create a REST API endpoint", "python")
+print(code['code'])
+```
+
+### Audio Analyzer
+
+Advanced audio analysis tools using NumPy/SciPy licensed libraries.
+
+#### Methods
+
+- **analyze_808_bass(file_path=None)**: Analyze 808 bass frequencies
+- **analyze_bass_vs_delay(file_path=None)**: Compare bass vs delay effects
+- **analyze_sound_effects(effect_type="reverb")**: Analyze sound effects
+- **advanced_spectral_analysis(file_path=None)**: FFT-based spectral analysis
+
+#### Example
+
+```python
+from Arcade.tools.audio_analyzer import AudioAnalyzer
+
+analyzer = AudioAnalyzer()
+
+# Spectral analysis
+result = analyzer.advanced_spectral_analysis("audio.wav")
+print(f"Centroid: {result['centroid']:.1f} Hz")
+print(f"Bass Power: {result['bass_power']:.1f} dB")
+
+# Traditional analysis
+result = analyzer.analyze_808_bass("audio.wav")
+```
+
+### Spatial Visualizer
+
+3D spatial audio visualization and processing.
+
+#### Methods
+
+- **visualize_3d_spatial(source_pos, listener_pos, save_image=False)**: Create 3D spatial visualization
+- **visualize_comprehensive()**: Create comprehensive 6-panel analysis
+
+#### Example
+
+```python
+from Arcade.tools.spatial_visualizer import SpatialVisualizer
+
+visualizer = SpatialVisualizer()
+
+# 3D visualization
+result = visualizer.visualize_3d_spatial(
+    source_pos=(5.0, 0.0, 2.0),
+    listener_pos=(0.0, 0.0, 0.0)
+)
+print(f"Distance: {result['distance']:.2f} units")
+```
+
+### Interactive Playground
+
+Demo system showcasing all licensed capabilities.
+
+#### Methods
+
+- **show_menu()**: Display interactive menu
+- **run_demo(demo_type)**: Run specific demo (audio, spatial, trajectory, preview, random)
+
+#### Example
+
+```python
+from Arcade.tools.interactive_playground import InteractivePlayground
+
+playground = InteractivePlayground()
+
+# Show menu
+playground.show_menu()
+
+# Run audio demo
+playground.run_demo("audio")
+```
+
+### Network Node Processor
+
+Advanced network analysis using NetworkX graph algorithms.
+
+#### Methods
+
+- **process_payload(payload)**: Process network node movement data
+
+#### Example
+
+```python
+from Arcade.tools.network_node_processor import NetworkNodeProcessor
+
+processor = NetworkNodeProcessor(zone_dir="zones/visual")
+
+# Process network payload
+result = processor.process_payload({
+    "tool": "network_visualizer",
+    "zone": "visual", 
+    "node_states": {...},
+    "movement_events": [...]
+})
+```
 
 ### AcousticParameters
 

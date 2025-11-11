@@ -26,6 +26,24 @@ except ImportError:
 # Create router
 router = APIRouter(prefix="/learning", tags=["learning_companion"])
 
+@router.get("/", summary="Learning Companion API Root", 
+          description="Welcome to the Emotionally-Adaptive Learning Companion API")
+async def root():
+    """Return welcome message and available endpoints."""
+    return {
+        "message": "Welcome to the Emotionally-Adaptive Learning Companion API",
+        "endpoints": [
+            {"path": "/learning/", "method": "GET", "description": "API root (this page)"},
+            {"path": "/learning/session/start", "method": "POST", "description": "Start a new learning session"},
+            {"path": "/learning/session/{session_id}", "method": "GET", "description": "Get session status"},
+            {"path": "/learning/session/{session_id}/end", "method": "POST", "description": "End a learning session"},
+            {"path": "/learning/interact", "method": "POST", "description": "Process a learning interaction"},
+            {"path": "/learning/progress/{learner_id}", "method": "GET", "description": "Get learning progress"},
+            {"path": "/learning/topics", "method": "GET", "description": "Get available learning topics"},
+            {"path": "/learning/demo", "method": "GET", "description": "Run a demonstration of the learning companion"}
+        ]
+    }
+
 # Initialize learning companion
 learning_companion = EmotionallyAdaptiveLearningCompanion()
 

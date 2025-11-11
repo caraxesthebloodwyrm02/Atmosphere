@@ -1,4 +1,0 @@
-# file: E:\Projects\Atmosphere\Routing\api_connector_main.py
-# hypothesis_version: 6.146.0
-
-[1024, 44100, '15-25%', '=', 'API not available', '__main__', 'ai_suggestions', 'api_available', 'buffer_size', 'channels', 'connected', 'connection_status', 'default', 'destination', 'disconnected', 'error', 'failed', 'fallback', 'gpt-3.5-turbo', 'high', 'input_device', 'last_check', 'latency', 'low', 'message', 'optimization_applied', 'optimized_routing', 'original_data', 'output_device', 'parameters', 'quality', 'recommendations', 'routing_data_count', 'routing_path', 'sample_rate', 'settings', 'source', 'status', 'success']

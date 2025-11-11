@@ -19,11 +19,12 @@ This guidebook captures the critical lessons learned, architectural improvements
 - **Health monitoring enables proactive fixes** before failures occur
 - **Key Insight**: System stability > raw performance metrics
 
-### **3. Third-Party Dependency Management is Critical**
-- **Regular sanitization essential** for security and stability
-- **Circuit breakers for all external calls** prevent service degradation
-- **Fallback mechanisms critical** for core functionality
-- **Key Insight**: Never trust external services completely
+### **4. Licensed API Integration is Essential for Advanced Features**
+- **Fallback mechanisms critical** when API keys are unavailable
+- **Circuit breakers for all API calls** prevent service degradation
+- **Rate limiting and error handling** ensure system stability
+- **Demo modes for all licensed features** maintain functionality without APIs
+- **Key Insight**: Licensed features enhance capabilities but should never break core functionality
 
 ---
 
@@ -53,13 +54,33 @@ filtered_data = attention_filter.filter_signals(noisy_data)
 processed_result = await process_important_signals(filtered_data)
 ```
 
-### **Health Monitoring Pattern**
+### **Licensed API Integration Pattern**
 ```python
-# Continuous health monitoring
-health_checker = HealthChecker()
-status = await health_checker.check_all_services()
-if status.overall_health < 0.8:
-    await trigger_mitigation_strategies()
+# Licensed API integration with fallbacks
+class LicensedService:
+    def __init__(self):
+        self.api_available = self._check_api_availability()
+        self.demo_mode = not self.api_available
+    
+    async def call_licensed_api(self, request):
+        if self.demo_mode:
+            return await self._demo_response(request)
+        
+        try:
+            # Circuit breaker for API calls
+            response = await self._call_with_circuit_breaker(request)
+            return response
+        except Exception as e:
+            logger.warning(f"Licensed API failed: {e}")
+            return await self._demo_response(request)
+    
+    async def _call_with_circuit_breaker(self, request):
+        # Implement circuit breaker logic
+        pass
+    
+    async def _demo_response(self, request):
+        # Provide functional demo response
+        return {"demo": True, "message": "Demo mode - API not available"}
 ```
 
 ---

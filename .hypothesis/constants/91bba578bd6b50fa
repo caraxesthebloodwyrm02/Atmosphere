@@ -1,4 +1,0 @@
-# file: E:\Projects\Atmosphere\src\network.py
-# hypothesis_version: 6.146.0
-
-[0.5, 1.0, 1024, 37020, '0.0.0.0', '<broadcast>', 'PRESENCE', '_announce_thread', '_listen_thread', 'address', 'device_id', 'hostname', 'last_seen', 'metadata', 'port', 'start_time', 'timestamp', 'type', 'utf-8']
