@@ -30,28 +30,105 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Local imports
-from ..config import (DEFAULT_MAX_TOKENS, DEFAULT_MODEL,
-                     DEFAULT_TEMPERATURE, USE_RESPONSES_API,
-                           RuntimeOptions)
-from echoes.services.agents import AgentWorkflow
-from echoes.services.filesystem import FilesystemTools
-from echoes.services.glimpse import (ClarifierEngine, Draft, GlimpseEngine,
-                                     PrivacyGuard)
-# ---------- Optional, heavy services ----------
-# (These imports are cheap – they just give us the class objects or stubs)
-from echoes.services.inventory import InventoryService
-from echoes.services.knowledge import KnowledgeManager
-from echoes.services.knowledge_graph import KnowledgeGraph
-from echoes.services.legal import (ValueSystem, get_cognitive_accounting,
-                                   get_enhanced_accounting)
-from echoes.services.multimodal import MultimodalEngine
-from echoes.services.quantum import QuantumStateManager
-from echoes.services.rag import RAG_AVAILABLE, create_rag_system
-from echoes.utils.context_manager import ContextManager
-from echoes.utils.import_helpers import safe_import
-from echoes.utils.memory_store import MemoryStore
-from echoes.utils.status_indicator import STATUS_TOOL, EnhancedStatusIndicator
+# Local imports - using fallback constants since config module doesn't exist
+# from ..config import (DEFAULT_MAX_TOKENS, DEFAULT_MODEL,
+#                      DEFAULT_TEMPERATURE, USE_RESPONSES_API,
+#                             RuntimeOptions)
+
+# Fallback constants for missing config
+DEFAULT_MAX_TOKENS = 4096
+DEFAULT_MODEL = "gpt-4"
+DEFAULT_TEMPERATURE = 0.7
+USE_RESPONSES_API = True
+
+class RuntimeOptions:
+    """Fallback RuntimeOptions class"""
+    def __init__(self):
+        self.model = DEFAULT_MODEL
+        self.temperature = DEFAULT_TEMPERATURE
+        self.max_tokens = DEFAULT_MAX_TOKENS
+        self.enable_tools = False
+        self.enable_rag = False
+        self.enable_glimpse = False
+        self.enable_status = True
+        self.session_id = None
+# Mock classes for missing external dependencies
+class AgentWorkflow:
+    def __init__(self, assistant): pass
+
+class FilesystemTools:
+    def __init__(self, root_dir): pass
+
+class ClarifierEngine: pass
+class Draft: pass
+class GlimpseEngine: pass
+class PrivacyGuard: pass
+
+class InventoryService: pass
+class KnowledgeManager: pass
+class KnowledgeGraph: pass
+
+class ValueSystem: pass
+def get_cognitive_accounting(): return None
+def get_enhanced_accounting(): return None
+
+class MultimodalEngine: pass
+class QuantumStateManager:
+    def initialize_quantum_states(self): pass
+
+def safe_import(module_name):
+    return None, False
+
+from types import SimpleNamespace
+
+# Mock status indicator
+class EnhancedStatusIndicator:
+    def __init__(self, enabled=True):
+        self.enabled = enabled
+
+    def error(self, msg): pass
+
+# Mock context manager
+class ContextManager:
+    def __init__(self):
+        self.conversations = {}
+
+    def add_message(self, session_id, role, content):
+        if session_id not in self.conversations:
+            self.conversations[session_id] = []
+        self.conversations[session_id].append({"role": role, "content": content})
+
+    def get_messages(self, session_id, limit=5):
+        return self.conversations.get(session_id, [])[-limit:]
+
+# Mock memory store
+class MemoryStore:
+    def load_conversation(self, session_id):
+        return None
+
+# Mock RAG system
+class RAGSystem:
+    def search(self, query, top_k=3):
+        return []
+
+RAG_AVAILABLE = False
+create_rag_system = lambda x: RAGSystem()
+
+# Replace the external imports with our mocks
+# from echoes.services.agents import AgentWorkflow
+# from echoes.services.filesystem import FilesystemTools
+# from echoes.services.glimpse import (ClarifierEngine, Draft, GlimpseEngine, PrivacyGuard)
+# from echoes.services.inventory import InventoryService
+# from echoes.services.knowledge import KnowledgeManager
+# from echoes.services.knowledge_graph import KnowledgeGraph
+# from echoes.services.legal import (ValueSystem, get_cognitive_accounting, get_enhanced_accounting)
+# from echoes.services.multimodal import MultimodalEngine
+# from echoes.services.quantum import QuantumStateManager
+# from echoes.services.rag import RAG_AVAILABLE, create_rag_system
+# from echoes.utils.context_manager import ContextManager
+# from echoes.utils.import_helpers import safe_import
+# from echoes.utils.memory_store import MemoryStore
+# from echoes.utils.status_indicator import STATUS_TOOL, EnhancedStatusIndicator
 
 
 # ----------------------------------------------------------------------

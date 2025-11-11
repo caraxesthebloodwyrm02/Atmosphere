@@ -3,7 +3,7 @@ Atmosphere Audio
 A comprehensive audio processing and routing system for immersive experiences.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 # Import core modules to make them available at the package level
 from . import delay

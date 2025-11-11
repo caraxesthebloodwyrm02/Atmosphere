@@ -1,104 +1,4 @@
 """
-<<<<<<< HEAD
-Delay Essence: Advanced Audio Effect with Automated Filter Modulation & Quantization
-
-Tempo-synced delay with filter modulation (240Hz), 1/32nd rate support,
-and 3/8th note quantization grid (75% snap).
-"""
-
-class Delay:
-    """Delay effect with automated filter modulation and quantization grid.
-
-    Parameters
-    ----------
-    rate : str, default '1/8'
-        Tempo-synced rate: '1/1', '1/2', '1/4', '1/8', '1/16', '1/32', '3/8', etc.
-    feedback : float, default 0.3
-        Feedback fraction (0-1).
-    level : float, default 0.5
-        Delayed signal amplitude (0-1).
-    dry_wet : float, default 0.5
-        Mix balance (0-1).
-    delay_type : str, default 'digital'
-        Type: 'digital', 'analog', 'tape', 'ping_pong', 'slapback', 'doubling'.
-    filter_freq : float, default 240
-        Filter cutoff frequency in Hz.
-    filter_mod : float, default 0.5
-        Filter modulation depth (0-1), automated with time sync.
-    quantize_grid : str, default '3/8'
-        Background quantization grid: '1/4', '1/8', '1/16', '3/8', etc.
-    quantize_snap : float, default 0.75
-        Snap-to-grid strength (0-1). 0.75 = 75% snap.
-    persistent_theme : str or None, default None
-        Thematic fixation.
-    """
-
-    def __init__(self, rate='1/8', feedback=0.3, level=0.5, dry_wet=0.5,
-                 delay_type='digital', filter_freq=240, filter_mod=0.5,
-                 quantize_grid='3/8', quantize_snap=0.75, persistent_theme=None, time_ms=None):
-        self.rate = rate
-        self.feedback = feedback
-        self.level = level
-        self.dry_wet = dry_wet
-        self.delay_type = delay_type
-        self.filter_freq = filter_freq
-        self.filter_mod = filter_mod
-        self.quantize_grid = quantize_grid
-        self.quantize_snap = quantize_snap
-        self.persistent_theme = persistent_theme
-        self.time_ms = time_ms  # Add time_ms parameter
-        self._rate_to_ms = {
-            '1/1': 2000, '1/2': 1000, '1/4': 500, '1/8': 250, '1/16': 125, '1/32': 62.5,
-            '3/8': 750, '3/16': 375, '3/32': 187.5
-        }
-
-    def process_signal(self, signal):
-        """Apply delay with automated filter modulation and quantization."""
-        time_ms = self._rate_to_ms.get(self.rate, 250)
-        quantized_time = self._apply_quantization(time_ms)
-        
-        # Generate echo with filter modulation
-        wet = f"Echo '{signal}' at {self.rate} ({quantized_time:.1f}ms, quantized to {self.quantize_grid})"
-        wet += f" | Filter: {self.filter_freq}Hz (mod: {self.filter_mod})"
-        wet += f" | Feedback: {self.feedback}"
-        
-        if self.delay_type != 'digital':
-            wet += f" | Type: {self.delay_type}"
-        
-        # Mix
-        result = f"[{self.dry_wet:.1%} wet] {wet}"
-        
-        if self.persistent_theme:
-            result += f" → {self.persistent_theme}"
-        
-        return result
-
-    def _apply_quantization(self, time_ms):
-        """Apply 75% snap-to-grid quantization."""
-        grid_ms = self._rate_to_ms.get(self.quantize_grid, 750)
-        snapped = round(time_ms / grid_ms) * grid_ms
-        return time_ms + (snapped - time_ms) * self.quantize_snap
-
-if __name__ == "__main__":
-    # 1/32nd rate with 240Hz filter modulation
-    delay_32nd = Delay(rate='1/32', filter_freq=240, filter_mod=0.5, dry_wet=0.4)
-    print(delay_32nd.process_signal("Original sound"))
-    
-    # Ping pong with 3/8 quantization grid (75% snap)
-    ping_pong = Delay(delay_type='ping_pong', rate='1/8', quantize_grid='3/8', 
-                      quantize_snap=0.75, dry_wet=0.6, feedback=0.4)
-    print(ping_pong.process_signal("Stereo signal"))
-    
-    # Slapback with automated filter modulation
-    slapback = Delay(delay_type='slapback', rate='3/8', filter_freq=240, 
-                     filter_mod=0.7, dry_wet=0.7)
-    print(slapback.process_signal("Vocal track"))
-    
-    # Theme with quantized timing
-    themed = Delay(rate='1/16', quantize_grid='3/8', quantize_snap=0.75,
-                   persistent_theme="the Golden Gate Bridge")
-    print(themed.process_signal("Thematic query"))
-=======
 Delay Essence: Advanced Audio Effect for Echo Creation and AI Trajectory Optimization
 
 Deals with: Creating echoes by repeating sound after time intervals
@@ -116,6 +16,79 @@ add pre-delay, filter echoes, and maintain thematic consistency.
 Architecture: Delay line with feedback loop for multiple repeats,
 integrated with AI trajectory optimization through persistent theme capability.
 """
+
+from dataclasses import dataclass
+from typing import Optional
+import numpy as np
+
+
+@dataclass
+class DelayConfig:
+    """Configuration for delay effect parameters."""
+    time_ms: float = 250.0
+    feedback: float = 0.3
+    level: float = 0.5
+    dry_wet: float = 0.5
+    delay_type: str = 'digital'
+    rate: Optional[str] = None
+    pre_delay: float = 0.0
+    filter_type: Optional[str] = None
+    filter_freq: float = 1000.0
+    modulation: float = 0.0
+    persistent_theme: Optional[str] = None
+
+
+class DelayEngine:
+    """Advanced audio delay effect with comprehensive parameters for AI trajectory optimization."""
+
+    def __init__(self, sample_rate: int = 44100, max_delay_ms: float = 2000.0):
+        self.sample_rate = sample_rate
+        self.max_delay_samples = int((max_delay_ms / 1000.0) * sample_rate)
+        self.buffer = np.zeros(self.max_delay_samples, dtype=np.float32)
+        self.write_pos = 0
+
+    def process(self, buffer: np.ndarray, delay_time_ms: float, feedback: float = 0.0, mix: float = 0.5) -> np.ndarray:
+        """
+        Apply delay effect to audio buffer.
+
+        Parameters
+        ----------
+        buffer : np.ndarray
+            Input audio buffer
+        delay_time_ms : float
+            Delay time in milliseconds (0-2000ms typical)
+        feedback : float, optional
+            Feedback amount (0-1), default 0.0
+        mix : float, optional
+            Dry/wet mix (0-1), default 0.5
+
+        Returns
+        -------
+        np.ndarray
+            Processed audio buffer
+        """
+        if not (0 <= delay_time_ms <= 2000):
+            raise ValueError("Delay time must be between 0 and 2000 ms")
+
+        delay_samples = int((delay_time_ms / 1000.0) * self.sample_rate)
+        delay_samples = min(delay_samples, self.max_delay_samples - 1)
+
+        output = np.zeros_like(buffer)
+
+        for i in range(len(buffer)):
+            # Read delayed sample
+            read_pos = (self.write_pos - delay_samples) % self.max_delay_samples
+            delayed_sample = self.buffer[read_pos]
+
+            # Write input + feedback to buffer
+            self.buffer[self.write_pos] = buffer[i] + delayed_sample * feedback
+
+            # Mix dry and wet
+            output[i] = buffer[i] * (1 - mix) + delayed_sample * mix
+
+            self.write_pos = (self.write_pos + 1) % self.max_delay_samples
+
+        return output
 
 
 class Delay:
@@ -257,4 +230,3 @@ if __name__ == "__main__":
     golden_gate_delay = Delay(persistent_theme="the Golden Gate Bridge")
     obsessed_result = golden_gate_delay.process_signal("Any query about spending money")
     print(obsessed_result)
->>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
