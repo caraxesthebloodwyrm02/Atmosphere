@@ -4,41 +4,8 @@ __pycache__/
 *$py.class
 *.so
 .Python
-<<<<<<< HEAD
-.python-version
-=======
->>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-<<<<<<< HEAD
-.pytest_cache/
-.mypy_cache/
-.ropeproject/
-.mr.developer.cfg
-.coverage.*
-*.cover.*
-coverage.xml
-*.cover
-.hypothesis/
-.pytest_cache/
-.tox/
-.nox/
 
 # Virtual Environment
-# Virtual environments
 venv/
 ENV/
 .env/
@@ -53,20 +20,10 @@ ENV.bak/
 Pipfile.lock
 
 # IDEs and editors
-=======
-
-# Virtual Environment
-venv/
-ENV/
-
-# IDE
->>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 .idea/
 .vscode/
 *.swp
 *.swo
-<<<<<<< HEAD
-*~
 .project
 .pydevproject
 .settings/
@@ -83,8 +40,6 @@ ENV/
 !.vscode/launch.json
 !.vscode/extensions.json
 !.vscode/*.code-snippets
-=======
->>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
 
 # Project specific
 *.png
@@ -92,7 +47,6 @@ ENV/
 *.jpeg
 *.gif
 
-<<<<<<< HEAD
 # Environment variables and secrets
 .env
 .env.local
@@ -127,15 +81,6 @@ secrets.json
 *.p8
 *.p8e
 *.p10
-*.p12
-*.pfx
-*.p7b
-*.p7c
-*.p7s
-*.p7m
-*.p8
-*.p8e
-*.p10
 
 # Logs and databases
 logs/
@@ -152,7 +97,6 @@ yarn-error.log*
 # Local development
 .DS_Store
 Thumbs.db
-Desktop.ini
 $RECYCLE.BIN/
 *.stackdump
 [Dd]esktop.ini
@@ -199,13 +143,6 @@ coverage.xml
 htmlcov/
 .pytest_cache/
 .mypy_cache/
-.hypothesis/
-.pytest_cache/
-.tox/
-.nox/
-.coverage.*
-coverage-*.xml
-*.cover
 .hypothesis/
 .pytest_cache/
 .mypy_cache/
@@ -274,15 +211,3 @@ public
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
-=======
-# Environment variables
-.env
-
-# Logs
-logs/
-*.log
-
-# Local development
-.DS_Store
-Thumbs.db
->>>>>>> 94e7240e4017e5ff163804c12cc582d2f8092628
