@@ -1,0 +1,14 @@
+[run]
+branch = True
+source = src/atmosphere_audio
+omit =
+    */test_*.py
+    */legacy/*
+    */docs/*
+    **/delay/core/delay_demo.py
+    **/echo/core/knowledge_graph.py
+    **/reverb/core/platform.py
+
+[report]
+show_missing = True
+fail_under = 50

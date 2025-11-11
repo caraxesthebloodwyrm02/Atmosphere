@@ -1,0 +1,110 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "atmosphere-audio"
+version = "0.1.1"
+description = "Comprehensive audio processing and routing system for immersive experiences"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.8"
+authors = [
+	{name = "Atmosphere Team", email = "atmosphere@example.com"},
+]
+maintainers = [
+	{name = "Atmosphere Team", email = "atmosphere@example.com"},
+]
+keywords = [
+	"audio","processing","spatial","effects","reverb","delay","routing","network","acoustic","dsp","music","sound","3d-audio"
+]
+classifiers = [
+	"Development Status :: 3 - Alpha",
+	"Intended Audience :: Developers",
+	"Intended Audience :: Science/Research",
+	"License :: OSI Approved :: MIT License",
+	"Operating System :: OS Independent",
+	"Programming Language :: Python :: 3",
+	"Programming Language :: Python :: 3.8",
+	"Programming Language :: Python :: 3.9",
+	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
+]
+dependencies = [
+	"numpy>=1.21.0",
+	"scipy>=1.7.0",
+	"fastapi>=0.95.0",
+	"uvicorn[standard]>=0.20.0",
+	"pydantic>=1.10.0,<3.0.0",
+	"requests>=2.28.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/caraxesthebloodwyrm02/Atmosphere"
+Repository = "https://github.com/caraxesthebloodwyrm02/Atmosphere"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["atmosphere_audio*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "atmosphere_audio.__version__"}
+
+[tool.coverage.run]
+source = ["src", "Delay", "i_o", "mental-load-balancer"]
+branch = true
+omit = [
+    "*/tests/*",
+    "*/test_*.py",
+    "*/venv/*",
+    "*/__pycache__/*",
+    "setup.py"
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "class .*\bProtocol\):",
+    "@(abc\.)?abstractmethod"
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = [
+    "--verbose",
+    "--tb=short",
+    "--cov=src",
+    "--cov=Delay",
+    "--cov=i_o",
+    "--cov=mental-load-balancer",
+    "--cov-report=term-missing",
+    "--cov-report=html:htmlcov",
+    "--cov-report=xml",
+    "--cov-fail-under=50",
+    "--strict-markers",
+    "--disable-warnings"
+]
+testpaths = ["tests", "Delay", "i_o", "mental-load-balancer"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+    "smoke: marks tests as smoke tests",
+    "e2e: end-to-end tests"
+]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    "ignore::PendingDeprecationWarning",
+    "ignore::UserWarning"
+]
+
