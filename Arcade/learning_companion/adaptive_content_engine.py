@@ -16,18 +16,8 @@ from pathlib import Path
 import random
 
 from .content_models import ContentModule, ContentType, DifficultyLevel, Emotion, AdaptedContent
+from .emotional_detector import EmotionalState
 from .real_data_content_library import RealDataContentLibrary
-
-@dataclass
-class AdaptedContent:
-    session_id: str
-    learner_id: str
-    emotional_state: EmotionalState
-    content_path: List[ContentModule]
-    adaptation_reasoning: str
-    estimated_completion: int
-    progress_checkpoints: List[Dict[str, Any]]
-    intervention_triggers: List[Dict[str, Any]]
 
 class AdaptiveContentEngine:
     """Engine for generating emotionally-adaptive educational content."""
