@@ -554,13 +554,11 @@ async def get_current_user(
     _jwt_manager = jwt_manager or JWTManager()
     _user_manager = user_manager or UserManager()
 
-    if credentials and not hasattr(credentials, '_mock_name') and not str(type(credentials)).endswith("Depends'>"):
+    if isinstance(credentials, HTTPAuthorizationCredentials):
         # Try JWT token
-        creds = credentials.credentials if hasattr(credentials, 'credentials') else None
-        if creds:
-            token_data = _jwt_manager.verify_token(creds)
-            if token_data:
-                return _user_manager.get_user(token_data.username)
+        token_data = _jwt_manager.verify_token(credentials.credentials)
+        if token_data:
+            return _user_manager.get_user(token_data.username)
 
     # Check for API key in headers (would need request context)
     # For now, return None - would be enhanced with proper request handling

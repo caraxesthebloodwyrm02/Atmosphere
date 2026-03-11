@@ -210,4 +210,5 @@ public
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-.pnp.*api_keys.json
+.pnp.*
+api_keys.json
