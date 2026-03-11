@@ -82,5 +82,69 @@
     "created_at": "2025-11-11T14:55:37.513315+00:00",
     "is_active": true,
     "last_used": "2025-11-11T14:55:37.513806+00:00"
+  },
+  "9b95ece1f6b931e42805c148b95f891edc04ec130b18876658d88a75ec9ae96d": {
+    "key_hash": "9b95ece1f6b931e42805c148b95f891edc04ec130b18876658d88a75ec9ae96d",
+    "name": "test-key",
+    "user_id": "user123",
+    "role": "researcher",
+    "permissions": [
+      "read",
+      "write"
+    ],
+    "created_at": "2026-03-11T21:23:16.434267+00:00",
+    "is_active": true
+  },
+  "c473990fa35b64e32c0dc37cf58db02b5874ec0d638cdc8829d0721c86b66f0d": {
+    "key_hash": "c473990fa35b64e32c0dc37cf58db02b5874ec0d638cdc8829d0721c86b66f0d",
+    "name": "test-key",
+    "user_id": "user123",
+    "role": "researcher",
+    "permissions": [],
+    "created_at": "2026-03-11T21:23:16.435269+00:00",
+    "is_active": true,
+    "last_used": "2026-03-11T21:23:16.435547+00:00"
+  },
+  "addc9f389ca766561fa1eb2514083344278442f3955271b030cc0e66ccb0380f": {
+    "key_hash": "addc9f389ca766561fa1eb2514083344278442f3955271b030cc0e66ccb0380f",
+    "name": "test-key",
+    "user_id": "user123",
+    "role": "researcher",
+    "permissions": [],
+    "created_at": "2026-03-11T21:23:16.437157+00:00",
+    "is_active": true,
+    "last_used": "2026-03-11T21:23:16.437441+00:00"
+  },
+  "d6038e8ca3e5be375165b68483d6210631426e65c8b0dcdb35af29c9548e8f79": {
+    "key_hash": "d6038e8ca3e5be375165b68483d6210631426e65c8b0dcdb35af29c9548e8f79",
+    "name": "test-key",
+    "user_id": "user123",
+    "role": "researcher",
+    "permissions": [
+      "write",
+      "read"
+    ],
+    "created_at": "2026-03-11T21:23:25.290840+00:00",
+    "is_active": true
+  },
+  "f1f01687f7205a5fbfef8b96f08fbde2dce8f60159c7e259ccdfd6b5114cf09f": {
+    "key_hash": "f1f01687f7205a5fbfef8b96f08fbde2dce8f60159c7e259ccdfd6b5114cf09f",
+    "name": "test-key",
+    "user_id": "user123",
+    "role": "researcher",
+    "permissions": [],
+    "created_at": "2026-03-11T21:23:25.291914+00:00",
+    "is_active": true,
+    "last_used": "2026-03-11T21:23:25.292222+00:00"
+  },
+  "39b3de17d494c231f328f9017e2b2fe503a6d1b0ab842b1daff5b4d3382e3091": {
+    "key_hash": "39b3de17d494c231f328f9017e2b2fe503a6d1b0ab842b1daff5b4d3382e3091",
+    "name": "test-key",
+    "user_id": "user123",
+    "role": "researcher",
+    "permissions": [],
+    "created_at": "2026-03-11T21:23:25.294053+00:00",
+    "is_active": true,
+    "last_used": "2026-03-11T21:23:25.294365+00:00"
   }
 }
