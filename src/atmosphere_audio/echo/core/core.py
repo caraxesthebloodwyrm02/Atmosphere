@@ -166,10 +166,15 @@ class EchoesAssistantV2:
         # ------------------------------------------------------------------
         load_dotenv()
         self.api_key = os.getenv("OPENAI_API_KEY")
-        if not self.api_key:
-            raise RuntimeError("OPENAI_API_KEY environment variable is missing")
 
-        self.client: OpenAI = overrides.get("client") or OpenAI(api_key=self.api_key)
+        # Allow injecting a pre-built client without requiring an API key
+        injected_client = overrides.get("client")
+        if injected_client:
+            self.client: OpenAI = injected_client
+        else:
+            if not self.api_key:
+                raise RuntimeError("OPENAI_API_KEY environment variable is missing")
+            self.client: OpenAI = OpenAI(api_key=self.api_key)
 
         # ------------------------------------------------------------------
         #   2️⃣ Core model configuration

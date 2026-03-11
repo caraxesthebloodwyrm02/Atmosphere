@@ -12,6 +12,7 @@ from typing import Optional, Any, Dict, List, Tuple
 
 # Third-party imports
 import matplotlib.pyplot as plt
+import networkx as nx
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
@@ -207,8 +208,6 @@ def visualize_network(network, save_path: Optional[str] = None) -> Optional[Byte
         node_alphas_list.append(node_alphas.get(node, 0.8))
 
     # Draw nodes with depth-based properties
-    import networkx as nx
-
     nx.draw_networkx_nodes(
         network.graph,
         pos,
@@ -282,8 +281,9 @@ def visualize_network(network, save_path: Optional[str] = None) -> Optional[Byte
     all_x = [pos[node][0] for node in pos]
     all_y = [pos[node][1] for node in pos]
     margin = 20
-    ax.set_xlim(min(all_x) - margin, max(all_x) + margin)
-    ax.set_ylim(min(all_y) - margin, max(all_y) + margin)
+    if all_x and all_y:
+        ax.set_xlim(min(all_x) - margin, max(all_x) + margin)
+        ax.set_ylim(min(all_y) - margin, max(all_y) + margin)
 
     # Remove axis ticks for cleaner look
     ax.set_xticks([])
@@ -340,23 +340,19 @@ def visualize_network(network, save_path: Optional[str] = None) -> Optional[Byte
     plt.tight_layout()
 
     if save_path:
-        plt.savefig(
+        fig.savefig(
             save_path,
             dpi=300,
             bbox_inches="tight",
-            facecolor=fig.get_facecolor(),
-            edgecolor="none",
         )
         return None
     else:
         buffer = BytesIO()
-        plt.savefig(
+        fig.savefig(
             buffer,
             format="png",
             dpi=300,
             bbox_inches="tight",
-            facecolor=fig.get_facecolor(),
-            edgecolor="none",
         )
         buffer.seek(0)
         plt.close(fig)

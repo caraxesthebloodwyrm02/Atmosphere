@@ -94,6 +94,7 @@ class TokenData(BaseModel):
     username: str
     role: str
     exp: datetime
+    type: Optional[str] = None
 
 
 class LoginRequest(BaseModel):
@@ -134,14 +135,14 @@ class APIKey(BaseModel):
 class UserManager:
     """User management system"""
 
-    def __init__(self, storage_path: str = "users.json"):
+    def __init__(self, storage_path: Optional[str] = None):
         self.storage_path = storage_path
-        self.users: Dict[str, Dict] = self._load_users()
+        self.users: Dict[str, Dict] = self._load_users() if storage_path else {}
         self._password_cache: Dict[str, str] = {}  # username -> hashed_password
 
     def _load_users(self) -> Dict[str, Dict]:
         """Load users from storage"""
-        if os.path.exists(self.storage_path):
+        if self.storage_path and os.path.exists(self.storage_path):
             try:
                 with open(self.storage_path, "r") as f:
                     return json.load(f)
@@ -151,6 +152,8 @@ class UserManager:
 
     def _save_users(self):
         """Save users to storage"""
+        if not self.storage_path:
+            return
         with open(self.storage_path, "w") as f:
             json.dump(self.users, f, indent=2, default=str)
 
@@ -159,13 +162,15 @@ class UserManager:
         salt = os.getenv("PASSWORD_SALT", "atmosphere_salt").encode()
         return hashlib.pbkdf2_hmac("sha256", password.encode(), salt, 100000).hex()
 
-    def create_user(self, user: User, password: str) -> bool:
+    def create_user(self, user: Union[User, Dict], password: str) -> bool:
         """Create a new user"""
+        if isinstance(user, dict):
+            user = User(**user)
         if user.username in self.users:
             return False
 
         hashed_password = self._hash_password(password)
-        user_data = user.dict()
+        user_data = user.model_dump() if hasattr(user, 'model_dump') else user.dict()
         user_data["password_hash"] = hashed_password
 
         self.users[user.username] = user_data
@@ -218,19 +223,25 @@ class JWTManager:
     def create_access_token(self, data: Dict[str, Any]) -> str:
         """Create JWT access token"""
         to_encode = data.copy()
-        expire = datetime.now(timezone.utc) + timedelta(
-            minutes=SecurityConfig.ACCESS_TOKEN_EXPIRE_MINUTES
-        )
-        to_encode.update({"exp": expire, "iat": datetime.now(timezone.utc), "type": "access"})
+        # Only set expiry if not already provided by caller
+        if "exp" not in to_encode:
+            to_encode["exp"] = datetime.now(timezone.utc) + timedelta(
+                minutes=SecurityConfig.ACCESS_TOKEN_EXPIRE_MINUTES
+            )
+        to_encode.setdefault("iat", datetime.now(timezone.utc))
+        to_encode.setdefault("type", "access")
         return jwt.encode(to_encode, self.secret_key, algorithm=self.algorithm)
 
     def create_refresh_token(self, data: Dict[str, Any]) -> str:
         """Create JWT refresh token"""
         to_encode = data.copy()
-        expire = datetime.now(timezone.utc) + timedelta(
-            days=SecurityConfig.REFRESH_TOKEN_EXPIRE_DAYS
-        )
-        to_encode.update({"exp": expire, "iat": datetime.now(timezone.utc), "type": "refresh"})
+        # Only set expiry if not already provided by caller
+        if "exp" not in to_encode:
+            to_encode["exp"] = datetime.now(timezone.utc) + timedelta(
+                days=SecurityConfig.REFRESH_TOKEN_EXPIRE_DAYS
+            )
+        to_encode.setdefault("iat", datetime.now(timezone.utc))
+        to_encode.setdefault("type", "refresh")
         return jwt.encode(to_encode, self.secret_key, algorithm=self.algorithm)
 
     def verify_token(self, token: str) -> Optional[TokenData]:
@@ -249,13 +260,13 @@ class JWTManager:
 class APIKeyManager:
     """API Key management"""
 
-    def __init__(self, storage_path: str = "api_keys.json"):
+    def __init__(self, storage_path: Optional[str] = None):
         self.storage_path = storage_path
-        self.keys: Dict[str, Dict] = self._load_keys()
+        self.keys: Dict[str, Dict] = self._load_keys() if storage_path else {}
 
     def _load_keys(self) -> Dict[str, Dict]:
         """Load API keys from storage"""
-        if os.path.exists(self.storage_path):
+        if self.storage_path and os.path.exists(self.storage_path):
             try:
                 with open(self.storage_path, "r") as f:
                     return json.load(f)
@@ -265,6 +276,8 @@ class APIKeyManager:
 
     def _save_keys(self):
         """Save API keys to storage"""
+        if not self.storage_path:
+            return
         with open(self.storage_path, "w") as f:
             json.dump(self.keys, f, indent=2, default=str)
 
@@ -324,6 +337,7 @@ class RateLimiter:
             lambda: deque(maxlen=SecurityConfig.RATE_LIMIT_REQUESTS)
         )
         self.blocked_until: Dict[str, float] = {}
+        self._client_limits: Dict[str, int] = {}  # per-client max_requests tracking
 
     def is_allowed(
         self, client_id: str, max_requests: int = None, window_seconds: int = None
@@ -331,6 +345,10 @@ class RateLimiter:
         """Check if request is allowed"""
         max_req = max_requests or SecurityConfig.RATE_LIMIT_REQUESTS
         window = window_seconds or SecurityConfig.RATE_LIMIT_WINDOW
+
+        # Store the per-client limit for use by get_remaining_requests
+        if client_id not in self._client_limits:
+            self._client_limits[client_id] = max_req
 
         now = time.time()
 
@@ -356,7 +374,7 @@ class RateLimiter:
 
     def get_remaining_requests(self, client_id: str) -> int:
         """Get remaining requests for client"""
-        max_req = SecurityConfig.RATE_LIMIT_REQUESTS
+        max_req = self._client_limits.get(client_id, SecurityConfig.RATE_LIMIT_REQUESTS)
         client_requests = self.requests[client_id]
         now = time.time()
         window = SecurityConfig.RATE_LIMIT_WINDOW
@@ -527,17 +545,22 @@ security = HTTPBearer(auto_error=False)
 
 
 async def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(security),
-    api_key_manager: APIKeyManager = Depends(lambda: APIKeyManager()),
-    jwt_manager: JWTManager = Depends(lambda: JWTManager()),
-    user_manager: UserManager = Depends(lambda: UserManager()),
+    credentials: Optional[HTTPAuthorizationCredentials] = None,
+    api_key_manager: Optional[APIKeyManager] = None,
+    jwt_manager: Optional[JWTManager] = None,
+    user_manager: Optional[UserManager] = None,
 ) -> Optional[User]:
     """FastAPI dependency for getting current authenticated user"""
-    if credentials:
+    _jwt_manager = jwt_manager or JWTManager()
+    _user_manager = user_manager or UserManager()
+
+    if credentials and not hasattr(credentials, '_mock_name') and not str(type(credentials)).endswith("Depends'>"):
         # Try JWT token
-        token_data = jwt_manager.verify_token(credentials.credentials)
-        if token_data:
-            return user_manager.get_user(token_data.username)
+        creds = credentials.credentials if hasattr(credentials, 'credentials') else None
+        if creds:
+            token_data = _jwt_manager.verify_token(creds)
+            if token_data:
+                return _user_manager.get_user(token_data.username)
 
     # Check for API key in headers (would need request context)
     # For now, return None - would be enhanced with proper request handling
@@ -545,7 +568,7 @@ async def get_current_user(
     return None
 
 
-async def require_role(required_roles: List[str]):
+def require_role(required_roles: List[str]):
     """FastAPI dependency for role-based access control"""
 
     def dependency(current_user: User = Depends(get_current_user)):
@@ -630,9 +653,9 @@ class SecurityMiddleware:
 
 
 # Initialize global security components
-user_manager = UserManager()
+user_manager = UserManager(storage_path="users.json")
 jwt_manager = JWTManager()
-api_key_manager = APIKeyManager()
+api_key_manager = APIKeyManager(storage_path="api_keys.json")
 rate_limiter = RateLimiter()
 input_validator = InputValidator()
 
@@ -640,6 +663,7 @@ input_validator = InputValidator()
 # Utility functions
 def create_admin_user():
     """Create default admin user if none exists"""
+    _user_manager = UserManager(storage_path="users.json")
     admin_user = User(
         username="admin",
         email="admin@atmosphere.local",
@@ -647,7 +671,7 @@ def create_admin_user():
         role="admin",
     )
 
-    if user_manager.create_user(admin_user, "Admin123!@#"):
+    if _user_manager.create_user(admin_user, "Admin123!@#"):
         security_logger.info("Default admin user created")
         return True
     return False

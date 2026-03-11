@@ -8,7 +8,7 @@ import pytest
 def test_package_import():
     """Test that the main package can be imported."""
     import atmosphere_audio
-    assert atmosphere_audio.__version__ == "0.1.0"
+    assert atmosphere_audio.__version__ == "0.1.1"
 
 
 def test_delay_module_import():

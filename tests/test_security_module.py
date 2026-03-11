@@ -17,7 +17,7 @@ from fastapi import HTTPException
 from atmosphere_audio.core.security import (
     APIKeyManager, InputValidator, JWTManager, RateLimiter,
     SecurityConfig, UserManager, create_admin_user, get_current_user,
-    log_security_event, require_role
+    log_security_event, require_auth, require_role
 )
 
 

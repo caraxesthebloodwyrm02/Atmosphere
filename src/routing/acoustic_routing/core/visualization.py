@@ -98,9 +98,9 @@ def visualize_network(network, save_path: Optional[str] = None) -> Optional[Byte
     # decays = [params.decay for params in network.acoustic_params.values()]  # Not used
     densities = [params.reverb_density for params in network.acoustic_params.values()]
 
-    delay_min, delay_max = min(delays), max(delays) if delays else (0, 1)
-    feedback_min, feedback_max = min(feedbacks), max(feedbacks) if feedbacks else (0, 1)
-    density_min, density_max = min(densities), max(densities) if densities else (0, 1)
+    delay_min, delay_max = (min(delays), max(delays)) if delays else (0, 1)
+    feedback_min, feedback_max = (min(feedbacks), max(feedbacks)) if feedbacks else (0, 1)
+    density_min, density_max = (min(densities), max(densities)) if densities else (0, 1)
 
     # Create color mapping based on combined acoustic properties
     for u, v in network.graph.edges():

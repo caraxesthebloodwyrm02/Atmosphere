@@ -63,6 +63,11 @@ class AcousticRoutingNetwork:
     def add_connection(self, node1: str, node2: str) -> None:
         """Add a connection between nodes."""
         self.graph.add_edge(node1, node2)
+        # Generate positions for new nodes
+        if node1 not in self.node_positions:
+            self.node_positions[node1] = self._generate_position()
+        if node2 not in self.node_positions:
+            self.node_positions[node2] = self._generate_position()
         # Add default acoustic parameters
         if (node1, node2) not in self.acoustic_params:
             self.acoustic_params[(node1, node2)] = AcousticParameters(
@@ -73,9 +78,9 @@ class AcousticRoutingNetwork:
             )
 
     def find_path(self, start: str, end: str) -> List[str]:
-        """Find shortest path between nodes."""
+        """Find shortest weighted path between nodes."""
         try:
-            return nx.shortest_path(self.graph, start, end)
+            return nx.shortest_path(self.graph, start, end, weight="weight")
         except nx.NetworkXNoPath:
             return []
 

@@ -205,10 +205,10 @@ class TestAcousticRoutingNetwork:
 
     def test_shortest_path_weighted(self):
         network = AcousticRoutingNetwork()
-        network.add_highway_segment("A", "B", 10.0)
-        network.add_highway_segment("A", "C", 5.0)
-        network.add_highway_segment("C", "B", 6.0)
+        network.add_highway_segment("A", "B", 100.0)  # Long direct path (100 miles)
+        network.add_highway_segment("A", "C", 5.0)    # Short first leg (5 miles)
+        network.add_highway_segment("C", "B", 6.0)    # Short second leg (6 miles)
 
-        # Shortest path should be A -> C -> B (5 + 6 = 11) vs A -> B (10)
+        # Shortest weighted path should be A -> C -> B (5 + 6 = 11) vs A -> B (100)
         path = network.find_path("A", "B")
         assert path == ["A", "C", "B"]

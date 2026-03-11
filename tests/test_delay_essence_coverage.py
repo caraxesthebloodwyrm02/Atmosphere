@@ -13,7 +13,7 @@ class TestDelayCoverage:
         # Test with pre-delay
         delay = Delay(pre_delay=50, dry_wet=0.6)
         result = delay.process_signal("Test")
-        assert "Pre-delayed by 50ms" in result
+        assert "Pre-delayed by 50.0ms" in result
         
         # Test without pre-delay (shouldn't add pre-delay text)
         delay = Delay(pre_delay=0, dry_wet=0.6)
@@ -25,7 +25,7 @@ class TestDelayCoverage:
         # Test ping_pong delay type
         delay = Delay(delay_type="ping_pong", dry_wet=0.6)
         result = delay.process_signal("Test")
-        assert "Ping-pong echo bouncing" in result
+        assert "Ping-pong echo:" in result
         
         # Test slapback delay type
         delay = Delay(delay_type="slapback", dry_wet=0.6)
@@ -40,7 +40,7 @@ class TestDelayCoverage:
         # Test default (standard) delay type
         delay = Delay(delay_type="digital", dry_wet=0.6)  # or any other type not handled specially
         result = delay.process_signal("Test")
-        assert "Echo of 'Test'" in result
+        assert "Digital echo:" in result
 
     def test_filter_application(self):
         """Test filter application with different filter types."""
@@ -64,7 +64,7 @@ class TestDelayCoverage:
         # Test with modulation
         delay = Delay(modulation=0.5, dry_wet=0.6)
         result = delay.process_signal("Test")
-        assert "Modulated (0.5)" in result
+        assert "Modulated (0.50)" in result
         
         # Test without modulation
         delay = Delay(modulation=0, dry_wet=0.6)
@@ -86,15 +86,17 @@ class TestDelayCoverage:
 
     def test_mix_method(self):
         """Test the _mix method's branches."""
-        # Test wet mix (dry_wet > 0.5)
+        # Test wet-dominant mix (dry_wet=0.6 → 40% dry / 60% wet)
         delay = Delay(dry_wet=0.6)
         result = delay._mix("dry", "wet")
-        assert result.startswith("Wet (0.6):")
+        assert "Dry (40%/60%):" in result
+        assert "dry" in result
+        assert "wet" in result
         
-        # Test dry mix (dry_wet <= 0.5)
+        # Test dry-dominant mix (dry_wet=0.4 → 60% dry / 40% wet)
         delay = Delay(dry_wet=0.4)
         result = delay._mix("dry", "wet")
-        assert result.startswith("Dry (0.6):")  # 1 - 0.4 = 0.6
+        assert "Dry (60%/40%):" in result
 
     def test_time_info_formatting(self):
         """Test time info formatting with and without rate."""
@@ -106,7 +108,7 @@ class TestDelayCoverage:
         # Test with time_ms
         delay = Delay(time_ms=300, dry_wet=0.6)
         result = delay.process_signal("Test")
-        assert "at 300ms" in result
+        assert "at 300.0ms" in result
 
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])

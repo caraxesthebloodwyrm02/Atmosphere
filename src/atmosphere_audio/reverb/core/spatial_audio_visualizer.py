@@ -14,12 +14,11 @@ from typing import Tuple, Optional, List, Dict, Any, Union
 
 # Third-party imports
 import matplotlib
+# Configure matplotlib to use non-GUI backend before importing pyplot
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy import signal
-
-# Configure matplotlib to use non-GUI backend
-matplotlib.use("Agg")
 
 # Suppress warnings
 warnings.filterwarnings("ignore")
@@ -73,8 +72,9 @@ class SpatialAudioVisualizer:
 
         # ILD (Interaural Level Difference)
         ild_db = 3 * np.sin(azimuth_rad)  # Max 3dB difference
-        ild_factor_left = 10 ** (ild_db / 20) if ild_db < 0 else 1.0
-        ild_factor_right = 10 ** (-ild_db / 20) if ild_db > 0 else 1.0
+        # Positive ild_db = right side: right ear louder; negative = left side: left ear louder
+        ild_factor_right = 10 ** (ild_db / 20) if ild_db > 0 else 1.0
+        ild_factor_left = 10 ** (-ild_db / 20) if ild_db < 0 else 1.0
 
         # Apply ILD
         left_ear = signal * ild_factor_left
